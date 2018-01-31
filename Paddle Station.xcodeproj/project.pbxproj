@@ -16,10 +16,12 @@
 		2E3AAE852018E6960056BFC5 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3AAE832018E6960056BFC5 /* MainMenuViewController.swift */; };
 		2E3AAE882018E7700056BFC5 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3AAE872018E7700056BFC5 /* R.generated.swift */; };
 		2E51EC3A2021572C00AFD1D7 /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E51EC392021572C00AFD1D7 /* CLLocationCoordinate2D.swift */; };
+		2EA24290202279A700F03FCE /* SCNNode+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA2428F202279A700F03FCE /* SCNNode+Constraints.swift */; };
 		2EA526BF20190D8200D9E564 /* LandmarkARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA526BD20190D8200D9E564 /* LandmarkARViewController.swift */; };
 		2EA526C020190D8200D9E564 /* LandmarkMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA526BE20190D8200D9E564 /* LandmarkMapViewController.swift */; };
 		2EA526C220190FA100D9E564 /* LandmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA526C120190FA100D9E564 /* LandmarkViewController.swift */; };
 		2EA526C42019170E00D9E564 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA526C32019170E00D9E564 /* LocationManager.swift */; };
+		2ED3A155202274B6001722A5 /* LandmarkNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED3A154202274B6001722A5 /* LandmarkNode.swift */; };
 		4B8316FAB9380CB1A89C3168 /* Pods_Paddle_Station.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F61C428CF0CF03B6A458CCAB /* Pods_Paddle_Station.framework */; };
 /* End PBXBuildFile section */
 
@@ -35,11 +37,13 @@
 		2E3AAE832018E6960056BFC5 /* MainMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		2E3AAE872018E7700056BFC5 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		2E51EC392021572C00AFD1D7 /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
+		2EA2428F202279A700F03FCE /* SCNNode+Constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCNNode+Constraints.swift"; sourceTree = "<group>"; };
 		2EA526BA2019075200D9E564 /* Paddle Station-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Paddle Station-Bridging-Header.h"; sourceTree = "<group>"; };
 		2EA526BD20190D8200D9E564 /* LandmarkARViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandmarkARViewController.swift; sourceTree = "<group>"; };
 		2EA526BE20190D8200D9E564 /* LandmarkMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandmarkMapViewController.swift; sourceTree = "<group>"; };
 		2EA526C120190FA100D9E564 /* LandmarkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandmarkViewController.swift; sourceTree = "<group>"; };
 		2EA526C32019170E00D9E564 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		2ED3A154202274B6001722A5 /* LandmarkNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkNode.swift; sourceTree = "<group>"; };
 		8661709D9B45F18C8B382F8C /* Pods-Paddle Station.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Paddle Station.release.xcconfig"; path = "Pods/Target Support Files/Pods-Paddle Station/Pods-Paddle Station.release.xcconfig"; sourceTree = "<group>"; };
 		977E1E111A0B6CBD096D8867 /* Pods-Paddle Station.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Paddle Station.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Paddle Station/Pods-Paddle Station.debug.xcconfig"; sourceTree = "<group>"; };
 		F61C428CF0CF03B6A458CCAB /* Pods_Paddle_Station.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Paddle_Station.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,7 +86,7 @@
 				2EA526C32019170E00D9E564 /* LocationManager.swift */,
 				2E51EC382021571A00AFD1D7 /* TODO Move */,
 				2E01458D2018E44A0052A6AF /* View Controllers */,
-				2E01458E2018E4500052A6AF /* Views */,
+				2EA2428E202274F200F03FCE /* SceneKit */,
 				2E0145892018E4210052A6AF /* Data Model */,
 				2E01458C2018E43B0052A6AF /* Resources */,
 				2E01458A2018E42F0052A6AF /* Interface */,
@@ -138,19 +142,21 @@
 			path = "View Controllers";
 			sourceTree = "<group>";
 		};
-		2E01458E2018E4500052A6AF /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		2E51EC382021571A00AFD1D7 /* TODO Move */ = {
 			isa = PBXGroup;
 			children = (
+				2EA2428F202279A700F03FCE /* SCNNode+Constraints.swift */,
 				2E51EC392021572C00AFD1D7 /* CLLocationCoordinate2D.swift */,
 			);
 			path = "TODO Move";
+			sourceTree = "<group>";
+		};
+		2EA2428E202274F200F03FCE /* SceneKit */ = {
+			isa = PBXGroup;
+			children = (
+				2ED3A154202274B6001722A5 /* LandmarkNode.swift */,
+			);
+			path = SceneKit;
 			sourceTree = "<group>";
 		};
 		D1592FD9882820FF96DF6C28 /* Pods */ = {
@@ -329,11 +335,13 @@
 				2EA526C220190FA100D9E564 /* LandmarkViewController.swift in Sources */,
 				2E3AAE852018E6960056BFC5 /* MainMenuViewController.swift in Sources */,
 				2E3AAE842018E6960056BFC5 /* BaseViewController.swift in Sources */,
+				2ED3A155202274B6001722A5 /* LandmarkNode.swift in Sources */,
 				2E51EC3A2021572C00AFD1D7 /* CLLocationCoordinate2D.swift in Sources */,
 				2E3AAE882018E7700056BFC5 /* R.generated.swift in Sources */,
 				2EA526BF20190D8200D9E564 /* LandmarkARViewController.swift in Sources */,
 				2EA526C020190D8200D9E564 /* LandmarkMapViewController.swift in Sources */,
 				2E0145782018E3AA0052A6AF /* AppDelegate.swift in Sources */,
+				2EA24290202279A700F03FCE /* SCNNode+Constraints.swift in Sources */,
 				2E0145902018E4640052A6AF /* Landmark.swift in Sources */,
 				2EA526C42019170E00D9E564 /* LocationManager.swift in Sources */,
 			);

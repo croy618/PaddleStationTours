@@ -29,7 +29,7 @@ class LandmarkARViewController: LandmarkViewController
 		didSet
 		{
 			guard let x = self.lastLandmarkRequestLocation else {
-				self.landmarks.removeAll()
+				self.resetScene()
 				return
 			}
 			
@@ -41,7 +41,7 @@ class LandmarkARViewController: LandmarkViewController
 												  longitude: 0.0,
 												  radius: 100)
 			
-			Landmark.requestLandmarksFor(landmarkRequest: landmarkRequest) { requestedLandmarks in
+			Landmark.requestLandmarksFor(landmarkRequest: landmarkRequest) { landmarks in
 				//			guard let landMarks = landmarks else {
 				//				Alertift.alert(title: "Error", message: "Failed to Recieve Landmarks")
 				//					.action(.default("OK"))
@@ -49,14 +49,37 @@ class LandmarkARViewController: LandmarkViewController
 				//				return
 				//			}
 				
-				if let requestedLandmarks = requestedLandmarks {
-					self.landmarks = requestedLandmarks
+				self.resetScene(preservedLandmarks: landmarks)
+				
+				guard let landmarks = landmarks else { return }
+				
+				self.landmarkNodes = landmarks.map {
+					let landmarkNode = LandmarkNode(landmark: $0)
+					self.sceneView.scene.rootNode.addChildNode(landmarkNode)
+					landmarkNode.addConstraint(SCNTransformConstraint.positionConstraint(inWorldSpace: true, with: { node, position -> SCNVector3 in
+						guard let landmarkNode = node as? LandmarkNode else { return position }
+						guard let currentLocation = LocationManager.shared.currentLocation else { return position }
+						guard let currentHeading = LocationManager.shared.currentHeading else { return position }
+						
+						let distance = landmarkNode.landmark.location.distance(from: currentLocation)
+						let rotation = currentLocation.coordinate.bearing(toCoordinate: landmarkNode.landmark.location.coordinate)
+						
+						print("distance:", distance)
+						print("rotation:", rotation.toDeg)
+						print("heading:", currentHeading)
+						print()
+						
+						// TODO: rotate and translate from the current CLLocation in SceneKit
+						return SCNVector3Zero
+					}))
+					return landmarkNode
 				}
 			}
 
 		}
 	}
-	fileprivate var landmarks = [Landmark]()
+//	fileprivate var landmarks = [Landmark]()
+	fileprivate var landmarkNodes = [LandmarkNode]()
 //	{
 //		didSet
 //		{
@@ -93,8 +116,9 @@ class LandmarkARViewController: LandmarkViewController
 	{
 		super.viewWillAppear(animated)
 		
-		Broadcaster.register(LocationManagerNotificationDelegate.self, observer: self)
+		self.resetScene()
 		
+		Broadcaster.register(LocationManagerNotificationDelegate.self, observer: self)
 		LocationManager.shared.requestLocation()
 	}
 	
@@ -164,9 +188,31 @@ class LandmarkARViewController: LandmarkViewController
 	{
 		let configuration = ARWorldTrackingConfiguration()
 		configuration.worldAlignment = ARConfiguration.WorldAlignment.gravityAndHeading
+		configuration.worldAlignment = ARConfiguration.WorldAlignment.gravityAndHeading
 		configuration.planeDetection = ARWorldTrackingConfiguration.PlaneDetection.horizontal
 		let options: ARSession.RunOptions = [.resetTracking, .removeExistingAnchors]
 		self.session.run(configuration, options: options)
+	}
+	
+	fileprivate func resetScene(preservedLandmarks: [Landmark]? = nil)
+	{
+		if let preservedLandmarks = preservedLandmarks {
+			for (index, landmarkNode) in self.landmarkNodes.enumerated() {
+				// TODO: Test ==
+				if !preservedLandmarks.contains(landmarkNode.landmark) {
+					landmarkNode.removeFromParentNode()
+					self.landmarkNodes.remove(at: index)
+				} else {
+					landmarkNode.removeAllConstraints()
+					landmarkNode.removeAllActions()
+				}
+			}
+		} else {
+			for landmarkNode in self.landmarkNodes {
+				landmarkNode.removeFromParentNode()
+			}
+			self.landmarkNodes.removeAll()
+		}
 	}
 }
 

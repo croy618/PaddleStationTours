@@ -1,6 +1,6 @@
 //
 //  CLLocationCoordinate2D.swift
-//  Paddle Station
+//  Sluthware
 //
 //  Created by Pat Sluth on 2018-01-30.
 //  Copyright © 2018 Pat Sluth. All rights reserved.

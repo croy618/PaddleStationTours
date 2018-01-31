@@ -15,7 +15,7 @@ import AFNetworking
 
 
 
-final class Landmark: Decodable
+final class Landmark: Decodable, Equatable
 {
 	enum CodingKeys: String, CodingKey
 	{
@@ -34,28 +34,9 @@ final class Landmark: Decodable
 	
 	let name: String
 	let description: String
-	let altitude: CLLocationDistance
-	let latitude: CLLocationDegrees
-	let longitude: CLLocationDegrees
+	let location: CLLocation
 	let type: String?
 	let url: URL?
-	
-	fileprivate init(name: String,
-					 description: String,
-					 altitude: CLLocationDistance,
-					 latitude: CLLocationDegrees,
-					 longitude: CLLocationDegrees,
-					 type: String?,
-					 url: URL?)
-	{
-		self.name = name
-		self.description = description
-		self.altitude = altitude
-		self.latitude = latitude
-		self.longitude = longitude
-		self.type = type
-		self.url = url
-	}
 	
 	fileprivate static let dummyLandmarks = [Landmark(name: "Phil & Sebastion",
 													  description: "Coffee",
@@ -69,7 +50,50 @@ final class Landmark: Decodable
 	
 	
 	
-	class func requestLandmarksFor(landmarkRequest: LandmarkRequest, completion: @escaping (_ requestedLandmarks: [Landmark]?) -> Void)
+	fileprivate init(name: String,
+					 description: String,
+					 altitude: CLLocationDistance,
+					 latitude: CLLocationDegrees,
+					 longitude: CLLocationDegrees,
+					 type: String?,
+					 url: URL?)
+	{
+		self.name = name
+		self.description = description
+		self.location = CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
+								   altitude: altitude,
+								   horizontalAccuracy: 0.0,
+								   verticalAccuracy: 0.0,
+								   timestamp: Date())
+		self.type = type
+		self.url = url
+	}
+	
+	public required init(from decoder: Decoder) throws
+	{
+		let values = try decoder.container(keyedBy: CodingKeys.self)
+		
+		
+		
+		self.name = try values.decode(String.self, forKey: CodingKeys.name)
+		self.description = try values.decode(String.self, forKey: CodingKeys.description)
+		let altitude = try values.decode(CLLocationDistance.self, forKey: CodingKeys.altitude)
+		let latitude = try values.decode(CLLocationDegrees.self, forKey: CodingKeys.latitude)
+		let longitude = try values.decode(CLLocationDegrees.self, forKey: CodingKeys.longitude)
+		self.location = CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
+								   altitude: altitude,
+								   horizontalAccuracy: 0.0,
+								   verticalAccuracy: 0.0,
+								   timestamp: Date())
+		self.type = try values.decode(String?.self, forKey: CodingKeys.type)
+		if let urlString = try values.decode(String?.self, forKey: CodingKeys.url) {
+			self.url = URL(string: urlString)
+		} else {
+			self.url = nil
+		}
+	}
+	
+	class func requestLandmarksFor(landmarkRequest: LandmarkRequest, completion: @escaping (_ landmarks: [Landmark]?) -> Void)
 	{
 		let urlString = "TODO"
 		
@@ -104,6 +128,18 @@ final class Landmark: Decodable
 					progress: nil,
 					success: success,
 					failure: failure)
+	}
+	
+	
+	
+	
+	
+	static public func == (lhs: Landmark, rhs: Landmark) -> Bool
+	{
+		return (lhs.name == rhs.name &&
+			lhs.location.altitude == rhs.location.altitude &&
+			lhs.location.coordinate.latitude == rhs.location.coordinate.latitude &&
+			lhs.location.coordinate.longitude == rhs.location.coordinate.longitude)
 	}
 }
 
