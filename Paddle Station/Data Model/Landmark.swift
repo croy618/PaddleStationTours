@@ -44,7 +44,14 @@ final class Landmark: Decodable, Equatable
 													  latitude: 51.024050,
 													  longitude: 114.108646,
 													  type: "Default",
-													  url: URL(string: "www.google.ca"))]
+													  url: URL(string: "www.google.ca")),
+											 Landmark(name: "MacEwan Hall Concerts",
+													  description: "Concerts",
+													  altitude: 00.0,
+													  latitude: 51.078866,
+													  longitude: 114.130038,
+													  type: "Default",
+													  url: URL(string: "machallconcerts.com"))]
 	
 	
 	
