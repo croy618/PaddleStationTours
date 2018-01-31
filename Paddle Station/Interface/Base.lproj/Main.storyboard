@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="c90-IC-ezW">
+    <device id="retina5_9" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="dJE-CB-9vo">
+            <objects>
+                <navigationController id="c90-IC-ezW" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zPt-tX-F9U">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="AhD-du-GU8"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pzV-1N-yPV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-810" y="136"/>
+        </scene>
+        <!--Main Menu View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="MainMenuViewController" customModule="Paddle_Station" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="SJ7-88-vX6">
+                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MF6-iI-8iI">
+                                        <rect key="frame" x="154" y="0.0" width="67" height="30"/>
+                                        <state key="normal" title="Map View"/>
+                                        <connections>
+                                            <action selector="openMapView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yRB-3o-byE"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sep-sx-Kye">
+                                        <rect key="frame" x="159" y="660" width="57" height="30"/>
+                                        <state key="normal" title="AR View"/>
+                                        <connections>
+                                            <action selector="openARView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HjR-SW-HGF"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="SJ7-88-vX6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="4yU-XY-Kki"/>
+                            <constraint firstItem="SJ7-88-vX6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Sm2-Kd-yjo"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="SJ7-88-vX6" secondAttribute="bottom" id="dsL-aN-CWr"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="SJ7-88-vX6" secondAttribute="trailing" id="lY3-It-7fp"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="6ki-I3-7ef"/>
+                    <connections>
+                        <segue destination="gma-Gc-xGU" kind="show" identifier="LandmarkARViewController" id="ugm-Ug-fXZ"/>
+                        <segue destination="DRv-f2-qFb" kind="show" identifier="LandmarkMapViewController" id="Efv-WO-ISh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="140" y="137"/>
+        </scene>
+        <!--Map View-->
+        <scene sceneID="f7f-kw-E1g">
+            <objects>
+                <viewController id="DRv-f2-qFb" customClass="LandmarkMapViewController" customModule="Paddle_Station" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9si-Zx-nE0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="gQe-7j-jUX"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Map View" id="ihZ-mL-4OT"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g9l-eO-0TF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1337" y="577"/>
+        </scene>
+        <!--AR View-->
+        <scene sceneID="rBD-G6-3kn">
+            <objects>
+                <viewController id="gma-Gc-xGU" customClass="LandmarkARViewController" customModule="Paddle_Station" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FxQ-pC-Ndp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xTX-Pl-zjw">
+                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
+                            </arscnView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="xVE-ZZ-0Uh" firstAttribute="bottom" secondItem="xTX-Pl-zjw" secondAttribute="bottom" id="G9y-fb-ety"/>
+                            <constraint firstItem="xTX-Pl-zjw" firstAttribute="leading" secondItem="xVE-ZZ-0Uh" secondAttribute="leading" id="j6u-XO-elb"/>
+                            <constraint firstItem="xVE-ZZ-0Uh" firstAttribute="trailing" secondItem="xTX-Pl-zjw" secondAttribute="trailing" id="qST-vD-9pY"/>
+                            <constraint firstItem="xTX-Pl-zjw" firstAttribute="top" secondItem="xVE-ZZ-0Uh" secondAttribute="top" id="qTs-Rw-L6E"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="xVE-ZZ-0Uh"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="AR View" id="suF-KO-sOy"/>
+                    <connections>
+                        <outlet property="sceneView" destination="xTX-Pl-zjw" id="Cy1-0B-fV2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ria-Jh-ttq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1337" y="-296"/>
+        </scene>
+    </scenes>
+</document>

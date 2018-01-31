@@ -1,0 +1,534 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2E0145782018E3AA0052A6AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0145772018E3AA0052A6AF /* AppDelegate.swift */; };
+		2E01457D2018E3AA0052A6AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E01457B2018E3AA0052A6AF /* Main.storyboard */; };
+		2E01457F2018E3AA0052A6AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E01457E2018E3AA0052A6AF /* Assets.xcassets */; };
+		2E0145822018E3AA0052A6AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E0145802018E3AA0052A6AF /* LaunchScreen.storyboard */; };
+		2E0145902018E4640052A6AF /* Landmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E01458F2018E4640052A6AF /* Landmark.swift */; };
+		2E3AAE842018E6960056BFC5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3AAE822018E6960056BFC5 /* BaseViewController.swift */; };
+		2E3AAE852018E6960056BFC5 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3AAE832018E6960056BFC5 /* MainMenuViewController.swift */; };
+		2E3AAE882018E7700056BFC5 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3AAE872018E7700056BFC5 /* R.generated.swift */; };
+		2E51EC3A2021572C00AFD1D7 /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E51EC392021572C00AFD1D7 /* CLLocationCoordinate2D.swift */; };
+		2EA526BF20190D8200D9E564 /* LandmarkARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA526BD20190D8200D9E564 /* LandmarkARViewController.swift */; };
+		2EA526C020190D8200D9E564 /* LandmarkMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA526BE20190D8200D9E564 /* LandmarkMapViewController.swift */; };
+		2EA526C220190FA100D9E564 /* LandmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA526C120190FA100D9E564 /* LandmarkViewController.swift */; };
+		2EA526C42019170E00D9E564 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA526C32019170E00D9E564 /* LocationManager.swift */; };
+		4B8316FAB9380CB1A89C3168 /* Pods_Paddle_Station.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F61C428CF0CF03B6A458CCAB /* Pods_Paddle_Station.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2E0145742018E3AA0052A6AF /* Paddle Station.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Paddle Station.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E0145772018E3AA0052A6AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		2E01457C2018E3AA0052A6AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2E01457E2018E3AA0052A6AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2E0145812018E3AA0052A6AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		2E0145832018E3AA0052A6AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2E01458F2018E4640052A6AF /* Landmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landmark.swift; sourceTree = "<group>"; };
+		2E3AAE822018E6960056BFC5 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		2E3AAE832018E6960056BFC5 /* MainMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
+		2E3AAE872018E7700056BFC5 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
+		2E51EC392021572C00AFD1D7 /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
+		2EA526BA2019075200D9E564 /* Paddle Station-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Paddle Station-Bridging-Header.h"; sourceTree = "<group>"; };
+		2EA526BD20190D8200D9E564 /* LandmarkARViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandmarkARViewController.swift; sourceTree = "<group>"; };
+		2EA526BE20190D8200D9E564 /* LandmarkMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandmarkMapViewController.swift; sourceTree = "<group>"; };
+		2EA526C120190FA100D9E564 /* LandmarkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandmarkViewController.swift; sourceTree = "<group>"; };
+		2EA526C32019170E00D9E564 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		8661709D9B45F18C8B382F8C /* Pods-Paddle Station.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Paddle Station.release.xcconfig"; path = "Pods/Target Support Files/Pods-Paddle Station/Pods-Paddle Station.release.xcconfig"; sourceTree = "<group>"; };
+		977E1E111A0B6CBD096D8867 /* Pods-Paddle Station.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Paddle Station.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Paddle Station/Pods-Paddle Station.debug.xcconfig"; sourceTree = "<group>"; };
+		F61C428CF0CF03B6A458CCAB /* Pods_Paddle_Station.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Paddle_Station.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2E0145712018E3AA0052A6AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B8316FAB9380CB1A89C3168 /* Pods_Paddle_Station.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2E01456B2018E3AA0052A6AF = {
+			isa = PBXGroup;
+			children = (
+				2E0145762018E3AA0052A6AF /* Paddle Station */,
+				2E0145752018E3AA0052A6AF /* Products */,
+				D1592FD9882820FF96DF6C28 /* Pods */,
+				E4577F3C238A92A6A58BF840 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		2E0145752018E3AA0052A6AF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E0145742018E3AA0052A6AF /* Paddle Station.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E0145762018E3AA0052A6AF /* Paddle Station */ = {
+			isa = PBXGroup;
+			children = (
+				2E0145772018E3AA0052A6AF /* AppDelegate.swift */,
+				2EA526C32019170E00D9E564 /* LocationManager.swift */,
+				2E51EC382021571A00AFD1D7 /* TODO Move */,
+				2E01458D2018E44A0052A6AF /* View Controllers */,
+				2E01458E2018E4500052A6AF /* Views */,
+				2E0145892018E4210052A6AF /* Data Model */,
+				2E01458C2018E43B0052A6AF /* Resources */,
+				2E01458A2018E42F0052A6AF /* Interface */,
+				2E01458B2018E4340052A6AF /* Supporting Files */,
+			);
+			path = "Paddle Station";
+			sourceTree = "<group>";
+		};
+		2E0145892018E4210052A6AF /* Data Model */ = {
+			isa = PBXGroup;
+			children = (
+				2E01458F2018E4640052A6AF /* Landmark.swift */,
+			);
+			path = "Data Model";
+			sourceTree = "<group>";
+		};
+		2E01458A2018E42F0052A6AF /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				2E01457B2018E3AA0052A6AF /* Main.storyboard */,
+				2E0145802018E3AA0052A6AF /* LaunchScreen.storyboard */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
+		2E01458B2018E4340052A6AF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2E0145832018E3AA0052A6AF /* Info.plist */,
+				2E3AAE872018E7700056BFC5 /* R.generated.swift */,
+				2EA526BA2019075200D9E564 /* Paddle Station-Bridging-Header.h */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2E01458C2018E43B0052A6AF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2E01457E2018E3AA0052A6AF /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		2E01458D2018E44A0052A6AF /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2E3AAE822018E6960056BFC5 /* BaseViewController.swift */,
+				2E3AAE832018E6960056BFC5 /* MainMenuViewController.swift */,
+				2EA526C120190FA100D9E564 /* LandmarkViewController.swift */,
+				2EA526BD20190D8200D9E564 /* LandmarkARViewController.swift */,
+				2EA526BE20190D8200D9E564 /* LandmarkMapViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		2E01458E2018E4500052A6AF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2E51EC382021571A00AFD1D7 /* TODO Move */ = {
+			isa = PBXGroup;
+			children = (
+				2E51EC392021572C00AFD1D7 /* CLLocationCoordinate2D.swift */,
+			);
+			path = "TODO Move";
+			sourceTree = "<group>";
+		};
+		D1592FD9882820FF96DF6C28 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				977E1E111A0B6CBD096D8867 /* Pods-Paddle Station.debug.xcconfig */,
+				8661709D9B45F18C8B382F8C /* Pods-Paddle Station.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		E4577F3C238A92A6A58BF840 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F61C428CF0CF03B6A458CCAB /* Pods_Paddle_Station.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2E0145732018E3AA0052A6AF /* Paddle Station */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2E0145862018E3AA0052A6AF /* Build configuration list for PBXNativeTarget "Paddle Station" */;
+			buildPhases = (
+				0DB14CD636BB2E521EF4B825 /* [CP] Check Pods Manifest.lock */,
+				2E3AAE862018E74E0056BFC5 /* ShellScript */,
+				2E0145702018E3AA0052A6AF /* Sources */,
+				2E0145712018E3AA0052A6AF /* Frameworks */,
+				2E0145722018E3AA0052A6AF /* Resources */,
+				184A50115D2CAC55D0149162 /* [CP] Embed Pods Frameworks */,
+				F7279A203456B07199DC7BC0 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Paddle Station";
+			productName = "Paddle Station";
+			productReference = 2E0145742018E3AA0052A6AF /* Paddle Station.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2E01456C2018E3AA0052A6AF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = "Pat Sluth";
+				TargetAttributes = {
+					2E0145732018E3AA0052A6AF = {
+						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 2E01456F2018E3AA0052A6AF /* Build configuration list for PBXProject "Paddle Station" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2E01456B2018E3AA0052A6AF;
+			productRefGroup = 2E0145752018E3AA0052A6AF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2E0145732018E3AA0052A6AF /* Paddle Station */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2E0145722018E3AA0052A6AF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E0145822018E3AA0052A6AF /* LaunchScreen.storyboard in Resources */,
+				2E01457F2018E3AA0052A6AF /* Assets.xcassets in Resources */,
+				2E01457D2018E3AA0052A6AF /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0DB14CD636BB2E521EF4B825 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Paddle Station-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		184A50115D2CAC55D0149162 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Paddle Station/Pods-Paddle Station-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/Alertift/Alertift.framework",
+				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
+				"${PODS_ROOT}/Reveal-SDK/RevealServer-13/iOS/RevealServer.framework",
+				"${BUILT_PRODUCTS_DIR}/SegueManager/SegueManager.framework",
+				"${BUILT_PRODUCTS_DIR}/Sluthware/Sluthware.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftNotificationCenter/SwiftNotificationCenter.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alertift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealServer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SegueManager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sluthware.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftNotificationCenter.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Paddle Station/Pods-Paddle Station-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2E3AAE862018E74E0056BFC5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT\"";
+		};
+		F7279A203456B07199DC7BC0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Paddle Station/Pods-Paddle Station-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2E0145702018E3AA0052A6AF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2EA526C220190FA100D9E564 /* LandmarkViewController.swift in Sources */,
+				2E3AAE852018E6960056BFC5 /* MainMenuViewController.swift in Sources */,
+				2E3AAE842018E6960056BFC5 /* BaseViewController.swift in Sources */,
+				2E51EC3A2021572C00AFD1D7 /* CLLocationCoordinate2D.swift in Sources */,
+				2E3AAE882018E7700056BFC5 /* R.generated.swift in Sources */,
+				2EA526BF20190D8200D9E564 /* LandmarkARViewController.swift in Sources */,
+				2EA526C020190D8200D9E564 /* LandmarkMapViewController.swift in Sources */,
+				2E0145782018E3AA0052A6AF /* AppDelegate.swift in Sources */,
+				2E0145902018E4640052A6AF /* Landmark.swift in Sources */,
+				2EA526C42019170E00D9E564 /* LocationManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		2E01457B2018E3AA0052A6AF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2E01457C2018E3AA0052A6AF /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		2E0145802018E3AA0052A6AF /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2E0145812018E3AA0052A6AF /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2E0145842018E3AA0052A6AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		2E0145852018E3AA0052A6AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2E0145872018E3AA0052A6AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 977E1E111A0B6CBD096D8867 /* Pods-Paddle Station.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KZ3284WPA2;
+				INFOPLIST_FILE = "$(SRCROOT)/Paddle Station/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "patsluth.Paddle-Station";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Paddle Station/Supporting Files/Paddle Station-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2E0145882018E3AA0052A6AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8661709D9B45F18C8B382F8C /* Pods-Paddle Station.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KZ3284WPA2;
+				INFOPLIST_FILE = "$(SRCROOT)/Paddle Station/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "patsluth.Paddle-Station";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Paddle Station/Supporting Files/Paddle Station-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2E01456F2018E3AA0052A6AF /* Build configuration list for PBXProject "Paddle Station" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2E0145842018E3AA0052A6AF /* Debug */,
+				2E0145852018E3AA0052A6AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2E0145862018E3AA0052A6AF /* Build configuration list for PBXNativeTarget "Paddle Station" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2E0145872018E3AA0052A6AF /* Debug */,
+				2E0145882018E3AA0052A6AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2E01456C2018E3AA0052A6AF /* Project object */;
+}
