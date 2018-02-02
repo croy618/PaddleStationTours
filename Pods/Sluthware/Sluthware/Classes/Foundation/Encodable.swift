@@ -20,14 +20,14 @@ public extension Encodable
         encoder.outputFormatting = JSONEncoder.OutputFormatting.prettyPrinted
         return try encoder.encode(self)
     }
-    
-    func encodeDictionary() throws -> [AnyHashable: Any]
-    {
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = JSONEncoder.OutputFormatting.prettyPrinted
-        let data = try encoder.encode(self)
-        return try JSONSerialization.jsonObject(with: data) as! [AnyHashable: Any]
-    }
+	
+	func encodeDictionary<K, V>(_ keyType: K.Type, _ valueType: V.Type) throws -> [K: V]
+	{
+		let encoder = JSONEncoder()
+		encoder.outputFormatting = JSONEncoder.OutputFormatting.prettyPrinted
+		let data = try encoder.encode(self)
+		return try JSONSerialization.jsonObject(with: data) as! [K: V]
+	}
 }
 
 

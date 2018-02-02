@@ -38,20 +38,43 @@ final class Landmark: Decodable, Equatable
 	let type: String?
 	let url: URL?
 	
-	fileprivate static let dummyLandmarks = [Landmark(name: "Phil & Sebastion",
-													  description: "Coffee",
-													  altitude: 100.0,
-													  latitude: 51.024050,
-													  longitude: 114.108646,
-													  type: "Default",
-													  url: URL(string: "www.google.ca")),
-											 Landmark(name: "MacEwan Hall Concerts",
-													  description: "Concerts",
-													  altitude: 00.0,
-													  latitude: 51.078866,
-													  longitude: 114.130038,
-													  type: "Default",
-													  url: URL(string: "machallconcerts.com"))]
+	fileprivate static let dummyLandmarks = [
+//		Landmark(name: "Phil & Sebastion",
+//				 description: "Coffee",
+//				 altitude: 100.0,
+//				 latitude: 51.024050,
+//				 longitude: -114.108646,
+//				 type: "Default",
+//				 url: URL(string: "www.google.ca")),
+		Landmark(name: "MacEwan Hall Concerts",
+				 description: "Concerts",
+				 altitude: 0.0,
+				 latitude: 51.078866,
+				 longitude: -114.130038,
+				 type: "Default",
+				 url: URL(string: "machallconcerts.com")),
+		Landmark(name: "EEEL",
+				 description: "EEEL",
+				 altitude: 25.0,
+				 latitude: 51.081251,
+				 longitude: -114.129400,
+				 type: "Default",
+				 url: URL(string: "www.google.ca")),
+		Landmark(name: "ICT",
+				 description: "ICT",
+				 altitude: 50.0,
+				 latitude: 51.080222,
+				 longitude: -114.130430,
+				 type: "Default",
+				 url: URL(string: "www.google.ca")),
+		Landmark(name: "UCalgary Prarie Chicken",
+				 description: "UCalgary Prarie Chicken",
+				 altitude: 50.0,
+				 latitude: 51.078490,
+				 longitude: -114.128182,
+				 type: "Default",
+				 url: URL(string: "www.google.ca")),
+	]
 	
 	
 	
@@ -131,7 +154,7 @@ final class Landmark: Decodable, Equatable
 		}
 		
 		manager.get(urlString,
-					parameters: try? landmarkRequest.encodeDictionary(),
+					parameters: try? landmarkRequest.encodeDictionary(AnyHashable.self, Any.self),
 					progress: nil,
 					success: success,
 					failure: failure)

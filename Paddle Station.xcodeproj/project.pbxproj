@@ -15,8 +15,6 @@
 		2E3AAE842018E6960056BFC5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3AAE822018E6960056BFC5 /* BaseViewController.swift */; };
 		2E3AAE852018E6960056BFC5 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3AAE832018E6960056BFC5 /* MainMenuViewController.swift */; };
 		2E3AAE882018E7700056BFC5 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3AAE872018E7700056BFC5 /* R.generated.swift */; };
-		2E51EC3A2021572C00AFD1D7 /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E51EC392021572C00AFD1D7 /* CLLocationCoordinate2D.swift */; };
-		2EA24290202279A700F03FCE /* SCNNode+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA2428F202279A700F03FCE /* SCNNode+Constraints.swift */; };
 		2EA526BF20190D8200D9E564 /* LandmarkARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA526BD20190D8200D9E564 /* LandmarkARViewController.swift */; };
 		2EA526C020190D8200D9E564 /* LandmarkMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA526BE20190D8200D9E564 /* LandmarkMapViewController.swift */; };
 		2EA526C220190FA100D9E564 /* LandmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA526C120190FA100D9E564 /* LandmarkViewController.swift */; };
@@ -36,8 +34,6 @@
 		2E3AAE822018E6960056BFC5 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		2E3AAE832018E6960056BFC5 /* MainMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		2E3AAE872018E7700056BFC5 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
-		2E51EC392021572C00AFD1D7 /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
-		2EA2428F202279A700F03FCE /* SCNNode+Constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCNNode+Constraints.swift"; sourceTree = "<group>"; };
 		2EA526BA2019075200D9E564 /* Paddle Station-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Paddle Station-Bridging-Header.h"; sourceTree = "<group>"; };
 		2EA526BD20190D8200D9E564 /* LandmarkARViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandmarkARViewController.swift; sourceTree = "<group>"; };
 		2EA526BE20190D8200D9E564 /* LandmarkMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandmarkMapViewController.swift; sourceTree = "<group>"; };
@@ -84,7 +80,6 @@
 			children = (
 				2E0145772018E3AA0052A6AF /* AppDelegate.swift */,
 				2EA526C32019170E00D9E564 /* LocationManager.swift */,
-				2E51EC382021571A00AFD1D7 /* TODO Move */,
 				2E01458D2018E44A0052A6AF /* View Controllers */,
 				2EA2428E202274F200F03FCE /* SceneKit */,
 				2E0145892018E4210052A6AF /* Data Model */,
@@ -140,15 +135,6 @@
 				2EA526BE20190D8200D9E564 /* LandmarkMapViewController.swift */,
 			);
 			path = "View Controllers";
-			sourceTree = "<group>";
-		};
-		2E51EC382021571A00AFD1D7 /* TODO Move */ = {
-			isa = PBXGroup;
-			children = (
-				2EA2428F202279A700F03FCE /* SCNNode+Constraints.swift */,
-				2E51EC392021572C00AFD1D7 /* CLLocationCoordinate2D.swift */,
-			);
-			path = "TODO Move";
 			sourceTree = "<group>";
 		};
 		2EA2428E202274F200F03FCE /* SceneKit */ = {
@@ -336,12 +322,10 @@
 				2E3AAE852018E6960056BFC5 /* MainMenuViewController.swift in Sources */,
 				2E3AAE842018E6960056BFC5 /* BaseViewController.swift in Sources */,
 				2ED3A155202274B6001722A5 /* LandmarkNode.swift in Sources */,
-				2E51EC3A2021572C00AFD1D7 /* CLLocationCoordinate2D.swift in Sources */,
 				2E3AAE882018E7700056BFC5 /* R.generated.swift in Sources */,
 				2EA526BF20190D8200D9E564 /* LandmarkARViewController.swift in Sources */,
 				2EA526C020190D8200D9E564 /* LandmarkMapViewController.swift in Sources */,
 				2E0145782018E3AA0052A6AF /* AppDelegate.swift in Sources */,
-				2EA24290202279A700F03FCE /* SCNNode+Constraints.swift in Sources */,
 				2E0145902018E4640052A6AF /* Landmark.swift in Sources */,
 				2EA526C42019170E00D9E564 /* LocationManager.swift in Sources */,
 			);

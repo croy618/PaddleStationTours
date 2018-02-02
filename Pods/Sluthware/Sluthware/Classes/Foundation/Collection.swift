@@ -1,5 +1,5 @@
 //
-//  ArrayFormatter.swift
+//  Collection.swift
 //  Sluthware
 //
 //  Created by Pat Sluth on 2017-11-28.

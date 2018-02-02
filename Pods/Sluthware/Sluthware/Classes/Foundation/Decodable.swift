@@ -26,7 +26,7 @@ public extension Decodable
         return try decoder.decode(Self.self, from: data)
     }
     
-    static func decode(jsonDictionary: [AnyHashable: Any]) throws -> Self
+	static func decode<K, V>(jsonDictionary: [K: V]) throws -> Self
     {
         let data = try JSONSerialization.data(withJSONObject: jsonDictionary)
         return try self.decode(data: data)

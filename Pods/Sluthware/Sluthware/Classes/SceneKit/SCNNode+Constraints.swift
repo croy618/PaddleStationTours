@@ -13,7 +13,7 @@ import SceneKit
 
 
 
-extension SCNNode
+public extension SCNNode
 {
     func addConstraint(_ constraint: SCNConstraint)
     {

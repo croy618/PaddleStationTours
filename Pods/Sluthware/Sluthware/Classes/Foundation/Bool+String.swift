@@ -15,7 +15,7 @@ import Foundation
 public extension Bool
 {
 	public var toString: String {
-		return String.init(describing: self)
+		return String(describing: self)
 	}
 }
 

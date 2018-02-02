@@ -14,6 +14,11 @@ import UIKit
 
 class MainMenuViewController: BaseViewController
 {
+	@IBAction fileprivate func landmarkViewControllerTypeButtonClicked(_ sender: Any)
+	{
+		// TODO: Add child VC with animation FLIP HORIZONTAL
+	}
+	
 	@IBAction fileprivate func openMapView(_ sender: Any)
 	{
 		let segueIdentifier = R.segue.mainMenuViewController.landmarkMapViewController.identifier
