@@ -24,18 +24,42 @@ class LandmarkNode: SCNNode
 		geometry.flatness = 0.75   // 0.0 is very slow
 		let material: SCNMaterial = {
 			let material = SCNMaterial()
-			
 			material.diffuse.contents = UIColor.white
 			material.isDoubleSided = true
 			material.ambient.contents = UIColor.black
 			material.lightingModel = SCNMaterial.LightingModel.constant
 			material.emission.contents = material.diffuse.contents
-			
 			return material
 		}()
 		geometry.materials = [material]
 		
 		return geometry
+	}()
+	
+	lazy var rootNode: SCNNode = {
+		let node = SCNNode()
+		self.addChildNode(node)
+		return node
+	}()
+	
+	lazy var destinationNode: SCNNode = {
+		let node = SCNNode()
+		node.geometry = {
+			let geometry = SCNSphere(radius: 1.0)
+			let material: SCNMaterial = {
+				let material = SCNMaterial()
+				material.diffuse.contents = UIColor.random
+				material.isDoubleSided = true
+				material.ambient.contents = UIColor.black
+				material.lightingModel = SCNMaterial.LightingModel.constant
+				material.emission.contents = material.diffuse.contents
+				return material
+			}()
+			geometry.materials = [material]
+			return geometry
+		}()
+		self.rootNode.addChildNode(node)
+		return node
 	}()
 	
 	
@@ -52,34 +76,17 @@ class LandmarkNode: SCNNode
 		
 		
 		
-		self.geometry = {
-			let geometry = SCNSphere(radius: 1.0)
-			
-			let material: SCNMaterial = {
-				let material = SCNMaterial()
-				
-				material.diffuse.contents = UIColor.random
-				material.isDoubleSided = true
-				material.ambient.contents = UIColor.black
-				material.lightingModel = SCNMaterial.LightingModel.constant
-				material.emission.contents = material.diffuse.contents
-				
-				return material
-			}()
-			geometry.materials = [material]
-			
-			return geometry
-		}()
-		
-		
-		
 		let textNode = SCNNode(geometry: self.text)
 		textNode.castsShadow = false
 		textNode.scale = SCNVector3Make(0.3, 0.3, 0.3)
 		let textNodeContainer = SCNNode()
 		textNodeContainer.addConstraint(SCNBillboardConstraint())
 		textNodeContainer.addChildNode(textNode)
-		self.addChildNode(textNodeContainer)
+		self.destinationNode.addChildNode(textNodeContainer)
+		
+		
+		
+		self.isHidden = true
 	}
 	
 	required init?(coder aDecoder: NSCoder)
