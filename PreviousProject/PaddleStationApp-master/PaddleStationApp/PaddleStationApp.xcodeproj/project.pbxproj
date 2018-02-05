@@ -1,0 +1,676 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1DB802801FC57BB3001A9B9A /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DB8027E1FC57B9B001A9B9A /* Montserrat-Light.ttf */; };
+		1DB802811FC57BB3001A9B9A /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DB8027F1FC57B9B001A9B9A /* Montserrat-Medium.ttf */; };
+		1DB802821FC57BB3001A9B9A /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DB8027D1FC57B9B001A9B9A /* Montserrat-Regular.ttf */; };
+		1DB802831FC57BB3001A9B9A /* Montserrat-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DB8027C1FC57B9B001A9B9A /* Montserrat-Thin.ttf */; };
+		2209E8091FD6048700E52EF5 /* FilterKayaksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2209E8081FD6048600E52EF5 /* FilterKayaksViewController.swift */; };
+		22C5FFBB1FC380D3004D33CF /* FindKayaksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C5FFBA1FC380D3004D33CF /* FindKayaksViewController.swift */; };
+		22C5FFBD1FC386EB004D33CF /* PaddleStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C5FFBC1FC386EB004D33CF /* PaddleStation.swift */; };
+		22E731221FD66083001321EF /* Booking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E731211FD66082001321EF /* Booking.swift */; };
+		22E731241FD70585001321EF /* BookKayaksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E731231FD70585001321EF /* BookKayaksViewController.swift */; };
+		93930BE21FD0D07E0024F78C /* CheckFrontRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93930BE11FD0D07E0024F78C /* CheckFrontRequest.swift */; };
+		CFDECA781FB7871D003A1F16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDECA771FB7871D003A1F16 /* AppDelegate.swift */; };
+		CFDECA7D1FB7871D003A1F16 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFDECA7B1FB7871D003A1F16 /* Main.storyboard */; };
+		CFDECA7F1FB7871D003A1F16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFDECA7E1FB7871D003A1F16 /* Assets.xcassets */; };
+		CFDECA821FB7871D003A1F16 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFDECA801FB7871D003A1F16 /* LaunchScreen.storyboard */; };
+		CFDECA8D1FB7871D003A1F16 /* PaddleStationAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDECA8C1FB7871D003A1F16 /* PaddleStationAppTests.swift */; };
+		CFDECA9A1FB78785003A1F16 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFDECA981FB78784003A1F16 /* SWRevealViewController.m */; };
+		CFDECA9C1FB78901003A1F16 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDECA9B1FB78901003A1F16 /* ViewController.swift */; };
+		E20912C7239223FAAF67CDCA /* Pods_PaddleStationApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63FFDC2ADE96D9A189503400 /* Pods_PaddleStationApp.framework */; };
+		E3478070E4353852B899A95C /* Pods_PaddleStationAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4932E93DD112BAD9A7D09EB6 /* Pods_PaddleStationAppTests.framework */; };
+		F85F12131FC4341C0077C1BF /* StripeRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85F12121FC4341C0077C1BF /* StripeRowView.swift */; };
+		F85F12181FC4366D0077C1BF /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85F12171FC4366D0077C1BF /* Buttons.swift */; };
+		F8E6BD041FC4053F006A5203 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6BD031FC4053F006A5203 /* APIClient.swift */; };
+		F8E6BD061FC41B30006A5203 /* StripeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6BD051FC41B30006A5203 /* StripeViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CFDECA891FB7871D003A1F16 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CFDECA6C1FB7871D003A1F16 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CFDECA731FB7871D003A1F16;
+			remoteInfo = PaddleStationApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1DB8027A1FC57AAA001A9B9A /* Montserrat */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Montserrat; sourceTree = SOURCE_ROOT; };
+		1DB8027C1FC57B9B001A9B9A /* Montserrat-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Thin.ttf"; sourceTree = "<group>"; };
+		1DB8027D1FC57B9B001A9B9A /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		1DB8027E1FC57B9B001A9B9A /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.ttf"; sourceTree = "<group>"; };
+		1DB8027F1FC57B9B001A9B9A /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
+		2209E8081FD6048600E52EF5 /* FilterKayaksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterKayaksViewController.swift; sourceTree = "<group>"; };
+		22C5FFBA1FC380D3004D33CF /* FindKayaksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindKayaksViewController.swift; sourceTree = "<group>"; };
+		22C5FFBC1FC386EB004D33CF /* PaddleStation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddleStation.swift; sourceTree = "<group>"; };
+		22E731211FD66082001321EF /* Booking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booking.swift; sourceTree = "<group>"; };
+		22E731231FD70585001321EF /* BookKayaksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookKayaksViewController.swift; sourceTree = "<group>"; };
+		394FB792A03333AC91FC64BF /* Pods-PaddleStationAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaddleStationAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PaddleStationAppTests/Pods-PaddleStationAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		4932E93DD112BAD9A7D09EB6 /* Pods_PaddleStationAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PaddleStationAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		63FFDC2ADE96D9A189503400 /* Pods_PaddleStationApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PaddleStationApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		93930BE11FD0D07E0024F78C /* CheckFrontRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckFrontRequest.swift; sourceTree = "<group>"; };
+		B225601FD110469A56E05FD9 /* Pods-PaddleStationApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaddleStationApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PaddleStationApp/Pods-PaddleStationApp.debug.xcconfig"; sourceTree = "<group>"; };
+		C9B76656F0BF96FDC7AF0E33 /* Pods-PaddleStationApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaddleStationApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-PaddleStationApp/Pods-PaddleStationApp.release.xcconfig"; sourceTree = "<group>"; };
+		CFDECA741FB7871D003A1F16 /* PaddleStationApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PaddleStationApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFDECA771FB7871D003A1F16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CFDECA7C1FB7871D003A1F16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CFDECA7E1FB7871D003A1F16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CFDECA811FB7871D003A1F16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CFDECA831FB7871D003A1F16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CFDECA881FB7871D003A1F16 /* PaddleStationAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PaddleStationAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFDECA8C1FB7871D003A1F16 /* PaddleStationAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddleStationAppTests.swift; sourceTree = "<group>"; };
+		CFDECA8E1FB7871D003A1F16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CFDECA971FB78784003A1F16 /* PaddleStationApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PaddleStationApp-Bridging-Header.h"; sourceTree = "<group>"; };
+		CFDECA981FB78784003A1F16 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		CFDECA991FB78784003A1F16 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		CFDECA9B1FB78901003A1F16 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D5B4B2BD20B889E1F0356EED /* Pods-PaddleStationAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaddleStationAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PaddleStationAppTests/Pods-PaddleStationAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		F85F12121FC4341C0077C1BF /* StripeRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeRowView.swift; sourceTree = "<group>"; };
+		F85F12171FC4366D0077C1BF /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
+		F8E6BD031FC4053F006A5203 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		F8E6BD051FC41B30006A5203 /* StripeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CFDECA711FB7871D003A1F16 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E20912C7239223FAAF67CDCA /* Pods_PaddleStationApp.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CFDECA851FB7871D003A1F16 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E3478070E4353852B899A95C /* Pods_PaddleStationAppTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5B872C68DE99B3391283CFF5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B225601FD110469A56E05FD9 /* Pods-PaddleStationApp.debug.xcconfig */,
+				C9B76656F0BF96FDC7AF0E33 /* Pods-PaddleStationApp.release.xcconfig */,
+				394FB792A03333AC91FC64BF /* Pods-PaddleStationAppTests.debug.xcconfig */,
+				D5B4B2BD20B889E1F0356EED /* Pods-PaddleStationAppTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		CFDECA6B1FB7871D003A1F16 = {
+			isa = PBXGroup;
+			children = (
+				CFDECA761FB7871D003A1F16 /* PaddleStationApp */,
+				CFDECA8B1FB7871D003A1F16 /* PaddleStationAppTests */,
+				CFDECA751FB7871D003A1F16 /* Products */,
+				5B872C68DE99B3391283CFF5 /* Pods */,
+				E75BD714FAC35861E3698978 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		CFDECA751FB7871D003A1F16 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CFDECA741FB7871D003A1F16 /* PaddleStationApp.app */,
+				CFDECA881FB7871D003A1F16 /* PaddleStationAppTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CFDECA761FB7871D003A1F16 /* PaddleStationApp */ = {
+			isa = PBXGroup;
+			children = (
+				F85F12141FC435640077C1BF /* StripeIntegration */,
+				CFDECA771FB7871D003A1F16 /* AppDelegate.swift */,
+				F85F12171FC4366D0077C1BF /* Buttons.swift */,
+				CFDECA7B1FB7871D003A1F16 /* Main.storyboard */,
+				22E731211FD66082001321EF /* Booking.swift */,
+				22E731231FD70585001321EF /* BookKayaksViewController.swift */,
+				22C5FFBC1FC386EB004D33CF /* PaddleStation.swift */,
+				22C5FFBA1FC380D3004D33CF /* FindKayaksViewController.swift */,
+				93930BE11FD0D07E0024F78C /* CheckFrontRequest.swift */,
+				F8E6BD051FC41B30006A5203 /* StripeViewController.swift */,
+				CFDECA9B1FB78901003A1F16 /* ViewController.swift */,
+				2209E8081FD6048600E52EF5 /* FilterKayaksViewController.swift */,
+				CFDECA7E1FB7871D003A1F16 /* Assets.xcassets */,
+				1DB8027E1FC57B9B001A9B9A /* Montserrat-Light.ttf */,
+				1DB8027F1FC57B9B001A9B9A /* Montserrat-Medium.ttf */,
+				1DB8027D1FC57B9B001A9B9A /* Montserrat-Regular.ttf */,
+				1DB8027C1FC57B9B001A9B9A /* Montserrat-Thin.ttf */,
+				1DB8027A1FC57AAA001A9B9A /* Montserrat */,
+				CFDECA801FB7871D003A1F16 /* LaunchScreen.storyboard */,
+				CFDECA831FB7871D003A1F16 /* Info.plist */,
+				CFDECA991FB78784003A1F16 /* SWRevealViewController.h */,
+				CFDECA981FB78784003A1F16 /* SWRevealViewController.m */,
+				CFDECA971FB78784003A1F16 /* PaddleStationApp-Bridging-Header.h */,
+			);
+			path = PaddleStationApp;
+			sourceTree = "<group>";
+		};
+		CFDECA8B1FB7871D003A1F16 /* PaddleStationAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				CFDECA8C1FB7871D003A1F16 /* PaddleStationAppTests.swift */,
+				CFDECA8E1FB7871D003A1F16 /* Info.plist */,
+			);
+			path = PaddleStationAppTests;
+			sourceTree = "<group>";
+		};
+		E75BD714FAC35861E3698978 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				63FFDC2ADE96D9A189503400 /* Pods_PaddleStationApp.framework */,
+				4932E93DD112BAD9A7D09EB6 /* Pods_PaddleStationAppTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F85F12141FC435640077C1BF /* StripeIntegration */ = {
+			isa = PBXGroup;
+			children = (
+				F85F12121FC4341C0077C1BF /* StripeRowView.swift */,
+				F8E6BD031FC4053F006A5203 /* APIClient.swift */,
+			);
+			path = StripeIntegration;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CFDECA731FB7871D003A1F16 /* PaddleStationApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CFDECA911FB7871D003A1F16 /* Build configuration list for PBXNativeTarget "PaddleStationApp" */;
+			buildPhases = (
+				F3BAF2161A7E98B9E33359B4 /* [CP] Check Pods Manifest.lock */,
+				CFDECA701FB7871D003A1F16 /* Sources */,
+				CFDECA711FB7871D003A1F16 /* Frameworks */,
+				CFDECA721FB7871D003A1F16 /* Resources */,
+				1DB0CDADA5F4EF57F2001AA7 /* [CP] Embed Pods Frameworks */,
+				14A96BCDE89FEE039D437C03 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PaddleStationApp;
+			productName = PaddleStationApp;
+			productReference = CFDECA741FB7871D003A1F16 /* PaddleStationApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CFDECA871FB7871D003A1F16 /* PaddleStationAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CFDECA941FB7871D003A1F16 /* Build configuration list for PBXNativeTarget "PaddleStationAppTests" */;
+			buildPhases = (
+				9DD34D30E2D1294F92608F8C /* [CP] Check Pods Manifest.lock */,
+				CFDECA841FB7871D003A1F16 /* Sources */,
+				CFDECA851FB7871D003A1F16 /* Frameworks */,
+				CFDECA861FB7871D003A1F16 /* Resources */,
+				4C1B9E006583A15ED840D277 /* [CP] Embed Pods Frameworks */,
+				301841497BFDD220809764F3 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CFDECA8A1FB7871D003A1F16 /* PBXTargetDependency */,
+			);
+			name = PaddleStationAppTests;
+			productName = PaddleStationAppTests;
+			productReference = CFDECA881FB7871D003A1F16 /* PaddleStationAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CFDECA6C1FB7871D003A1F16 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0900;
+				LastUpgradeCheck = 0900;
+				ORGANIZATIONNAME = PaddleStation;
+				TargetAttributes = {
+					CFDECA731FB7871D003A1F16 = {
+						CreatedOnToolsVersion = 9.0.1;
+						LastSwiftMigration = 0900;
+						ProvisioningStyle = Automatic;
+					};
+					CFDECA871FB7871D003A1F16 = {
+						CreatedOnToolsVersion = 9.0.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = CFDECA731FB7871D003A1F16;
+					};
+				};
+			};
+			buildConfigurationList = CFDECA6F1FB7871D003A1F16 /* Build configuration list for PBXProject "PaddleStationApp" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CFDECA6B1FB7871D003A1F16;
+			productRefGroup = CFDECA751FB7871D003A1F16 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CFDECA731FB7871D003A1F16 /* PaddleStationApp */,
+				CFDECA871FB7871D003A1F16 /* PaddleStationAppTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CFDECA721FB7871D003A1F16 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1DB802801FC57BB3001A9B9A /* Montserrat-Light.ttf in Resources */,
+				1DB802811FC57BB3001A9B9A /* Montserrat-Medium.ttf in Resources */,
+				1DB802821FC57BB3001A9B9A /* Montserrat-Regular.ttf in Resources */,
+				1DB802831FC57BB3001A9B9A /* Montserrat-Thin.ttf in Resources */,
+				CFDECA821FB7871D003A1F16 /* LaunchScreen.storyboard in Resources */,
+				CFDECA7F1FB7871D003A1F16 /* Assets.xcassets in Resources */,
+				CFDECA7D1FB7871D003A1F16 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CFDECA861FB7871D003A1F16 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		14A96BCDE89FEE039D437C03 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PaddleStationApp/Pods-PaddleStationApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1DB0CDADA5F4EF57F2001AA7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-PaddleStationApp/Pods-PaddleStationApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PaddleStationApp/Pods-PaddleStationApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		301841497BFDD220809764F3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PaddleStationAppTests/Pods-PaddleStationAppTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4C1B9E006583A15ED840D277 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-PaddleStationAppTests/Pods-PaddleStationAppTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PaddleStationAppTests/Pods-PaddleStationAppTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9DD34D30E2D1294F92608F8C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PaddleStationAppTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F3BAF2161A7E98B9E33359B4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PaddleStationApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CFDECA701FB7871D003A1F16 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93930BE21FD0D07E0024F78C /* CheckFrontRequest.swift in Sources */,
+				22E731221FD66083001321EF /* Booking.swift in Sources */,
+				F85F12131FC4341C0077C1BF /* StripeRowView.swift in Sources */,
+				CFDECA9C1FB78901003A1F16 /* ViewController.swift in Sources */,
+				22C5FFBB1FC380D3004D33CF /* FindKayaksViewController.swift in Sources */,
+				22E731241FD70585001321EF /* BookKayaksViewController.swift in Sources */,
+				CFDECA781FB7871D003A1F16 /* AppDelegate.swift in Sources */,
+				F85F12181FC4366D0077C1BF /* Buttons.swift in Sources */,
+				22C5FFBD1FC386EB004D33CF /* PaddleStation.swift in Sources */,
+				F8E6BD061FC41B30006A5203 /* StripeViewController.swift in Sources */,
+				2209E8091FD6048700E52EF5 /* FilterKayaksViewController.swift in Sources */,
+				CFDECA9A1FB78785003A1F16 /* SWRevealViewController.m in Sources */,
+				F8E6BD041FC4053F006A5203 /* APIClient.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CFDECA841FB7871D003A1F16 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CFDECA8D1FB7871D003A1F16 /* PaddleStationAppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CFDECA8A1FB7871D003A1F16 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CFDECA731FB7871D003A1F16 /* PaddleStationApp */;
+			targetProxy = CFDECA891FB7871D003A1F16 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CFDECA7B1FB7871D003A1F16 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CFDECA7C1FB7871D003A1F16 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		CFDECA801FB7871D003A1F16 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CFDECA811FB7871D003A1F16 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CFDECA8F1FB7871D003A1F16 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CFDECA901FB7871D003A1F16 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CFDECA921FB7871D003A1F16 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B225601FD110469A56E05FD9 /* Pods-PaddleStationApp.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = PaddleStationApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.PaddleStation.599.PaddleStationApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PaddleStationApp/PaddleStationApp-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CFDECA931FB7871D003A1F16 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C9B76656F0BF96FDC7AF0E33 /* Pods-PaddleStationApp.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = PaddleStationApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.PaddleStation.599.PaddleStationApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PaddleStationApp/PaddleStationApp-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		CFDECA951FB7871D003A1F16 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 394FB792A03333AC91FC64BF /* Pods-PaddleStationAppTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = PaddleStationAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.PaddleStation.599.PaddleStationAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PaddleStationApp.app/PaddleStationApp";
+			};
+			name = Debug;
+		};
+		CFDECA961FB7871D003A1F16 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D5B4B2BD20B889E1F0356EED /* Pods-PaddleStationAppTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = PaddleStationAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.PaddleStation.599.PaddleStationAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PaddleStationApp.app/PaddleStationApp";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CFDECA6F1FB7871D003A1F16 /* Build configuration list for PBXProject "PaddleStationApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CFDECA8F1FB7871D003A1F16 /* Debug */,
+				CFDECA901FB7871D003A1F16 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CFDECA911FB7871D003A1F16 /* Build configuration list for PBXNativeTarget "PaddleStationApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CFDECA921FB7871D003A1F16 /* Debug */,
+				CFDECA931FB7871D003A1F16 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CFDECA941FB7871D003A1F16 /* Build configuration list for PBXNativeTarget "PaddleStationAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CFDECA951FB7871D003A1F16 /* Debug */,
+				CFDECA961FB7871D003A1F16 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CFDECA6C1FB7871D003A1F16 /* Project object */;
+}
