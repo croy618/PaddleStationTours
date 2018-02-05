@@ -29,6 +29,14 @@ class MainMenuViewController: BaseViewController
 	
 	@IBAction fileprivate func openARView(_ sender: Any)
 	{
+//		self.transition(from: <#T##UIViewController#>,
+//						to: <#T##UIViewController#>,
+//						duration: <#T##TimeInterval#>,
+//						options: UIViewAnimationOptions.flip,
+//						animations: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>,
+//						completion: <#T##((Bool) -> Void)?##((Bool) -> Void)?##(Bool) -> Void#>)
+		
+		
 		let segueIdentifier = R.segue.mainMenuViewController.landmarkARViewController.identifier
 		self.segueManager.performSegue(withIdentifier: segueIdentifier) { (destination: LandmarkARViewController) in
 			

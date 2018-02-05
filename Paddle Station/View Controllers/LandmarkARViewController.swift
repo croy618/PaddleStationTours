@@ -209,21 +209,17 @@ class LandmarkARViewController: LandmarkViewController
 	
 	fileprivate func updateLandmarkNodes()
 	{
-		guard let pointOfView = self.sceneView.pointOfView else { return }
+//		guard let pointOfView = self.sceneView.pointOfView else { return }
 		guard let cameraTransform = self.sceneView.session.currentFrame?.camera.transform else { return }
 		guard let currentLocation = LocationManager.shared.currentLocation else { return }
 		guard let currentHeading = LocationManager.shared.currentHeading else { return }
 
 		let cameraWorldPosition = cameraTransform.translation
-		print(cameraWorldPosition)
-		print(pointOfView.worldPosition)
-		
-//		return
 		
 		for landmarkNode in self.landmarkNodes {
 			let landmark = landmarkNode.landmark
-			var distance = SCNFloat(landmark.location.distance(from: currentLocation))
-			var bearing = SCNFloat(currentLocation.coordinate.bearing(toCoordinate: landmark.location.coordinate))
+			let distance = SCNFloat(landmark.location.distance(from: currentLocation))
+			let bearing = SCNFloat(currentLocation.coordinate.bearing(toCoordinate: landmark.location.coordinate))
 			
 			landmarkNode.isHidden = (distance > 500.0)
 			guard !landmarkNode.isHidden else { continue }
@@ -233,41 +229,14 @@ class LandmarkARViewController: LandmarkViewController
 			landmarkNode.simdWorldPosition = cameraWorldPosition
 			landmarkNode.rootNode.worldPosition = SCNVector3Zero
 			landmarkNode.rootNode.worldOrientation = SCNVector4Zero
-			landmarkNode.destinationNode.position = SCNVector3Zero
 //			landmarkNode.destinationNode.worldPosition = trueNorth * distance
 			landmarkNode.destinationNode.simdWorldPosition = landmarkNode.destinationNode.worldPositionFor(targetWorldPosition: float3(trueNorth * distance),
 																										   relativeTo: cameraTransform,
 																										   smoothMovement: true)
 			landmarkNode.rootNode.position = SCNVector3Zero
 			landmarkNode.rootNode.eulerAngles.y = -bearing
-
-//			let trueNorth = SCNVector3(0.0, 0.0, -1.0)
-//			let pivot = pointOfView.worldPosition + trueNorth
-//			landmarkNode.worldPosition = pivot.normalized * distance
-//
-//
-//
-//			//			landmarkNode.worldPosition = landmarkNode.worldPosition * rotationnn
-//			//			landmarkNode.rotate(by: , aroundTarget: SCNVector3Zero)
-//			//			print(landmarkNode.worldPosition, landmarkNode.worldPosition * rotationnn)currentLocation.altitude
-////			landmarkNode.worldPosition.y = pointOfView.worldPosition.y + SCNFloat(landmarkNode.landmark.location.altitude - currentLocation.altitude)
-////			// TODO: REMOVE
-////			landmarkNode.worldPosition.y = pointOfView.worldPosition.y// + 25.0
-//
-//
-//
-//
-//
-//			let rotationMatrix = SCNMatrix4MakeRotation(bearing, 0.0, -1.0, 0.0)
-//			landmarkNode.worldPosition *= rotationMatrix
-////			print(landmarkNode.worldPosition)
 			
 			
-			
-			
-			
-			
-
 			
 			landmarkNode.text.string = String(format: "%@\ndistance:%dm\nbearing:%.3frad\nheadingAccuracy:%0.3frad\nlocationAccuracy:%dm",
 											  landmark.name,
@@ -276,16 +245,18 @@ class LandmarkARViewController: LandmarkViewController
 											  currentHeading.headingAccuracy.toRad,
 											  Int(round(currentLocation.horizontalAccuracy)))
 			
-			
-			
-			
-			
-			
 			let virtualDistance = simd_length(landmarkNode.destinationNode.simdWorldPosition - cameraWorldPosition)
 			print("worldPosition:", cameraWorldPosition,
 				  "distance:", distance,
 				  "virtualDistance:", virtualDistance,
 				  "error:", abs(virtualDistance - distance))
+			
+			
+			
+//			landmarkNode.worldPosition.y = pointOfView.worldPosition.y + SCNFloat(landmarkNode.landmark.location.altitude - currentLocation.altitude)
+			// TODO: REMOVE
+			landmarkNode.simdWorldPosition.y = cameraWorldPosition.y + 50.0
+
 		}
 		
 //		fileprivate func updateLandmarkNodes()
@@ -454,7 +425,6 @@ extension LandmarkARViewController: LocationManagerNotificationDelegate
 	func locationManager(_ manager: LocationManager, didUpdateCurrentHeading currentHeading: CLHeading)
 	{
 		self.updateLandmarkNodes()
-//		print(currentHeading)
 	}
 }
 
