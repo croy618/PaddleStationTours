@@ -220,8 +220,9 @@ class LandmarkARViewController: LandmarkViewController
 			let landmark = landmarkNode.landmark
 			let distance = SCNFloat(landmark.location.distance(from: currentLocation))
 			let bearing = SCNFloat(currentLocation.coordinate.bearing(toCoordinate: landmark.location.coordinate))
+			let altitudeDelta = SCNFloat(landmarkNode.landmark.location.altitude - currentLocation.altitude)
 			
-			landmarkNode.isHidden = (distance > 500.0)
+			landmarkNode.isHidden = !(10.0...500.0).contains(distance)
 			guard !landmarkNode.isHidden else { continue }
 
 			let trueNorth = simd_float3(0.0, 0.0, -1.0)
@@ -229,7 +230,6 @@ class LandmarkARViewController: LandmarkViewController
 			landmarkNode.simdWorldPosition = cameraWorldPosition
 			landmarkNode.rootNode.simdWorldPosition = simd_float3.zero
 			landmarkNode.rootNode.simdWorldOrientation = simd_quatf.zero
-//			landmarkNode.destinationNode.worldPosition = trueNorth * distance
 			landmarkNode.destinationNode.simdWorldPosition = landmarkNode.destinationNode.worldPositionFor(targetWorldPosition: trueNorth * distance,
 																										   relativeTo: cameraTransform,
 																										   smoothMovement: true)
@@ -238,10 +238,11 @@ class LandmarkARViewController: LandmarkViewController
 			
 			
 			
-			landmarkNode.text.string = String(format: "%@\ndistance:%dm\nbearing:%.3frad\nheadingAccuracy:%0.3frad\nlocationAccuracy:%dm",
+			landmarkNode.text.string = String(format: "%@\ndistance:%dm\nbearing:%.3frad\naltitudeDelta:%dm\nheadingAccuracy:%0.3frad\nlocationAccuracy:%dm",
 											  landmark.name,
 											  Int(round(distance)),
 											  bearing,
+											  Int(round(altitudeDelta)),
 											  currentHeading.headingAccuracy.toRad,
 											  Int(round(currentLocation.horizontalAccuracy)))
 			
@@ -255,10 +256,7 @@ class LandmarkARViewController: LandmarkViewController
 			
 			
 			
-//			landmarkNode.worldPosition.y = pointOfView.worldPosition.y + SCNFloat(landmarkNode.landmark.location.altitude - currentLocation.altitude)
-			// TODO: REMOVE
-			landmarkNode.simdWorldPosition.y = cameraWorldPosition.y + 50.0
-
+			landmarkNode.worldPosition.y = cameraWorldPosition.y + altitudeDelta
 		}
 		
 //		fileprivate func updateLandmarkNodes()
