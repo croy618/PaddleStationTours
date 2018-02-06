@@ -46,10 +46,10 @@ public extension SCNNode
      If `smoothMovement` is true, the new position will be averaged with previous position to
      avoid large jumps.
      */
-    func worldPositionFor(targetWorldPosition: float3, relativeTo cameraTransform: matrix_float4x4, smoothMovement: Bool) -> simd_float3
+    func worldPositionFor(targetWorldPosition: simd_float3, relativeTo cameraTransform: matrix_float4x4, smoothMovement: Bool) -> simd_float3
     {
         let cameraWorldPosition = cameraTransform.translation
-        let positionOffsetFromCamera = targetWorldPosition - cameraWorldPosition
+		let positionOffsetFromCamera: simd_float3 = targetWorldPosition - cameraWorldPosition
         
         /*
          Compute the average distance of the object from the camera over the last ten
@@ -58,13 +58,11 @@ public extension SCNNode
          object. Averaging does _not_ make the content "lag".
          */
         if smoothMovement {
-            let hitTestResultDistance = simd_length(positionOffsetFromCamera)
-            
             // Add the latest position and keep up to 10 recent distances to smooth with.
-            self.recentDistances.append(hitTestResultDistance)
+            self.recentDistances.append(positionOffsetFromCamera.length)
             self.recentDistances = Array(self.recentDistances.suffix(10))
 			
-            let averagedDistancePosition = simd_normalize(positionOffsetFromCamera) * self.recentDistances.average
+            let averagedDistancePosition = positionOffsetFromCamera.normalized * self.recentDistances.average
             return cameraWorldPosition + averagedDistancePosition
         } else {
             return cameraWorldPosition + positionOffsetFromCamera

@@ -29,6 +29,13 @@ public extension URL
 		let fileName = self.lastPathComponent
 		return fileName.removingPercentEncoding ?? fileName
 	}
+	
+	var isReachable: Bool {
+		//		guard let _ = try? self.checkResourceIsReachable() else { return false }
+		//		return true
+		guard let filePath = self.absoluteURL.path.removingPercentEncoding else { return false }
+		return FileManager.default.fileExists(atPath: filePath)
+	}
 }
 
 

@@ -224,16 +224,16 @@ class LandmarkARViewController: LandmarkViewController
 			landmarkNode.isHidden = (distance > 500.0)
 			guard !landmarkNode.isHidden else { continue }
 
-			let trueNorth = SCNVector3(0.0, 0.0, -1.0)
+			let trueNorth = simd_float3(0.0, 0.0, -1.0)
 			
 			landmarkNode.simdWorldPosition = cameraWorldPosition
-			landmarkNode.rootNode.worldPosition = SCNVector3Zero
-			landmarkNode.rootNode.worldOrientation = SCNVector4Zero
+			landmarkNode.rootNode.simdWorldPosition = simd_float3.zero
+			landmarkNode.rootNode.simdWorldOrientation = simd_quatf.zero
 //			landmarkNode.destinationNode.worldPosition = trueNorth * distance
-			landmarkNode.destinationNode.simdWorldPosition = landmarkNode.destinationNode.worldPositionFor(targetWorldPosition: float3(trueNorth * distance),
+			landmarkNode.destinationNode.simdWorldPosition = landmarkNode.destinationNode.worldPositionFor(targetWorldPosition: trueNorth * distance,
 																										   relativeTo: cameraTransform,
 																										   smoothMovement: true)
-			landmarkNode.rootNode.position = SCNVector3Zero
+			landmarkNode.rootNode.simdPosition = simd_float3.zero
 			landmarkNode.rootNode.eulerAngles.y = -bearing
 			
 			
@@ -245,7 +245,9 @@ class LandmarkARViewController: LandmarkViewController
 											  currentHeading.headingAccuracy.toRad,
 											  Int(round(currentLocation.horizontalAccuracy)))
 			
-			let virtualDistance = simd_length(landmarkNode.destinationNode.simdWorldPosition - cameraWorldPosition)
+			
+//			let virtualDistance = simd_length(landmarkNode.destinationNode.simdWorldPosition - cameraWorldPosition)
+			let virtualDistance = landmarkNode.destinationNode.simdWorldPosition.distance(to: cameraWorldPosition)
 			print("worldPosition:", cameraWorldPosition,
 				  "distance:", distance,
 				  "virtualDistance:", virtualDistance,

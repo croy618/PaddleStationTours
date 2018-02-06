@@ -23,7 +23,7 @@ infix operator × // Cross product
 
 public extension SCNVector3
 {
-    var magnitude: SCNFloat {
+    var length: SCNFloat {
         return sqrt(self ● self)
     }
     
@@ -33,19 +33,19 @@ public extension SCNVector3
     
     /// Vector in the same direction as this vector with a magnitude of 1
     var normalized: SCNVector3 {
-        get {
-            return SCNVector3(simd_normalize(simd_double3(self)))
-        }
+		return SCNVector3(simd_normalize(simd_float3(self)))
     }
+	
+	
+	
     
     
-    
-    static func positionFrom(matrix: matrix_float4x4) -> SCNVector3
-    {
-        let column = matrix.columns.3
-        
-        return SCNVector3(column.x, column.y, column.z)
-    }
+//    static func positionFrom(matrix: matrix_float4x4) -> SCNVector3
+//    {
+//        let column = matrix.columns.3
+//        
+//        return SCNVector3(column.x, column.y, column.z)
+//    }
 	
 	func distance(to vector: SCNVector3) -> SCNFloat
 	{
@@ -83,7 +83,7 @@ public extension SCNVector3
 	
     static func angle(between vectorA: SCNVector3, and vectorB: SCNVector3) -> SCNFloat
     {
-        return acos((vectorA ● vectorB) / (vectorA.magnitude * vectorB.magnitude))
+        return acos((vectorA ● vectorB) / (vectorA.length * vectorB.length))
     }
 	
 	func project(onto vector: SCNVector3) -> SCNVector3

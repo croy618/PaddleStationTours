@@ -15,6 +15,14 @@ import CoreGraphics
 
 public extension CGSize
 {
+	var integral: CGSize {
+		return CGSize(width: Int(self.width), height: Int(self.height))
+	}
+	
+	
+	
+	
+	
 	public static func +(lhs: CGSize, rhs: CGSize) -> CGSize
 	{
 		return CGSize(width: lhs.width + rhs.width, height: lhs.height + rhs.height)

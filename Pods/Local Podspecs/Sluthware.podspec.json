@@ -26,6 +26,7 @@
       "Sluthware/Classes/Foundation/*",
       "Sluthware/Classes/CoreGraphics/*",
       "Sluthware/Classes/SceneKit/*",
+      "Sluthware/Classes/simd/*",
       "Sluthware/Classes/CoreLocation/*",
       "Sluthware/Classes/UIKit/*"
     ],
@@ -44,6 +45,7 @@
       "Sluthware/Classes/Foundation/*",
       "Sluthware/Classes/CoreGraphics/*",
       "Sluthware/Classes/SceneKit/*",
+      "Sluthware/Classes/simd/*",
       "Sluthware/Classes/CoreLocation/*"
     ],
     "frameworks": [
