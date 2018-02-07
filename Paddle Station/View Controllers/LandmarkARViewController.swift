@@ -123,14 +123,13 @@ class LandmarkARViewController: LandmarkViewController
 //		self.sceneView.debugOptions = Settings.sharedInstance.debugOptions
 		
 		self.setupCamera()
-		self.setupLights()
 	}
 	
 	override func viewWillAppear(_ animated: Bool)
 	{
 		super.viewWillAppear(animated)
 		
-		self.resetScene()
+		self.resetTracking()
 		
 		Broadcaster.register(LocationManagerNotificationDelegate.self, observer: self)
 		LocationManager.shared.requestLocation()
@@ -147,8 +146,6 @@ class LandmarkARViewController: LandmarkViewController
 	{
 		super.viewWillDisappear(animated)
 		
-		self.session.pause()
-		
 		Broadcaster.unregister(LocationManagerNotificationDelegate.self, observer: self)
 	}
 	
@@ -156,6 +153,7 @@ class LandmarkARViewController: LandmarkViewController
 	{
 		super.viewDidDisappear(animated)
 		
+		self.resetScene()
 		self.session.pause()
 	}
 	
@@ -163,7 +161,6 @@ class LandmarkARViewController: LandmarkViewController
 	{
 		sender.isEnabled = false
 		
-		self.resetScene()
 		self.resetTracking()
 		
 		// Disable restart for a while in order to give the session time to restart.
@@ -179,9 +176,7 @@ class LandmarkARViewController: LandmarkViewController
 
 fileprivate extension LandmarkARViewController
 {
-	
-	
-	func setupCamera()
+	fileprivate func setupCamera()
 	{
 		guard let camera = self.sceneView.pointOfView?.camera else {
 			fatalError("Expected a valid `pointOfView` from the scene.")
@@ -195,31 +190,6 @@ fileprivate extension LandmarkARViewController
 		camera.exposureOffset = -1
 		camera.minimumExposure = -1
 		camera.maximumExposure = 3
-	}
-	
-	func setupLights()
-	{
-		let nodeAmbientLight = SCNNode()
-		nodeAmbientLight.light = {
-			let light = SCNLight()
-			light.type = SCNLight.LightType.ambient
-			light.color = UIColor(white: 0.5, alpha: 1.0)
-			light.castsShadow = false
-			return light
-		}()
-		self.sceneView.scene.rootNode.addChildNode(nodeAmbientLight)
-		
-		
-		
-		let nodeOmniLight = SCNNode()
-		nodeOmniLight.light = {
-			let light = SCNLight()
-			light.type = SCNLight.LightType.omni
-			light.color = UIColor(white: 1.0, alpha: 1.0)
-			light.castsShadow = false
-			return light
-		}()
-		self.sceneView.scene.rootNode.addChildNode(nodeOmniLight)
 	}
 	
 	fileprivate func resetTracking()
@@ -266,8 +236,31 @@ fileprivate extension LandmarkARViewController
 			let bearing = SCNFloat(currentLocation.coordinate.bearing(toCoordinate: landmark.location.coordinate))
 			let altitudeDelta = SCNFloat(landmarkNode.landmark.location.altitude - currentLocation.altitude)
 			
-			landmarkNode.isHidden = !(10.0...500.0).contains(distance)
+			landmarkNode.isHidden = !(25.0...500.0).contains(distance)
 			guard !landmarkNode.isHidden else { continue }
+			
+			
+			
+			
+			var a = landmarkNode.destinationNode.simdWorldPosition
+			a.y = 0.0
+			var b = landmarkNode.cameraWorldPosition
+			b.y = 0.0
+			let virtualDistance1 = a.distance(to: b)
+			let distanceError1 = abs(virtualDistance1 - distance)
+			
+			print("actualDistance:", distance,
+				  "virtualDistance:", virtualDistance1,
+				  "distanceError:", distanceError1)
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			guard !landmarkNode.lockPosition else { continue }
 			
 			let trueNorth = simd_float3(0.0, 0.0, -1.0)
@@ -293,12 +286,25 @@ fileprivate extension LandmarkARViewController
 											  Int(round(currentLocation.horizontalAccuracy)))
 			
 			
-			//			let virtualDistance = simd_length(landmarkNode.destinationNode.simdWorldPosition - cameraWorldPosition)
 			let virtualDistance = landmarkNode.destinationNode.simdWorldPosition.distance(to: landmarkNode.cameraWorldPosition)
 			let distanceError = abs(virtualDistance - distance)
+			
+			
+			let minDistance: SCNFloat = 10.0
+			let maxDistance: SCNFloat = 500.0
+			let minRadius: SCNFloat = 0.10
+			let maxRadius: SCNFloat = 10.0
+			
+			let percent = (distance - minDistance) / (maxDistance - minDistance)
+			let radius = (percent * (maxRadius - minRadius)) + minRadius
+			if let geometry = landmarkNode.destinationNode.geometry as? SCNSphere {
+				geometry.radius = CGFloat(radius)
+			}
+			
 			print("actualDistance:", distance,
 				  "virtualDistance:", virtualDistance,
-				  "distanceError:", distanceError)
+				  "distanceError:", distanceError,
+				  "radius:", radius)
 			
 			if distanceError < 1.0 {
 				landmarkNode.lockPosition = true
