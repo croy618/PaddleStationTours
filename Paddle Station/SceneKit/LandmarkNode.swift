@@ -17,20 +17,14 @@ import SceneKit
 class LandmarkNode: SCNNode
 {
 	let landmark: Landmark
+	let cameraWorldPosition: simd_float3
+	var lockPosition: Bool = false
 	
 	fileprivate(set) lazy var text: SCNText = {
 		let geometry = SCNText(string: nil, extrusionDepth: 0.0)
 		geometry.alignmentMode = kCAAlignmentCenter
 		geometry.flatness = 0.75   // 0.0 is very slow
-		let material: SCNMaterial = {
-			let material = SCNMaterial()
-			material.diffuse.contents = UIColor.white
-			material.isDoubleSided = true
-			material.ambient.contents = UIColor.black
-			material.lightingModel = SCNMaterial.LightingModel.constant
-			material.emission.contents = material.diffuse.contents
-			return material
-		}()
+		let material = SCNMaterial.constantLitWith(color: UIColor.white)
 		geometry.materials = [material]
 		
 		return geometry
@@ -46,15 +40,7 @@ class LandmarkNode: SCNNode
 		let node = SCNNode()
 		node.geometry = {
 			let geometry = SCNSphere(radius: 1.0)
-			let material: SCNMaterial = {
-				let material = SCNMaterial()
-				material.diffuse.contents = UIColor.random
-				material.isDoubleSided = true
-				material.ambient.contents = UIColor.black
-				material.lightingModel = SCNMaterial.LightingModel.constant
-				material.emission.contents = material.diffuse.contents
-				return material
-			}()
+			let material = SCNMaterial.constantLitWith(color: UIColor.random)
 			geometry.materials = [material]
 			return geometry
 		}()
@@ -66,9 +52,10 @@ class LandmarkNode: SCNNode
 	
 	
 	
-	required init(landmark: Landmark)
+	required init(landmark: Landmark, cameraWorldPosition: simd_float3)
 	{
 		self.landmark = landmark
+		self.cameraWorldPosition = cameraWorldPosition
 		
 		
 		

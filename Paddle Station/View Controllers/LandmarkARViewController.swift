@@ -43,9 +43,7 @@ class LandmarkARViewController: LandmarkViewController
 			
 			Landmark.requestLandmarksFor(landmarkRequest: landmarkRequest) { landmarks in
 				
-				if self.landmarkNodes.count > 0 {
-					return
-				}
+				
 				
 				//			guard let landMarks = landmarks else {
 				//				Alertift.alert(title: "Error", message: "Failed to Recieve Landmarks")
@@ -58,11 +56,35 @@ class LandmarkARViewController: LandmarkViewController
 				self.resetScene(preservedLandmarks: nil)
 				
 				guard var landmarks = landmarks else { return }
+				
+				// TODO: remove
+				if self.landmarkNodes.count > 0 {
+					return
+				}
+				
+				guard let cameraTransform = self.sceneView.session.currentFrame?.camera.transform else {
+					// TODO: request again
+//					DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5.0) {
+//						sender.isEnabled = true
+//					}
+					return
+				}
+				
+				let cameraWorldPosition = cameraTransform.translation
+				
+				
+				
+				
+				
+				
+				
+				
+				
 //				let previousLandmarks = self.landmarkNodes.map { return $0.landmark }
 //				landmarks = landmarks.filter { return !previousLandmarks.contains($0) }
 				
 				self.landmarkNodes = landmarks.map {
-					let landmarkNode = LandmarkNode(landmark: $0)
+					let landmarkNode = LandmarkNode(landmark: $0, cameraWorldPosition: cameraWorldPosition)
 					self.sceneView.scene.rootNode.addChildNode(landmarkNode)
 					return landmarkNode
 				}
@@ -133,7 +155,31 @@ class LandmarkARViewController: LandmarkViewController
 	override func viewDidDisappear(_ animated: Bool)
 	{
 		super.viewDidDisappear(animated)
+		
+		self.session.pause()
 	}
+	
+	@IBAction fileprivate func resetButtonClicked(_ sender: UIButton)
+	{
+		sender.isEnabled = false
+		
+		self.resetScene()
+		self.resetTracking()
+		
+		// Disable restart for a while in order to give the session time to restart.
+		DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5.0) {
+			sender.isEnabled = true
+		}
+	}
+}
+
+
+
+
+
+fileprivate extension LandmarkARViewController
+{
+	
 	
 	func setupCamera()
 	{
@@ -180,7 +226,6 @@ class LandmarkARViewController: LandmarkViewController
 	{
 		let configuration = ARWorldTrackingConfiguration()
 		configuration.worldAlignment = ARConfiguration.WorldAlignment.gravityAndHeading
-//		configuration.worldAlignment = ARConfiguration.WorldAlignment.gravityAndHeading
 		configuration.planeDetection = ARWorldTrackingConfiguration.PlaneDetection.horizontal
 		let options: ARSession.RunOptions = [.resetTracking, .removeExistingAnchors]
 		self.session.run(configuration, options: options)
@@ -209,12 +254,11 @@ class LandmarkARViewController: LandmarkViewController
 	
 	fileprivate func updateLandmarkNodes()
 	{
-//		guard let pointOfView = self.sceneView.pointOfView else { return }
 		guard let cameraTransform = self.sceneView.session.currentFrame?.camera.transform else { return }
 		guard let currentLocation = LocationManager.shared.currentLocation else { return }
 		guard let currentHeading = LocationManager.shared.currentHeading else { return }
-
-		let cameraWorldPosition = cameraTransform.translation
+		
+//		let cameraWorldPosition = cameraTransform.translation
 		
 		for landmarkNode in self.landmarkNodes {
 			let landmark = landmarkNode.landmark
@@ -224,15 +268,17 @@ class LandmarkARViewController: LandmarkViewController
 			
 			landmarkNode.isHidden = !(10.0...500.0).contains(distance)
 			guard !landmarkNode.isHidden else { continue }
-
+			guard !landmarkNode.lockPosition else { continue }
+			
 			let trueNorth = simd_float3(0.0, 0.0, -1.0)
 			
-			landmarkNode.simdWorldPosition = cameraWorldPosition
+			landmarkNode.simdWorldPosition = landmarkNode.cameraWorldPosition
 			landmarkNode.rootNode.simdWorldPosition = simd_float3.zero
 			landmarkNode.rootNode.simdWorldOrientation = simd_quatf.zero
-			landmarkNode.destinationNode.simdWorldPosition = landmarkNode.destinationNode.worldPositionFor(targetWorldPosition: trueNorth * distance,
-																										   relativeTo: cameraTransform,
-																										   smoothMovement: true)
+			landmarkNode.destinationNode.simdWorldPosition = trueNorth * distance
+//			landmarkNode.destinationNode.simdWorldPosition = landmarkNode.destinationNode.worldPositionFor(targetWorldPosition: trueNorth * distance,
+//																										   relativeTo: cameraTransform,
+//																										   smoothMovement: true)
 			landmarkNode.rootNode.simdPosition = simd_float3.zero
 			landmarkNode.rootNode.eulerAngles.y = -bearing
 			
@@ -247,157 +293,159 @@ class LandmarkARViewController: LandmarkViewController
 											  Int(round(currentLocation.horizontalAccuracy)))
 			
 			
-//			let virtualDistance = simd_length(landmarkNode.destinationNode.simdWorldPosition - cameraWorldPosition)
-			let virtualDistance = landmarkNode.destinationNode.simdWorldPosition.distance(to: cameraWorldPosition)
-			print("worldPosition:", cameraWorldPosition,
-				  "distance:", distance,
+			//			let virtualDistance = simd_length(landmarkNode.destinationNode.simdWorldPosition - cameraWorldPosition)
+			let virtualDistance = landmarkNode.destinationNode.simdWorldPosition.distance(to: landmarkNode.cameraWorldPosition)
+			let distanceError = abs(virtualDistance - distance)
+			print("actualDistance:", distance,
 				  "virtualDistance:", virtualDistance,
-				  "error:", abs(virtualDistance - distance))
+				  "distanceError:", distanceError)
 			
+			if distanceError < 1.0 {
+				landmarkNode.lockPosition = true
+			}
 			
-			
-			landmarkNode.worldPosition.y = cameraWorldPosition.y + altitudeDelta
+			landmarkNode.worldPosition.y = landmarkNode.cameraWorldPosition.y + altitudeDelta
 		}
 		
-//		fileprivate func updateLandmarkNodes()
-//		{
-//			guard let pointOfView = self.sceneView.pointOfView else { return }
-//			guard let currentLocation = LocationManager.shared.currentLocation else { return }
-//			guard let currentHeading = LocationManager.shared.currentHeading else { return }
-//
-//
-//			//		print(pointOfView.worldPosition, pointOfView.eulerAngles)
-//
-//
-//			for landmarkNode in self.landmarkNodes {
-//				let landmark = landmarkNode.landmark
-//				var distance = SCNFloat(landmark.location.distance(from: currentLocation))
-//				var bearing = SCNFloat(currentLocation.coordinate.bearing(toCoordinate: landmark.location.coordinate))
-//
-//				//			print("distance:", distance, "bearing:", bearing)
-//
-//				//			distance = 10.0
-//				//			rotation = SCNFloat.pi
-//
-//				let trueNorth = SCNVector3(pointOfView.worldPosition.x, pointOfView.worldPosition.y, pointOfView.worldPosition.z - distance)
-//				//			let pivot = pointOfView.worldPosition + trueNorth
-//
-//
-//				landmarkNode.transform = SCNMatrix4Identity
-//				landmarkNode.worldPosition = pointOfView.worldPosition
-//
-//				let rotation = SCNMatrix4MakeRotation(bearing, 0.0, 1.0, 0.0)
-//				landmarkNode.transform = SCNMatrix4Mult(landmarkNode.transform, rotation)
-//
-//				landmarkNode.worldPosition = landmarkNode.zForward.normalized * distance
-//				//			print("PAT", pointOfView.worldFront)
-//				//			landmarkNode.worldPosition = pointOfView.worldFront.normalized * distance
-//
-//				//			return
-//
-//
-//				//			let trueNorth = SCNVector3(0.0, 0.0, -1.0)
-//				//			let pivot = pointOfView.worldPosition + trueNorth
-//				//			landmarkNode.worldPosition = pivot.normalized * distance
-//
-//
-//				//			landmarkNode.worldPosition.y = pointOfView.worldPosition.y + SCNFloat(landmarkNode.landmark.location.altitude - currentLocation.altitude)
-//				//			// TODO: REMOVE
-//				//			landmarkNode.worldPosition.y = pointOfView.worldPosition.y// + 25.0
-//
-//
-//
-//
-//				////			let quat = GLKQuaternionMakeWithAngleAndVector3Axis(bearing, pointOfView.worldPosition as GLKVector3)
-//				////			let a = SCNQuaternion(0.0, 0.0, 1.0, bearing)
-//				////			landmarkNode.worldPosition *= a
-//				//			let rotationMatrix = SCNMatrix4MakeRotation(bearing, 0.0, 0.0, pointOfView.worldPosition.z)
-//				////			let rotationMatrix = SCNMatrix4MakeRotation(bearing, pointOfView.worldPosition.x, pointOfView.worldPosition.y, pointOfView.worldPosition.z)
-//				//			landmarkNode.worldPosition *= rotationMatrix
-//				////			print(landmarkNode.worldPosition)
-//
-//
-//
-//
-//
-//
-//
-//
-//				landmarkNode.text.string = String(format: "%@\ndistance:%dm\nbearing:%.3frad\nheadingAccuracy:%0.3frad\nlocationAccuracy:%dm",
-//												  landmark.name,
-//												  Int(round(distance)),
-//												  bearing,
-//												  currentHeading.headingAccuracy.toRad,
-//												  Int(round(currentLocation.horizontalAccuracy)))
-//
-//
-//
-//
-//
-//
-//
-//				let virtualDistance = pointOfView.worldPosition.distance(to: landmarkNode.worldPosition)
-//				print("worldPosition:", pointOfView.worldPosition,
-//					  "distance:", distance,
-//					  "virtualDistance:", virtualDistance,
-//					  "error:", abs(virtualDistance - distance))
-//
-//
-//				continue
-//
-//				// reset to camera position/rotation
-//				landmarkNode.worldPosition = pointOfView.worldPosition
-//				landmarkNode.worldOrientation = SCNQuaternion(0.0, 0.0, 0.0, 1.0)
-//				landmarkNode.eulerAngles.y = pointOfView.eulerAngles.y - SCNFloat(10.0.toRad)
-//				//			landmarkNode.eulerAngles.y = pointOfView.eulerAngles.y
-//				//			landmarkNode.worldOrientation = pointOfView.worldOrientation
-//				//			landmarkNode.eulerAngles.y = pointOfView.eulerAngles.y + SCNFloat(rotation)
-//				// rotate
-//				//			landmarkNode.eulerAngles.y += pointOfView
-//				// move based on calculated distance and altitude
-//				landmarkNode.worldPosition = landmarkNode.zForward * -SCNFloat(distance)
-//				//			landmarkNode.runAction(SCNAction.move)
-//
-//				//			print(landmarkNode.worldPosition.y, pointOfView.worldPosition.y)
-//				//									print(pointOfView.worldPosition.angle(to: landmarkNode.worldPosition))
-//				//						self.sceneView.scene.rootNode.trans
-//				//						GLKQuaternionRotateVector3(<#T##quaternion: GLKQuaternion##GLKQuaternion#>, <#T##vector: GLKVector3##GLKVector3#>)
+		//		fileprivate func updateLandmarkNodes()
+		//		{
+		//			guard let pointOfView = self.sceneView.pointOfView else { return }
+		//			guard let currentLocation = LocationManager.shared.currentLocation else { return }
+		//			guard let currentHeading = LocationManager.shared.currentHeading else { return }
+		//
+		//
+		//			//		print(pointOfView.worldPosition, pointOfView.eulerAngles)
+		//
+		//
+		//			for landmarkNode in self.landmarkNodes {
+		//				let landmark = landmarkNode.landmark
+		//				var distance = SCNFloat(landmark.location.distance(from: currentLocation))
+		//				var bearing = SCNFloat(currentLocation.coordinate.bearing(toCoordinate: landmark.location.coordinate))
+		//
+		//				//			print("distance:", distance, "bearing:", bearing)
+		//
+		//				//			distance = 10.0
+		//				//			rotation = SCNFloat.pi
+		//
+		//				let trueNorth = SCNVector3(pointOfView.worldPosition.x, pointOfView.worldPosition.y, pointOfView.worldPosition.z - distance)
+		//				//			let pivot = pointOfView.worldPosition + trueNorth
+		//
+		//
+		//				landmarkNode.transform = SCNMatrix4Identity
+		//				landmarkNode.worldPosition = pointOfView.worldPosition
+		//
+		//				let rotation = SCNMatrix4MakeRotation(bearing, 0.0, 1.0, 0.0)
+		//				landmarkNode.transform = SCNMatrix4Mult(landmarkNode.transform, rotation)
+		//
+		//				landmarkNode.worldPosition = landmarkNode.zForward.normalized * distance
+		//				//			print("PAT", pointOfView.worldFront)
+		//				//			landmarkNode.worldPosition = pointOfView.worldFront.normalized * distance
+		//
+		//				//			return
+		//
+		//
+		//				//			let trueNorth = SCNVector3(0.0, 0.0, -1.0)
+		//				//			let pivot = pointOfView.worldPosition + trueNorth
+		//				//			landmarkNode.worldPosition = pivot.normalized * distance
+		//
+		//
+		//				//			landmarkNode.worldPosition.y = pointOfView.worldPosition.y + SCNFloat(landmarkNode.landmark.location.altitude - currentLocation.altitude)
+		//				//			// TODO: REMOVE
+		//				//			landmarkNode.worldPosition.y = pointOfView.worldPosition.y// + 25.0
+		//
+		//
+		//
+		//
+		//				////			let quat = GLKQuaternionMakeWithAngleAndVector3Axis(bearing, pointOfView.worldPosition as GLKVector3)
+		//				////			let a = SCNQuaternion(0.0, 0.0, 1.0, bearing)
+		//				////			landmarkNode.worldPosition *= a
+		//				//			let rotationMatrix = SCNMatrix4MakeRotation(bearing, 0.0, 0.0, pointOfView.worldPosition.z)
+		//				////			let rotationMatrix = SCNMatrix4MakeRotation(bearing, pointOfView.worldPosition.x, pointOfView.worldPosition.y, pointOfView.worldPosition.z)
+		//				//			landmarkNode.worldPosition *= rotationMatrix
+		//				////			print(landmarkNode.worldPosition)
+		//
+		//
+		//
+		//
+		//
+		//
+		//
+		//
+		//				landmarkNode.text.string = String(format: "%@\ndistance:%dm\nbearing:%.3frad\nheadingAccuracy:%0.3frad\nlocationAccuracy:%dm",
+		//												  landmark.name,
+		//												  Int(round(distance)),
+		//												  bearing,
+		//												  currentHeading.headingAccuracy.toRad,
+		//												  Int(round(currentLocation.horizontalAccuracy)))
+		//
+		//
+		//
+		//
+		//
+		//
+		//
+		//				let virtualDistance = pointOfView.worldPosition.distance(to: landmarkNode.worldPosition)
+		//				print("worldPosition:", pointOfView.worldPosition,
+		//					  "distance:", distance,
+		//					  "virtualDistance:", virtualDistance,
+		//					  "error:", abs(virtualDistance - distance))
+		//
+		//
+		//				continue
+		//
+		//				// reset to camera position/rotation
+		//				landmarkNode.worldPosition = pointOfView.worldPosition
+		//				landmarkNode.worldOrientation = SCNQuaternion(0.0, 0.0, 0.0, 1.0)
+		//				landmarkNode.eulerAngles.y = pointOfView.eulerAngles.y - SCNFloat(10.0.toRad)
+		//				//			landmarkNode.eulerAngles.y = pointOfView.eulerAngles.y
+		//				//			landmarkNode.worldOrientation = pointOfView.worldOrientation
+		//				//			landmarkNode.eulerAngles.y = pointOfView.eulerAngles.y + SCNFloat(rotation)
+		//				// rotate
+		//				//			landmarkNode.eulerAngles.y += pointOfView
+		//				// move based on calculated distance and altitude
+		//				landmarkNode.worldPosition = landmarkNode.zForward * -SCNFloat(distance)
+		//				//			landmarkNode.runAction(SCNAction.move)
+		//
+		//				//			print(landmarkNode.worldPosition.y, pointOfView.worldPosition.y)
+		//				//									print(pointOfView.worldPosition.angle(to: landmarkNode.worldPosition))
+		//				//						self.sceneView.scene.rootNode.trans
+		//				//						GLKQuaternionRotateVector3(<#T##quaternion: GLKQuaternion##GLKQuaternion#>, <#T##vector: GLKVector3##GLKVector3#>)
 		
-				
-				
-				//			print("a:", pointOfView.worldPosition)
-				//			print(pointOfView.eulerAngles)
-				//			print(landmarkNode.worldPosition)
-				//			print(landmarkNode.worldPosition.distance(to: pointOfView.worldPosition))
-				
-				
-				
-				//			landmarkNode.worldPosition.y += -5.0//SCNFloat(landmarkNode.landmark.location.altitude)
-				
-				
-				
-				
-				//			print(rotation, currentHeading.trueHeading.toRad, pointOfView.worldOrientation.z, pointOfView.eulerAngles.z)
-				//		print("rotation:", rotation.toDeg, self.sceneView.scene.rootNode.eulerAngles.y)
-				//						print("heading:", currentHeading)
-				print()
-				
-				
-				
-				
-				
-				
-				//			landmarkNode.runAction(SCNAction.rotate(by: CGFloat(rotation), around: SCNVector3(0.0, 1.0, 0.0), duration: 0.0))
-				//			landmarkNode.runAction(SCNAction.rotate(by: CGFloat(rotation), around: SCNVector3(0.0, 1.0, 0.0), duration: 0.0),
-				//								   completionHandler: {
-				//
-				//
-				//
-				//			})
-				
-				//
-//			}
-//		}
+		
+		
+		//			print("a:", pointOfView.worldPosition)
+		//			print(pointOfView.eulerAngles)
+		//			print(landmarkNode.worldPosition)
+		//			print(landmarkNode.worldPosition.distance(to: pointOfView.worldPosition))
+		
+		
+		
+		//			landmarkNode.worldPosition.y += -5.0//SCNFloat(landmarkNode.landmark.location.altitude)
+		
+		
+		
+		
+		//			print(rotation, currentHeading.trueHeading.toRad, pointOfView.worldOrientation.z, pointOfView.eulerAngles.z)
+		//		print("rotation:", rotation.toDeg, self.sceneView.scene.rootNode.eulerAngles.y)
+		//						print("heading:", currentHeading)
+//		print()
+		
+		
+		
+		
+		
+		
+		//			landmarkNode.runAction(SCNAction.rotate(by: CGFloat(rotation), around: SCNVector3(0.0, 1.0, 0.0), duration: 0.0))
+		//			landmarkNode.runAction(SCNAction.rotate(by: CGFloat(rotation), around: SCNVector3(0.0, 1.0, 0.0), duration: 0.0),
+		//								   completionHandler: {
+		//
+		//
+		//
+		//			})
+		
+		//
+		//			}
+		//		}
 	}
 }
 
@@ -409,12 +457,16 @@ extension LandmarkARViewController: LocationManagerNotificationDelegate
 {
 	func locationManager(_ manager: LocationManager, didUpdateCurrentLocation currentLocation: CLLocation)
 	{
+		guard let _ = self.sceneView.session.currentFrame?.camera.transform else { return }
+		
+		
+		
 		if let lastLandmarkRequestLocation = self.lastLandmarkRequestLocation {
-			let distance = lastLandmarkRequestLocation.distance(from: currentLocation)
-			if distance > self.landmarkRequestDx {
-				print(#function, distance)
-				self.lastLandmarkRequestLocation = currentLocation
-			}
+//			let distance = lastLandmarkRequestLocation.distance(from: currentLocation)
+//			if distance > self.landmarkRequestDx {
+//				print(#function, distance)
+//				self.lastLandmarkRequestLocation = currentLocation
+//			}
 		} else {
 			self.lastLandmarkRequestLocation = currentLocation
 		}

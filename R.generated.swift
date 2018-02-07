@@ -31,8 +31,30 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 0 images.
+  /// This `R.image` struct is generated, and contains static references to 3 images.
   struct image {
+    /// Image `buttonring`.
+    static let buttonring = Rswift.ImageResource(bundle: R.hostingBundle, name: "buttonring")
+    /// Image `restartPressed`.
+    static let restartPressed = Rswift.ImageResource(bundle: R.hostingBundle, name: "restartPressed")
+    /// Image `restart`.
+    static let restart = Rswift.ImageResource(bundle: R.hostingBundle, name: "restart")
+    
+    /// `UIImage(named: "buttonring", bundle: ..., traitCollection: ...)`
+    static func buttonring(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.buttonring, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "restart", bundle: ..., traitCollection: ...)`
+    static func restart(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.restart, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "restartPressed", bundle: ..., traitCollection: ...)`
+    static func restartPressed(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.restartPressed, compatibleWith: traitCollection)
+    }
+    
     fileprivate init() {}
   }
   
@@ -102,7 +124,7 @@ struct R: Rswift.Validatable {
   
   fileprivate struct intern: Rswift.Validatable {
     fileprivate static func validate() throws {
-      // There are no resources to validate
+      try _R.validate()
     }
     
     fileprivate init() {}
@@ -113,12 +135,20 @@ struct R: Rswift.Validatable {
   fileprivate init() {}
 }
 
-struct _R {
+struct _R: Rswift.Validatable {
+  static func validate() throws {
+    try storyboard.validate()
+  }
+  
   struct nib {
     fileprivate init() {}
   }
   
-  struct storyboard {
+  struct storyboard: Rswift.Validatable {
+    static func validate() throws {
+      try main.validate()
+    }
+    
     struct launchScreen: Rswift.StoryboardResourceWithInitialControllerType {
       typealias InitialController = UIKit.UIViewController
       
@@ -128,11 +158,29 @@ struct _R {
       fileprivate init() {}
     }
     
-    struct main: Rswift.StoryboardResourceWithInitialControllerType {
+    struct main: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
       typealias InitialController = UIKit.UINavigationController
       
       let bundle = R.hostingBundle
+      let landmarkARViewController = StoryboardViewControllerResource<LandmarkARViewController>(identifier: "LandmarkARViewController")
+      let landmarkMapViewController = StoryboardViewControllerResource<LandmarkMapViewController>(identifier: "LandmarkMapViewController")
       let name = "Main"
+      
+      func landmarkARViewController(_: Void = ()) -> LandmarkARViewController? {
+        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: landmarkARViewController)
+      }
+      
+      func landmarkMapViewController(_: Void = ()) -> LandmarkMapViewController? {
+        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: landmarkMapViewController)
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "buttonring") == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'buttonring' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "restart") == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'restart' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "restartPressed") == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'restartPressed' is used in storyboard 'Main', but couldn't be loaded.") }
+        if _R.storyboard.main().landmarkARViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'landmarkARViewController' could not be loaded from storyboard 'Main' as 'LandmarkARViewController'.") }
+        if _R.storyboard.main().landmarkMapViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'landmarkMapViewController' could not be loaded from storyboard 'Main' as 'LandmarkMapViewController'.") }
+      }
       
       fileprivate init() {}
     }
