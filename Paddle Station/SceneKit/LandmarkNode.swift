@@ -19,7 +19,6 @@ class LandmarkNode: SCNNode
 {
 	let landmark: Landmark
 	let lockedWorldPosition: simd_float3
-	var lockPosition: Bool = false
 	
 	fileprivate(set) lazy var text: SCNText = {
 		let geometry = SCNText(string: nil, extrusionDepth: 0.0)
@@ -86,6 +85,7 @@ class LandmarkNode: SCNNode
 	{
 		guard let pointOfView = sceneView.pointOfView else { return }
 		guard let camera = sceneView.session.currentFrame?.camera else { return }
+		let cameraWorldPosition = camera.worldPosition
 		let distance = SCNFloat(self.landmark.location.distance(from: location))
 		let bearing = SCNFloat(location.coordinate.bearing(toCoordinate: self.landmark.location.coordinate))
 		let altitudeDelta = SCNFloat(self.landmark.location.altitude - location.altitude)
@@ -95,12 +95,10 @@ class LandmarkNode: SCNNode
 		
 		
 		
-		var _pinNodeWorldPosition = self.pinNode.simdWorldPosition
-		_pinNodeWorldPosition.y = 0.0
-		var _cameraWorldPosition = camera.worldPosition
-		_cameraWorldPosition.y = 0.0
-		
-		let distanceVirtual = _pinNodeWorldPosition.distance(to: _cameraWorldPosition)
+		let distanceVirtual: SCNFloat = {
+			let tempWorldPosition = simd_float3(self.pinNode.simdWorldPosition.x, cameraWorldPosition.y, self.pinNode.simdWorldPosition.z)
+			return tempWorldPosition.distance(to: cameraWorldPosition)
+		}()
 		let distanceError = abs(distanceVirtual - distance)
 		let isOnScreen = sceneView.isNode(self.pinNode, insideFrustumOf: pointOfView)
 		let updatePosition = !isOnScreen || (distanceError > 10.0) // force update if offscreen
@@ -150,6 +148,8 @@ class LandmarkNode: SCNNode
 			//																										   smoothMovement: true)
 			self.rotationNode.simdPosition = simd_float3.zero
 			self.rotationNode.eulerAngles.y = -bearing
+			
+			self.worldPosition.y = camera.worldPosition.y + altitudeDelta
 		}
 		
 		
@@ -164,13 +164,6 @@ class LandmarkNode: SCNNode
 				.append(line: String(format: "bearing: %.3frad", bearing))
 				.string
 		}
-		
-		
-		
-		if updatePosition {
-			self.worldPosition.y = camera.worldPosition.y + altitudeDelta
-		}
-		
 		
 		
 		

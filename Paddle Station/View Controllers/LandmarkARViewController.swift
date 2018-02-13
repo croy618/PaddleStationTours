@@ -78,8 +78,9 @@ class LandmarkARViewController: LandmarkViewController
 		super.viewDidDisappear(animated)
 		
 		self.resetScene()
-		self.session.pause()
-		self.landmarkRequestWorldPosition = nil
+		self.resetTracking()
+//		self.session.pause()
+//		self.landmarkRequestWorldPosition = nil
 	}
 	
 //	override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)
@@ -141,16 +142,18 @@ fileprivate extension LandmarkARViewController
 	
 	fileprivate func resetScene(preservingLandmarks: Landmarks? = nil)
 	{
-		var preservingLandmarks = preservingLandmarks ?? []
+		let preservingLandmarks = preservingLandmarks ?? []
 		
-		for (index, landmarkNode) in self.landmarkNodes.enumerated() {
-			// TODO: Test ==
+		let currentLandmarkNodes = self.landmarkNodes
+		self.landmarkNodes.removeAll()
+		
+		for landmarkNode in currentLandmarkNodes {
+			landmarkNode.removeAllActions()
+			landmarkNode.removeAllConstraints()
 			if !preservingLandmarks.contains(landmarkNode.landmark) {
-				self.landmarkNodes.remove(at: index)
 				landmarkNode.removeFromParentNode()
 			} else {
-				landmarkNode.removeAllConstraints()
-				landmarkNode.removeAllActions()
+				self.landmarkNodes.append(landmarkNode)
 			}
 		}
 	}
@@ -336,11 +339,9 @@ fileprivate extension LandmarkARViewController
 		//		}
 	}
 	
-	fileprivate func requestLandmarksFor(location: CLLocation)
+	fileprivate func requestLandmarksFor(location: CLLocation, heading: CLHeading)
 	{
 		guard let camera = self.sceneView.session.currentFrame?.camera else { return }
-		
-		print(#function)
 		
 		self.landmarkRequestWorldPosition = camera.worldPosition
 		
@@ -491,6 +492,7 @@ extension LandmarkARViewController: ARSCNViewDelegate
 	func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval)
 	{
 		guard let camera = self.sceneView.session.currentFrame?.camera else { return }
+		
 		switch camera.trackingState {
 		case ARCamera.TrackingState.normal:		break
 		default: 								return
@@ -501,7 +503,7 @@ extension LandmarkARViewController: ARSCNViewDelegate
 		let deltaWorldPosition = self.landmarkRequestWorldPosition?.distance(to: camera.worldPosition) ?? SCNFloat.infinity
 		guard deltaWorldPosition >= self.landmarkRequestDeltaDistance else { return }
 		
-		self.requestLandmarksFor(location: currentLocation)
+		self.requestLandmarksFor(location: currentLocation, heading: currentHeading)
 	}
 	
 	func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor)
@@ -531,8 +533,18 @@ extension LandmarkARViewController: ARSessionDelegate
 	// TODO: dont request location until normal tracking state
 	func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera)
 	{
+//		print(#function, camera.trackingState)
+		
 		DispatchQueue.main.async {
 			self.updateDebugLabel()
+		}
+		
+		switch camera.trackingState {
+		case ARCamera.TrackingState.normal:
+			break
+		default:
+			self.landmarkRequestWorldPosition = nil
+			break
 		}
 		
 //		self.statusViewController.showTrackingQualityInfo(for: camera.trackingState, autoHide: true)

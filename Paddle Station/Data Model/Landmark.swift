@@ -70,7 +70,7 @@ final class Landmark: Codable, Equatable
 				 url: URL(string: "https://www.google.ca")),
 		Landmark(name: "ICT",
 				 description: "ICT",
-				 altitude: 1116.0,
+				 altitude: 1216.0,
 				 latitude: 51.080222,
 				 longitude: -114.130430,
 				 type: "Default",
