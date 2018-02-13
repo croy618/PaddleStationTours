@@ -33,7 +33,7 @@ final class LocationManager: NSObject
 	fileprivate lazy var clLocationManager: CLLocationManager = {
 		let clLocationManager = CLLocationManager()
 		clLocationManager.delegate = self
-		clLocationManager.desiredAccuracy = kCLLocationAccuracyBest
+		clLocationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
 		return clLocationManager
 	}()
 	

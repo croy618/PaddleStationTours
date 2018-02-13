@@ -139,12 +139,21 @@
                                     <action selector="resetButtonClicked:" destination="rbP-6f-usa" eventType="touchUpInside" id="kvp-sX-voO"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3IU-hD-B5e">
+                                <rect key="frame" x="0.0" y="638" width="375" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="0.1133004713" green="1" blue="0.1331251161" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="zaY-ZC-UC2" firstAttribute="leading" secondItem="HgU-je-FLD" secondAttribute="leading" id="1Or-qB-2Rd"/>
+                            <constraint firstItem="rr2-m7-kC1" firstAttribute="trailing" secondItem="3IU-hD-B5e" secondAttribute="trailing" id="6o3-38-tOf"/>
                             <constraint firstItem="zaY-ZC-UC2" firstAttribute="top" secondItem="HgU-je-FLD" secondAttribute="top" id="DpW-M0-8mf"/>
                             <constraint firstItem="HF0-jW-JFs" firstAttribute="top" secondItem="HgU-je-FLD" secondAttribute="top" constant="10" id="HS4-Cz-jyW"/>
+                            <constraint firstItem="3IU-hD-B5e" firstAttribute="leading" secondItem="rr2-m7-kC1" secondAttribute="leading" id="IJc-Pw-PoD"/>
+                            <constraint firstItem="rr2-m7-kC1" firstAttribute="bottom" secondItem="3IU-hD-B5e" secondAttribute="bottom" id="Nhh-1t-Hea"/>
                             <constraint firstItem="rr2-m7-kC1" firstAttribute="trailing" secondItem="HF0-jW-JFs" secondAttribute="trailing" id="SBW-rY-mUd"/>
                             <constraint firstAttribute="bottom" secondItem="zaY-ZC-UC2" secondAttribute="bottom" id="epF-t1-Wmx"/>
                             <constraint firstAttribute="trailing" secondItem="zaY-ZC-UC2" secondAttribute="trailing" id="kYp-MQ-mkZ"/>
@@ -152,6 +161,7 @@
                         <viewLayoutGuide key="safeArea" id="rr2-m7-kC1"/>
                     </view>
                     <connections>
+                        <outlet property="debugLabel" destination="3IU-hD-B5e" id="lfd-EB-dTP"/>
                         <outlet property="sceneView" destination="zaY-ZC-UC2" id="EWb-C5-0TK"/>
                     </connections>
                 </viewController>

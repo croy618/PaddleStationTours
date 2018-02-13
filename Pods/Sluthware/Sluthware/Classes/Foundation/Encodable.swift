@@ -12,21 +12,45 @@ import Foundation
 
 
 
+enum EncodableErrors: Error
+{
+	case failedEncodeToType(type: String)
+	case failedEncodeToString
+}
+
+
+
+
+
 public extension Encodable
 {
-    func encode() throws -> Data
-    {
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = JSONEncoder.OutputFormatting.prettyPrinted
-        return try encoder.encode(self)
-    }
+	func encode() throws -> Data
+	{
+		let encoder = JSONEncoder()
+		encoder.outputFormatting = JSONEncoder.OutputFormatting.prettyPrinted
+		return try encoder.encode(self)
+	}
 	
-	func encodeDictionary<K, V>(_ keyType: K.Type, _ valueType: V.Type) throws -> [K: V]
+	func encodeDictionary<T>(_ type: T.Type) throws -> T
 	{
 		let encoder = JSONEncoder()
 		encoder.outputFormatting = JSONEncoder.OutputFormatting.prettyPrinted
 		let data = try encoder.encode(self)
-		return try JSONSerialization.jsonObject(with: data) as! [K: V]
+		if let dictionary = try JSONSerialization.jsonObject(with: data) as? T {
+			return dictionary
+		}
+		
+		throw EncodableErrors.failedEncodeToType(type: String(describing: type))
+	}
+	
+	func encodeString() throws -> String
+	{
+		let data = try self.encode()
+		if let string = String(data: data, encoding: String.Encoding.utf8) {
+			return string
+		}
+		
+		throw EncodableErrors.failedEncodeToString
 	}
 }
 

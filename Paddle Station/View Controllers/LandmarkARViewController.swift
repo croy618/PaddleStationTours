@@ -10,6 +10,7 @@ import UIKit
 import SceneKit
 import ARKit
 import CoreLocation
+import SafariServices
 
 import Alertift
 
@@ -24,90 +25,13 @@ class LandmarkARViewController: LandmarkViewController
 		return self.sceneView.session
 	}
 	
-	fileprivate let landmarkRequestDx = 10.0 // metres
-	fileprivate var lastLandmarkRequestLocation: CLLocation? = nil {
-		didSet
-		{
-			guard let x = self.lastLandmarkRequestLocation else {
-				self.resetScene()
-				return
-			}
-			
-			
-			
-			
-			let landmarkRequest = LandmarkRequest(altitude: 0.0,
-												  latitude: 0.0,
-												  longitude: 0.0,
-												  radius: 100)
-			
-			Landmark.requestLandmarksFor(landmarkRequest: landmarkRequest) { landmarks in
-				
-				
-				
-				//			guard let landMarks = landmarks else {
-				//				Alertift.alert(title: "Error", message: "Failed to Recieve Landmarks")
-				//					.action(.default("OK"))
-				//					.show(on: self)
-				//				return
-				//			}
-				
-				//				self.resetScene(preservedLandmarks: landmarks)	// TODO: Fix
-				self.resetScene(preservedLandmarks: nil)
-				
-				guard var landmarks = landmarks else { return }
-				
-				// TODO: remove
-				if self.landmarkNodes.count > 0 {
-					return
-				}
-				
-				guard let cameraTransform = self.sceneView.session.currentFrame?.camera.transform else {
-					// TODO: request again
-//					DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5.0) {
-//						sender.isEnabled = true
-//					}
-					return
-				}
-				
-				let cameraWorldPosition = cameraTransform.translation
-				
-				
-				
-				
-				
-				
-				
-				
-				
-//				let previousLandmarks = self.landmarkNodes.map { return $0.landmark }
-//				landmarks = landmarks.filter { return !previousLandmarks.contains($0) }
-				
-				self.landmarkNodes = landmarks.map {
-					let landmarkNode = LandmarkNode(landmark: $0, cameraWorldPosition: cameraWorldPosition)
-					self.sceneView.scene.rootNode.addChildNode(landmarkNode)
-					return landmarkNode
-				}
-			}
-
-		}
-	}
-//	fileprivate var landmarks = [Landmark]()
-	fileprivate var landmarkNodes = [LandmarkNode]()
-//	{
-//		didSet
-//		{
-////			landmarkNodes.removeAll()
-//
-////			if let landmarks = self.landmarks {
-////				for landmark in landmarks {
-////					// Create Node
-////				}
-////			}
-//		}
-//	}
+	@IBOutlet fileprivate var debugLabel: UILabel!
 	
-//	fileprivate var landmarkNodes = [Landmark: SKNode]()
+	fileprivate let landmarkRequestDeltaDistance: SCNFloat = 10.0 // metres
+	fileprivate var landmarkRequestWorldPosition: simd_float3?
+	fileprivate var confirmedLocations = [CLLocation: simd_float3]()
+	
+	fileprivate var landmarkNodes = [LandmarkNode]()
 	
 	
 	
@@ -155,12 +79,26 @@ class LandmarkARViewController: LandmarkViewController
 		
 		self.resetScene()
 		self.session.pause()
+		self.landmarkRequestWorldPosition = nil
 	}
+	
+//	override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)
+//	{
+//		print(#function)
+//		guard let landmark = self.landmarkNodes.first?.landmark else { return }
+//		print(landmark.url)
+//		guard let landmarkURL = landmark.url else { return }
+//		
+//		print(landmarkURL, self.navigationController)
+//		let safariViewController = SFSafariViewController(url: landmarkURL)
+//		self.present(safariViewController, animated: true, completion: nil)
+//	}
 	
 	@IBAction fileprivate func resetButtonClicked(_ sender: UIButton)
 	{
 		sender.isEnabled = false
 		
+		self.resetScene()
 		self.resetTracking()
 		
 		// Disable restart for a while in order to give the session time to restart.
@@ -201,116 +139,60 @@ fileprivate extension LandmarkARViewController
 		self.session.run(configuration, options: options)
 	}
 	
-	fileprivate func resetScene(preservedLandmarks: [Landmark]? = nil)
+	fileprivate func resetScene(preservingLandmarks: Landmarks? = nil)
 	{
-		if let preservedLandmarks = preservedLandmarks {
-			for (index, landmarkNode) in self.landmarkNodes.enumerated() {
-				// TODO: Test ==
-				if !preservedLandmarks.contains(landmarkNode.landmark) {
-					landmarkNode.removeFromParentNode()
-					self.landmarkNodes.remove(at: index)
-				} else {
-					landmarkNode.removeAllConstraints()
-					landmarkNode.removeAllActions()
-				}
-			}
-		} else {
-			for landmarkNode in self.landmarkNodes {
+		var preservingLandmarks = preservingLandmarks ?? []
+		
+		for (index, landmarkNode) in self.landmarkNodes.enumerated() {
+			// TODO: Test ==
+			if !preservingLandmarks.contains(landmarkNode.landmark) {
+				self.landmarkNodes.remove(at: index)
 				landmarkNode.removeFromParentNode()
+			} else {
+				landmarkNode.removeAllConstraints()
+				landmarkNode.removeAllActions()
 			}
-			self.landmarkNodes.removeAll()
 		}
+	}
+	
+	fileprivate func updateDebugLabel()
+	{
+		var debugText = ""
+		
+		if let camera = self.sceneView.session.currentFrame?.camera {
+			debugText += String(format: "cameraPosition: %@\n", String(describing: camera.worldPosition))
+			if let trackingState = String(describing: camera.trackingState).components(separatedBy: ".").last {
+				debugText += String(format: "trackingState: %@\n", trackingState)
+			}
+		}
+		
+		if let currentLocation = LocationManager.shared.currentLocation {
+			debugText += String(format: "altitude: %.3f m\n", currentLocation.altitude)
+			debugText += String(format: "verticalAccuracy: %.3f m\n", currentLocation.verticalAccuracy)
+			debugText += String(format: "horizontalAccuracy: %.3f m\n", currentLocation.horizontalAccuracy)
+		}
+		
+		if let currentHeading = LocationManager.shared.currentHeading {
+			debugText += String(format: "trueHeading: %.3f rad\n", currentHeading.trueHeading.toRad)
+			debugText += String(format: "headingAccuracy: %.3f rad\n", currentHeading.headingAccuracy.toRad)
+		}
+		
+		self.debugLabel.text = debugText
 	}
 	
 	fileprivate func updateLandmarkNodes()
 	{
-		guard let cameraTransform = self.sceneView.session.currentFrame?.camera.transform else { return }
+//		guard let pointOfView = self.sceneView.pointOfView else { return }
+//		guard let camera = self.sceneView.session.currentFrame?.camera else { return }
 		guard let currentLocation = LocationManager.shared.currentLocation else { return }
 		guard let currentHeading = LocationManager.shared.currentHeading else { return }
 		
-//		let cameraWorldPosition = cameraTransform.translation
+		self.updateDebugLabel()
 		
 		for landmarkNode in self.landmarkNodes {
-			let landmark = landmarkNode.landmark
-			let distance = SCNFloat(landmark.location.distance(from: currentLocation))
-			let bearing = SCNFloat(currentLocation.coordinate.bearing(toCoordinate: landmark.location.coordinate))
-			let altitudeDelta = SCNFloat(landmarkNode.landmark.location.altitude - currentLocation.altitude)
-			
-			landmarkNode.isHidden = !(25.0...500.0).contains(distance)
-			guard !landmarkNode.isHidden else { continue }
-			
-			
-			
-			
-			var a = landmarkNode.destinationNode.simdWorldPosition
-			a.y = 0.0
-			var b = landmarkNode.cameraWorldPosition
-			b.y = 0.0
-			let virtualDistance1 = a.distance(to: b)
-			let distanceError1 = abs(virtualDistance1 - distance)
-			
-			print("actualDistance:", distance,
-				  "virtualDistance:", virtualDistance1,
-				  "distanceError:", distanceError1)
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			guard !landmarkNode.lockPosition else { continue }
-			
-			let trueNorth = simd_float3(0.0, 0.0, -1.0)
-			
-			landmarkNode.simdWorldPosition = landmarkNode.cameraWorldPosition
-			landmarkNode.rootNode.simdWorldPosition = simd_float3.zero
-			landmarkNode.rootNode.simdWorldOrientation = simd_quatf.zero
-			landmarkNode.destinationNode.simdWorldPosition = trueNorth * distance
-//			landmarkNode.destinationNode.simdWorldPosition = landmarkNode.destinationNode.worldPositionFor(targetWorldPosition: trueNorth * distance,
-//																										   relativeTo: cameraTransform,
-//																										   smoothMovement: true)
-			landmarkNode.rootNode.simdPosition = simd_float3.zero
-			landmarkNode.rootNode.eulerAngles.y = -bearing
-			
-			
-			
-			landmarkNode.text.string = String(format: "%@\ndistance:%dm\nbearing:%.3frad\naltitudeDelta:%dm\nheadingAccuracy:%0.3frad\nlocationAccuracy:%dm",
-											  landmark.name,
-											  Int(round(distance)),
-											  bearing,
-											  Int(round(altitudeDelta)),
-											  currentHeading.headingAccuracy.toRad,
-											  Int(round(currentLocation.horizontalAccuracy)))
-			
-			
-			let virtualDistance = landmarkNode.destinationNode.simdWorldPosition.distance(to: landmarkNode.cameraWorldPosition)
-			let distanceError = abs(virtualDistance - distance)
-			
-			
-			let minDistance: SCNFloat = 10.0
-			let maxDistance: SCNFloat = 500.0
-			let minRadius: SCNFloat = 0.10
-			let maxRadius: SCNFloat = 10.0
-			
-			let percent = (distance - minDistance) / (maxDistance - minDistance)
-			let radius = (percent * (maxRadius - minRadius)) + minRadius
-			if let geometry = landmarkNode.destinationNode.geometry as? SCNSphere {
-				geometry.radius = CGFloat(radius)
-			}
-			
-			print("actualDistance:", distance,
-				  "virtualDistance:", virtualDistance,
-				  "distanceError:", distanceError,
-				  "radius:", radius)
-			
-			if distanceError < 1.0 {
-				landmarkNode.lockPosition = true
-			}
-			
-			landmarkNode.worldPosition.y = landmarkNode.cameraWorldPosition.y + altitudeDelta
+			landmarkNode.updateFor(sceneView: self.sceneView,
+								   location: currentLocation,
+								   heading: currentHeading)
 		}
 		
 		//		fileprivate func updateLandmarkNodes()
@@ -453,6 +335,112 @@ fileprivate extension LandmarkARViewController
 		//			}
 		//		}
 	}
+	
+	fileprivate func requestLandmarksFor(location: CLLocation)
+	{
+		guard let camera = self.sceneView.session.currentFrame?.camera else { return }
+		
+		print(#function)
+		
+		self.landmarkRequestWorldPosition = camera.worldPosition
+		
+		
+		
+		
+		let urlString = "TODO"
+		
+		let landmarkRequest = LandmarkRequest(location: location, radius: 100.0)
+		
+		let successHandler = { (responseJsonDictionary: [AnyHashable: Any]) -> Bool in
+			
+			// TODO: uncomment
+			//				guard let landmarks = try? Landmarks.decode(jsonDictionary: responseJsonDictionary) else {
+			//					return false
+			//				}
+			
+			let landmarks = Landmark.dummyLandmarks
+			
+			self.updateFor(landmarks: landmarks)
+			
+			return true
+		}
+		
+		let errorHandler = { (requestError: RequestErrors) in
+			print(self.stringForClass, #function, requestError.code, requestError.message)
+			
+			// Reset so we can attempt to request again right away
+			// TODO: Uncomment
+//			self.landmarkRequestWorldPosition = nil
+			
+			
+			
+			// TEMP: remove
+			let landmarks = Landmark.dummyLandmarks
+			self.updateFor(landmarks: landmarks)
+			
+			
+			//			guard let landMarks = landmarks else {
+			//				Alertift.alert(title: "Error", message: "Failed to Recieve Landmarks")
+			//					.action(.default("OK"))
+			//					.show(on: self)
+			//				return
+			//			}
+		}
+		
+		let dataTaskHandler = { (dataTask: URLSessionDataTask) in
+		}
+		
+		let requestIdentifier = self.stringForClass
+		
+		RequestController.performRequestFor(requestIdentifier: requestIdentifier,
+											requestType: RequestController.RequestType.Get,
+											urlString: urlString,
+											parameters: try? landmarkRequest.encodeDictionary([AnyHashable: Any].self),
+											allowDuplicateRequests: false,
+											cancelPreviousRequests: true,
+											successHandler: successHandler,
+											errorHandler: errorHandler,
+											dataTaskHandler: dataTaskHandler)
+	}
+}
+
+
+
+
+
+extension LandmarkARViewController: LandmarkConsumer
+{
+	func updateFor(landmarks: Landmarks)
+	{
+		guard let camera = self.sceneView.session.currentFrame?.camera else { return }
+		
+		
+		
+		var preservedLandmarks = Landmarks()
+
+		for landmarkNode in self.landmarkNodes {
+			if landmarks.contains(landmarkNode.landmark) {
+				preservedLandmarks.append(landmarkNode.landmark)
+			}
+		}
+		
+		self.resetScene(preservingLandmarks: preservedLandmarks)
+		
+		
+		
+		let previousLandmarks = self.landmarkNodes.map { return $0.landmark }
+		let newLandmarks = landmarks.filter { return !previousLandmarks.contains($0) }
+		
+		for newLandmark in newLandmarks {
+			let landmarkNode = LandmarkNode(landmark: newLandmark, cameraWorldPosition: camera.worldPosition)
+			self.sceneView.scene.rootNode.addChildNode(landmarkNode)
+			self.landmarkNodes.append(landmarkNode)
+		}
+
+		
+		
+		self.updateLandmarkNodes()
+	}
 }
 
 
@@ -463,20 +451,28 @@ extension LandmarkARViewController: LocationManagerNotificationDelegate
 {
 	func locationManager(_ manager: LocationManager, didUpdateCurrentLocation currentLocation: CLLocation)
 	{
-		guard let _ = self.sceneView.session.currentFrame?.camera.transform else { return }
-		
-		
-		
-		if let lastLandmarkRequestLocation = self.lastLandmarkRequestLocation {
-//			let distance = lastLandmarkRequestLocation.distance(from: currentLocation)
-//			if distance > self.landmarkRequestDx {
-//				print(#function, distance)
-//				self.lastLandmarkRequestLocation = currentLocation
-//			}
-		} else {
-			self.lastLandmarkRequestLocation = currentLocation
-		}
-		
+//		guard let camera = self.sceneView.session.currentFrame?.camera else { return }
+////
+////		// TODO: TEST
+////		self.confirmedLocations.updateValue(camera.worldPosition, forKey: currentLocation)
+//
+//		if let landmarkRequestWorldPosition = self.landmarkRequestWorldPosition {
+//
+//		} else {
+//			self.landmarkRequestWorldPosition = camera.worldPosition
+//		}
+//
+//
+//		if let lastLandmarkRequestLocation = self.lastLandmarkRequestLocation {
+////			let distance = lastLandmarkRequestLocation.distance(from: currentLocation)
+////			if distance > self.landmarkRequestDx {
+////				print(#function, distance)
+////				self.lastLandmarkRequestLocation = currentLocation
+////			}
+//		} else {
+//			self.lastLandmarkRequestLocation = currentLocation
+//		}
+//
 		self.updateLandmarkNodes()
 	}
 	
@@ -494,37 +490,22 @@ extension LandmarkARViewController: ARSCNViewDelegate
 {
 	func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval)
 	{
-//		DispatchQueue.main.async {
-//			self.virtualObjectInteraction.updateTrackedNodesToTrackedScreenPositions()
-//			self.updateFocusSquare()
-//		}
-//
-//		// If light estimation is enabled, update the intensity of the model's lights and the environment map
-//		let baseIntensity: CGFloat = 40.0
-//		let lightingEnvironment = self.sceneView.scene.lightingEnvironment
-//		if let lightEstimate = self.session.currentFrame?.lightEstimate {
-//			lightingEnvironment.intensity = lightEstimate.ambientIntensity / baseIntensity
-//		} else {
-//			lightingEnvironment.intensity = baseIntensity
-//		}
+		guard let camera = self.sceneView.session.currentFrame?.camera else { return }
+		switch camera.trackingState {
+		case ARCamera.TrackingState.normal:		break
+		default: 								return
+		}
+		guard let currentLocation = LocationManager.shared.currentLocation else { return }
+		guard let currentHeading = LocationManager.shared.currentHeading else { return }
+	
+		let deltaWorldPosition = self.landmarkRequestWorldPosition?.distance(to: camera.worldPosition) ?? SCNFloat.infinity
+		guard deltaWorldPosition >= self.landmarkRequestDeltaDistance else { return }
+		
+		self.requestLandmarksFor(location: currentLocation)
 	}
 	
 	func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor)
 	{
-//		guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
-//
-//		DispatchQueue.main.async {
-//			self.statusViewController.cancelScheduledMessage(for: StatusViewController.MessageType.PlaneEstimation)
-//			self.statusViewController.showMessage("Surface Detected")
-//
-//			//            let planeVisualization = PlaneVisualization.init(planeAnchor: planeAnchor)
-//			//            self.visualizationPlanes.updateValue(planeVisualization, forKey: planeAnchor.identifier)
-//			//            node.addChildNode(planeVisualization)
-//		}
-//
-//		self.updateQueue.async {
-//			self.virtualObjectInteraction.adjustOntoPlaneAnchor(planeAnchor, using: node)
-//		}
 	}
 	
 	func renderer(_ renderer: SCNSceneRenderer, willUpdate node: SCNNode, for anchor: ARAnchor)
@@ -534,22 +515,10 @@ extension LandmarkARViewController: ARSCNViewDelegate
 	
 	func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor)
 	{
-//		guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
-//
-//		DispatchQueue.main.async {
-//			self.visualizationPlanes[planeAnchor.identifier]?.updateFor(planeAnchor: planeAnchor)
-//		}
-//
-//		self.updateQueue.async {
-//			self.virtualObjectInteraction.adjustOntoPlaneAnchor(planeAnchor, using: node)
-//		}
 	}
 	
 	func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor)
 	{
-//		guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
-//
-//		self.visualizationPlanes.removeValue(forKey: planeAnchor.identifier)
 	}
 }
 
@@ -559,8 +528,13 @@ extension LandmarkARViewController: ARSCNViewDelegate
 
 extension LandmarkARViewController: ARSessionDelegate
 {
+	// TODO: dont request location until normal tracking state
 	func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera)
 	{
+		DispatchQueue.main.async {
+			self.updateDebugLabel()
+		}
+		
 //		self.statusViewController.showTrackingQualityInfo(for: camera.trackingState, autoHide: true)
 //
 //		switch camera.trackingState {

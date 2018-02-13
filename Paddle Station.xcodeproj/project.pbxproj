@@ -16,6 +16,10 @@
 		2E3AAE852018E6960056BFC5 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3AAE832018E6960056BFC5 /* MainMenuViewController.swift */; };
 		2E3AAE882018E7700056BFC5 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3AAE872018E7700056BFC5 /* R.generated.swift */; };
 		2E4F5A6F20290105009E31FD /* SCNNode+SmoothPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4F5A6E20290105009E31FD /* SCNNode+SmoothPosition.swift */; };
+		2EA458C9203340B500705BE0 /* RequestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA458C8203340B500705BE0 /* RequestController.swift */; };
+		2EA458CC2033414D00705BE0 /* RequestErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA458CB2033414D00705BE0 /* RequestErrors.swift */; };
+		2EA458CE2033428100705BE0 /* RequestAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA458CD2033428100705BE0 /* RequestAPIError.swift */; };
+		2EA458D22033590400705BE0 /* Scene.scn in Resources */ = {isa = PBXBuildFile; fileRef = 2EA458D12033590400705BE0 /* Scene.scn */; };
 		2EA526BF20190D8200D9E564 /* LandmarkARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA526BD20190D8200D9E564 /* LandmarkARViewController.swift */; };
 		2EA526C020190D8200D9E564 /* LandmarkMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA526BE20190D8200D9E564 /* LandmarkMapViewController.swift */; };
 		2EA526C220190FA100D9E564 /* LandmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA526C120190FA100D9E564 /* LandmarkViewController.swift */; };
@@ -36,6 +40,10 @@
 		2E3AAE832018E6960056BFC5 /* MainMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		2E3AAE872018E7700056BFC5 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		2E4F5A6E20290105009E31FD /* SCNNode+SmoothPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCNNode+SmoothPosition.swift"; sourceTree = "<group>"; };
+		2EA458C8203340B500705BE0 /* RequestController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestController.swift; sourceTree = "<group>"; };
+		2EA458CB2033414D00705BE0 /* RequestErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestErrors.swift; sourceTree = "<group>"; };
+		2EA458CD2033428100705BE0 /* RequestAPIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestAPIError.swift; sourceTree = "<group>"; };
+		2EA458D12033590400705BE0 /* Scene.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Scene.scn; sourceTree = "<group>"; };
 		2EA526BA2019075200D9E564 /* Paddle Station-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Paddle Station-Bridging-Header.h"; sourceTree = "<group>"; };
 		2EA526BD20190D8200D9E564 /* LandmarkARViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandmarkARViewController.swift; sourceTree = "<group>"; };
 		2EA526BE20190D8200D9E564 /* LandmarkMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandmarkMapViewController.swift; sourceTree = "<group>"; };
@@ -81,9 +89,10 @@
 			isa = PBXGroup;
 			children = (
 				2E0145772018E3AA0052A6AF /* AppDelegate.swift */,
-				2EA526C32019170E00D9E564 /* LocationManager.swift */,
 				2E01458D2018E44A0052A6AF /* View Controllers */,
 				2EA2428E202274F200F03FCE /* SceneKit */,
+				2EA458D32033615700705BE0 /* Helper */,
+				2EA458CA203340BB00705BE0 /* Request */,
 				2E0145892018E4210052A6AF /* Data Model */,
 				2E01458C2018E43B0052A6AF /* Resources */,
 				2E01458A2018E42F0052A6AF /* Interface */,
@@ -123,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				2E01457E2018E3AA0052A6AF /* Assets.xcassets */,
+				2EA458D12033590400705BE0 /* Scene.scn */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -146,6 +156,24 @@
 				2ED3A154202274B6001722A5 /* LandmarkNode.swift */,
 			);
 			path = SceneKit;
+			sourceTree = "<group>";
+		};
+		2EA458CA203340BB00705BE0 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				2EA458CD2033428100705BE0 /* RequestAPIError.swift */,
+				2EA458CB2033414D00705BE0 /* RequestErrors.swift */,
+				2EA458C8203340B500705BE0 /* RequestController.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		2EA458D32033615700705BE0 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				2EA526C32019170E00D9E564 /* LocationManager.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		D1592FD9882820FF96DF6C28 /* Pods */ = {
@@ -230,6 +258,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E0145822018E3AA0052A6AF /* LaunchScreen.storyboard in Resources */,
+				2EA458D22033590400705BE0 /* Scene.scn in Resources */,
 				2E01457F2018E3AA0052A6AF /* Assets.xcassets in Resources */,
 				2E01457D2018E3AA0052A6AF /* Main.storyboard in Resources */,
 			);
@@ -325,12 +354,15 @@
 				2E3AAE852018E6960056BFC5 /* MainMenuViewController.swift in Sources */,
 				2E3AAE842018E6960056BFC5 /* BaseViewController.swift in Sources */,
 				2ED3A155202274B6001722A5 /* LandmarkNode.swift in Sources */,
+				2EA458CE2033428100705BE0 /* RequestAPIError.swift in Sources */,
 				2E3AAE882018E7700056BFC5 /* R.generated.swift in Sources */,
 				2EA526BF20190D8200D9E564 /* LandmarkARViewController.swift in Sources */,
+				2EA458C9203340B500705BE0 /* RequestController.swift in Sources */,
 				2EA526C020190D8200D9E564 /* LandmarkMapViewController.swift in Sources */,
 				2E0145782018E3AA0052A6AF /* AppDelegate.swift in Sources */,
 				2E0145902018E4640052A6AF /* Landmark.swift in Sources */,
 				2EA526C42019170E00D9E564 /* LocationManager.swift in Sources */,
+				2EA458CC2033414D00705BE0 /* RequestErrors.swift in Sources */,
 				2E4F5A6F20290105009E31FD /* SCNNode+SmoothPosition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

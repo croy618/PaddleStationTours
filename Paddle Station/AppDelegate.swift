@@ -32,6 +32,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate
 		// Prevent the screen from being dimmed to avoid interuppting the AR experience.
 		UIApplication.shared.isIdleTimerDisabled = true
 		
+//		let a = Landmark.dummyLandmarks
+//		print(try? a.encodeString())
+//		let b = try? a.encodeDictionary([AnyHashable].self)
+//		
+//		
+//		let encoder = JSONEncoder()
+//		encoder.outputFormatting = JSONEncoder.OutputFormatting.prettyPrinted
+//		let data = try! encoder.encode(a)
+//		let x = try? JSONSerialization.jsonObject(with: data)
+//		
 		
 		return true
 	}

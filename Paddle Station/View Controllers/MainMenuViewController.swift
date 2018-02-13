@@ -86,6 +86,7 @@ class MainMenuViewController: BaseViewController
 
 fileprivate extension MainMenuViewController
 {
+	// TODO: dont have 2 children, create and layout each transition
 	fileprivate func transitionTo(state: LandmarkViewControllerState, animated: Bool, completion: ((Bool) -> Swift.Void)? = nil)
 	{
 		guard self.landmarkViewControllerState != state else {

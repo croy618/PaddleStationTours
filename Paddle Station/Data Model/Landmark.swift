@@ -15,7 +15,22 @@ import AFNetworking
 
 
 
-final class Landmark: Decodable, Equatable
+typealias Landmarks = [Landmark]
+
+
+
+
+
+protocol LandmarkConsumer: class
+{
+	func updateFor(landmarks: Landmarks)
+}
+
+
+
+
+
+final class Landmark: Codable, Equatable
 {
 	enum CodingKeys: String, CodingKey
 	{
@@ -38,63 +53,63 @@ final class Landmark: Decodable, Equatable
 	let type: String?
 	let url: URL?
 	
-	fileprivate static let dummyLandmarks = [
+	internal static let dummyLandmarks = [
 		Landmark(name: "MacEwan Hall Concerts",
 				 description: "Concerts",
 				 altitude: 1111.0,
 				 latitude: 51.078866,
 				 longitude: -114.130038,
 				 type: "Default",
-				 url: URL(string: "machallconcerts.com")),
+				 url: URL(string: "https://www.google.ca")),
 		Landmark(name: "EEEL",
 				 description: "EEEL",
 				 altitude: 1115.0,
 				 latitude: 51.081251,
 				 longitude: -114.129400,
 				 type: "Default",
-				 url: URL(string: "www.google.ca")),
+				 url: URL(string: "https://www.google.ca")),
 		Landmark(name: "ICT",
 				 description: "ICT",
 				 altitude: 1116.0,
 				 latitude: 51.080222,
 				 longitude: -114.130430,
 				 type: "Default",
-				 url: URL(string: "www.google.ca")),
+				 url: URL(string: "https://www.google.ca")),
 		Landmark(name: "UCalgary Prarie Chicken",
 				 description: "UCalgary Prarie Chicken",
 				 altitude: 1108.0,
 				 latitude: 51.078490,
 				 longitude: -114.128182,
 				 type: "Default",
-				 url: URL(string: "www.google.ca")),
+				 url: URL(string: "https://www.google.ca")),
 		Landmark(name: "Village Ice Cream",
 				 description: "",
 				 altitude: 1121.0,
 				 latitude: 51.023775,
 				 longitude: -114.114708,
 				 type: "Default",
-				 url: URL(string: "www.google.ca")),
+				 url: URL(string: "https://www.google.ca")),
 		Landmark(name: "Phil & Sebastion",
 				 description: "Coffee",
 				 altitude: 1109.0,
 				 latitude: 51.024050,
 				 longitude: -114.108646,
 				 type: "Default",
-				 url: URL(string: "www.google.ca")),
+				 url: URL(string: "https://www.google.ca")),
 		Landmark(name: "Original Joes",
 				 description: "Bar",
 				 altitude: 1106.0,
 				 latitude: 51.023385,
 				 longitude: -114.108989,
 				 type: "Default",
-				 url: URL(string: "www.google.ca")),
+				 url: URL(string: "https://www.google.ca")),
 		Landmark(name: "Cor.fit",
 				 description: "Gym",
 				 altitude: 1041.0,
 				 latitude: 51.000490,
 				 longitude: -113.986376,
 				 type: "Default",
-				 url: URL(string: "www.google.ca")),
+				 url: URL(string: "https://www.google.ca")),
 	]
 	
 	
@@ -144,48 +159,26 @@ final class Landmark: Decodable, Equatable
 		}
 	}
 	
-	class func requestLandmarksFor(landmarkRequest: LandmarkRequest, completion: @escaping (_ landmarks: [Landmark]?) -> Void)
+	func encode(to encoder: Encoder) throws
 	{
-		let urlString = "TODO"
+		var container = encoder.container(keyedBy: CodingKeys.self)
 		
-		let manager: AFHTTPSessionManager = {
-			let manager = AFHTTPSessionManager()
-			
-			manager.requestSerializer = AFJSONRequestSerializer()
-			manager.requestSerializer.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringCacheData
-			
-			return manager
-		}()
 		
-		let success = { (dataTask: URLSessionDataTask, responseObject: Any?) in
-			
-			guard let responseJsonDictionary = responseObject as? [AnyHashable: Any] else {
-				completion(nil)
-				return
-			}
-			
-			completion(try? [Landmark].decode(jsonDictionary: responseJsonDictionary))
-		}
 		
-		let failure = { (dataTask: URLSessionDataTask?, error: Error) -> Void in
-			let error = error as NSError
-			print(error.code, error.localizedDescription)
-			
-			completion(self.dummyLandmarks)
-		}
-		
-		manager.get(urlString,
-					parameters: try? landmarkRequest.encodeDictionary(AnyHashable.self, Any.self),
-					progress: nil,
-					success: success,
-					failure: failure)
+		try container.encode(self.name, forKey: CodingKeys.name)
+		try container.encode(self.description, forKey: CodingKeys.description)
+		try container.encode(self.location.altitude, forKey: CodingKeys.altitude)
+		try container.encode(self.location.coordinate.latitude, forKey: CodingKeys.latitude)
+		try container.encode(self.location.coordinate.longitude, forKey: CodingKeys.longitude)
+		try container.encode(self.type, forKey: CodingKeys.type)
+		try container.encode(self.url, forKey: CodingKeys.url)
 	}
 	
 	
 	
 	
 	
-	static public func == (lhs: Landmark, rhs: Landmark) -> Bool
+	static public func ==(lhs: Landmark, rhs: Landmark) -> Bool
 	{
 		return (lhs.name == rhs.name &&
 			lhs.location.altitude == rhs.location.altitude &&
@@ -212,24 +205,29 @@ class LandmarkRequest: Encodable
 	
 	
 	
-	let altitude: CLLocationDistance
-	let latitude: CLLocationDegrees
-	let longitude: CLLocationDegrees
+	let location: CLLocation
 	let radius: CLLocationDistance
 	
 	
 	
 	
 	
-	init(altitude: CLLocationDistance,
-		 latitude: CLLocationDegrees,
-		 longitude: CLLocationDegrees,
-		 radius: CLLocationDistance)
+	init(location: CLLocation, radius: CLLocationDistance)
 	{
-		self.altitude = altitude
-		self.latitude = latitude
-		self.longitude = longitude
+		self.location = location
 		self.radius = radius
+	}
+	
+	func encode(to encoder: Encoder) throws
+	{
+		var container = encoder.container(keyedBy: CodingKeys.self)
+		
+		
+		
+		try container.encode(self.location.altitude, forKey: CodingKeys.altitude)
+		try container.encode(self.location.coordinate.latitude, forKey: CodingKeys.latitude)
+		try container.encode(self.location.coordinate.longitude, forKey: CodingKeys.longitude)
+		try container.encode(self.radius, forKey: CodingKeys.radius)
 	}
 }
 

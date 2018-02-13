@@ -21,8 +21,17 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.file` struct is generated, and contains static references to 0 files.
+  /// This `R.file` struct is generated, and contains static references to 1 files.
   struct file {
+    /// Resource file `Scene.scn`.
+    static let sceneScn = Rswift.FileResource(bundle: R.hostingBundle, name: "Scene", pathExtension: "scn")
+    
+    /// `bundle.url(forResource: "Scene", withExtension: "scn")`
+    static func sceneScn(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.sceneScn
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
     fileprivate init() {}
   }
   
@@ -31,14 +40,28 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 3 images.
+  /// This `R.image` struct is generated, and contains static references to 5 images.
   struct image {
+    /// Image `PinArrow`.
+    static let pinArrow = Rswift.ImageResource(bundle: R.hostingBundle, name: "PinArrow")
+    /// Image `PinBox`.
+    static let pinBox = Rswift.ImageResource(bundle: R.hostingBundle, name: "PinBox")
     /// Image `buttonring`.
     static let buttonring = Rswift.ImageResource(bundle: R.hostingBundle, name: "buttonring")
     /// Image `restartPressed`.
     static let restartPressed = Rswift.ImageResource(bundle: R.hostingBundle, name: "restartPressed")
     /// Image `restart`.
     static let restart = Rswift.ImageResource(bundle: R.hostingBundle, name: "restart")
+    
+    /// `UIImage(named: "PinArrow", bundle: ..., traitCollection: ...)`
+    static func pinArrow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.pinArrow, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "PinBox", bundle: ..., traitCollection: ...)`
+    static func pinBox(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.pinBox, compatibleWith: traitCollection)
+    }
     
     /// `UIImage(named: "buttonring", bundle: ..., traitCollection: ...)`
     static func buttonring(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
