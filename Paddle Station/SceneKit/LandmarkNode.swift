@@ -126,8 +126,8 @@ class LandmarkNode: SCNNode
 		let textNodeContainer = SCNNode()
 		textNodeContainer.addConstraint(SCNBillboardConstraint(freeAxes: SCNBillboardAxis.Y))
 		textNodeContainer.addChildNode(self.textNode)
+		textNodeContainer.addChildNode(self.textBackgroundNode)
 		self.pinNode.addChildNode(textNodeContainer)
-		self.pinNode.addChildNode(self.textBackgroundNode)
 		
 		
 		
@@ -237,7 +237,7 @@ class LandmarkNode: SCNNode
 				// Adjust up half the height because the pivot is in the centre vs on the bottom for SCNText
 				self.textBackgroundNode.simdPosition = simd_float3(0.0, height / 2.0, 0.0)
 				// TODO: Better way to add background
-				self.textBackgroundNode.worldPosition -= (self.textBackgroundNode.zForward.normalized * 5.0)
+				self.textBackgroundNode.worldPosition -= (self.textBackgroundNode.zForward.normalized * 3.0)
 			}
 			
 //			self.textNode.renderingOrder = self.textBackgroundNode.renderingOrder - 1
