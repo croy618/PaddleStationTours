@@ -19,6 +19,10 @@ public extension SCNNode
         return SCNVector3(self.worldTransform.m31, self.worldTransform.m32, self.worldTransform.m33)
     }
 	
+	var simdZForward: simd_float3 {
+		return simd_float3(self.worldTransform.m31, self.worldTransform.m32, self.worldTransform.m33)
+	}
+	
 	@available(iOS 8.0, OSX 10.10, *)
     func centrePivot(centreX: Bool = true, centreY: Bool = true, centreZ: Bool = true) -> SCNMatrix4
     {

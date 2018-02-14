@@ -15,6 +15,24 @@ import ARKit
 
 
 
+extension SCNNode
+{
+	var landmarkNode: LandmarkNode? {
+		var node: SCNNode? = self
+		while let _ = node {
+			if let landmarkNode = node as? LandmarkNode {
+				return landmarkNode
+			}
+			node = node?.parent
+		}
+		return nil
+	}
+}
+
+
+
+
+
 class LandmarkNode: SCNNode
 {
 	let landmark: Landmark
@@ -30,6 +48,26 @@ class LandmarkNode: SCNNode
 		return geometry
 	}()
 	
+	fileprivate lazy var textNode: SCNNode = {
+		let node = SCNNode(geometry: self.text)
+		node.castsShadow = false
+		node.scale = SCNVector3Make(0.3, 0.3, 0.3)
+		return node
+	}()
+	
+	fileprivate lazy var textBackgroundNode: SCNNode = {
+		let node = SCNNode()
+		node.geometry = {
+			let geometry = SCNPlane(width: 0.0, height: 0.0)
+			// TODO: radius
+			let material = SCNMaterial.constantLitWith(color: UIColor.random)
+			geometry.materials = [material]
+			return geometry
+		}()
+		self.rotationNode.addChildNode(node)
+		return node
+	}()
+	
 	fileprivate lazy var rotationNode: SCNNode = {
 		let node = SCNNode()
 		self.addChildNode(node)
@@ -43,6 +81,11 @@ class LandmarkNode: SCNNode
 			let material = SCNMaterial.constantLitWith(color: UIColor.random)
 			geometry.materials = [material]
 			return geometry
+			
+//			let geometry = SCNPlane(width: 50.0, height: 50.0)
+//			let material = SCNMaterial.constantLitWith(color: UIColor.random)
+//			geometry.materials = [material]
+//			return geometry
 		}()
 		self.rotationNode.addChildNode(node)
 		return node
@@ -50,7 +93,24 @@ class LandmarkNode: SCNNode
 	
 	
 	
-	
+//	public init(location: CLLocation?, image: UIImage) {
+//		self.image = image
+//
+//		let plane = SCNPlane(width: image.size.width / 100, height: image.size.height / 100)
+//		plane.firstMaterial!.diffuse.contents = image
+//		plane.firstMaterial!.lightingModel = .constant
+//
+//		annotationNode = SCNNode()
+//		annotationNode.geometry = plane
+//
+//		super.init(location: location)
+//
+//		let billboardConstraint = SCNBillboardConstraint()
+//		billboardConstraint.freeAxes = SCNBillboardAxis.Y
+//		constraints = [billboardConstraint]
+//
+//		addChildNode(annotationNode)
+//	}
 	
 	required init(landmark: Landmark, cameraWorldPosition: simd_float3)
 	{
@@ -63,13 +123,11 @@ class LandmarkNode: SCNNode
 		
 		
 		
-		let textNode = SCNNode(geometry: self.text)
-		textNode.castsShadow = false
-		textNode.scale = SCNVector3Make(0.3, 0.3, 0.3)
 		let textNodeContainer = SCNNode()
 		textNodeContainer.addConstraint(SCNBillboardConstraint(freeAxes: SCNBillboardAxis.Y))
-		textNodeContainer.addChildNode(textNode)
+		textNodeContainer.addChildNode(self.textNode)
 		self.pinNode.addChildNode(textNodeContainer)
+		self.pinNode.addChildNode(self.textBackgroundNode)
 		
 		
 		
@@ -163,9 +221,29 @@ class LandmarkNode: SCNNode
 				.append(line: String(format: "altitude: %.2fm (Δ: %.2fm)", self.landmark.location.altitude, altitudeDelta))
 				.append(line: String(format: "bearing: %.3frad", bearing))
 				.string
+			
+			
+			
+			self.textNode.pivot = self.textNode.centrePivot(centreX: true, centreY: false, centreZ: false)
+			
+			if let plane = self.textBackgroundNode.geometry as? SCNPlane {
+				let paddingPercentage: SCNFloat = 1.1
+				let width = ((self.textNode.boundingBox.max.x - self.textNode.boundingBox.min.x) * self.textNode.scale.x) * paddingPercentage
+				let height = ((self.textNode.boundingBox.max.y - self.textNode.boundingBox.min.y) * self.textNode.scale.y) * paddingPercentage
+				plane.width = CGFloat(width)
+				plane.height = CGFloat(height)
+				plane.cornerRadius = 3.0
+				
+				// Adjust up half the height because the pivot is in the centre vs on the bottom for SCNText
+				self.textBackgroundNode.simdPosition = simd_float3(0.0, height / 2.0, 0.0)
+				// TODO: Better way to add background
+				self.textBackgroundNode.worldPosition -= (self.textBackgroundNode.zForward.normalized * 5.0)
+			}
+			
+//			self.textNode.renderingOrder = self.textBackgroundNode.renderingOrder - 1
 		}
 		
-		
+		//SKLabelNode
 		
 		// UPDATE SCALE
 		let minDistance: SCNFloat = 10.0

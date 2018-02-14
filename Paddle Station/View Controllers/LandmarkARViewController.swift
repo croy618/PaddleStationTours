@@ -41,6 +41,9 @@ class LandmarkARViewController: LandmarkViewController
 	{
 		super.viewDidLoad()
 		
+		let tap = UITapGestureRecognizer(target: self, action: #selector(self.onTap(_:)))
+		self.sceneView.addGestureRecognizer(tap)
+		
 		self.sceneView.delegate = self
 		self.sceneView.session.delegate = self
 		self.sceneView.automaticallyUpdatesLighting = true
@@ -83,17 +86,22 @@ class LandmarkARViewController: LandmarkViewController
 //		self.landmarkRequestWorldPosition = nil
 	}
 	
-//	override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)
-//	{
-//		print(#function)
-//		guard let landmark = self.landmarkNodes.first?.landmark else { return }
-//		print(landmark.url)
-//		guard let landmarkURL = landmark.url else { return }
-//		
-//		print(landmarkURL, self.navigationController)
-//		let safariViewController = SFSafariViewController(url: landmarkURL)
-//		self.present(safariViewController, animated: true, completion: nil)
-//	}
+	@objc fileprivate func onTap(_ tap: UITapGestureRecognizer)
+	{
+		let position = tap.location(in: self.sceneView)
+		let hitTestOptions: [SCNHitTestOption: Any] = [SCNHitTestOption.boundingBoxOnly: false,
+													   SCNHitTestOption.searchMode: SCNHitTestSearchMode.all.rawValue]
+		let hitTestResults = self.sceneView.hitTest(position, options: hitTestOptions)
+		for hitTestResult in hitTestResults {
+			guard let landmark = hitTestResult.node.landmarkNode?.landmark else { continue }
+			
+			if let landmarkURL = landmark.url {
+				let safariViewController = SFSafariViewController(url: landmarkURL)
+				self.present(safariViewController, animated: true, completion: nil)
+				break
+			}
+		}
+	}
 	
 	@IBAction fileprivate func resetButtonClicked(_ sender: UIButton)
 	{
