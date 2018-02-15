@@ -71,7 +71,7 @@ class LandmarkNode: SCNNode
 	fileprivate lazy var textNode: SCNNode = {
 		let node = SCNNode(geometry: self.text)
 		node.castsShadow = false
-		node.scale = SCNVector3Make(0.3, 0.3, 0.3)
+//		node.scale = SCNVector3Make(0.3, 0.3, 0.3)
 		return node
 	}()
 	
@@ -233,6 +233,29 @@ class LandmarkNode: SCNNode
 			
 			
 			
+			
+			// UPDATE SCALE
+			// all values in metres
+			// TODO: Sluthware
+			//	percenteage in range
+			//	value in range for percenage
+			let minDistance: SCNFloat = 10.0
+			let maxDistance: SCNFloat = 500.0
+			let minFontSize: SCNFloat = 1.0
+			let maxFontSize: SCNFloat = 10.0
+			
+			let percent = (distance - minDistance) / (maxDistance - minDistance)
+			let scaledFontSize = (percent * (maxFontSize - minFontSize)) + minFontSize
+			self.text.font = self.text.font.withSize(CGFloat(scaledFontSize))
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			self.textNode.pivot = self.textNode.centrePivot(centreX: true, centreY: false, centreZ: false)
 			
 			
@@ -253,20 +276,24 @@ class LandmarkNode: SCNNode
 			
 			
 			
-			pinArrowPlane.width = pinBackgroundPlane.height / 4.0
+			pinArrowPlane.width = pinBackgroundPlane.width / 8.0
 			pinArrowPlane.height = pinArrowPlane.width
 			
 			
 			
+			self.textNode.simdPosition.y = SCNFloat(pinArrowPlane.height / 2.0)
+			
+			
+			
 			// Adjust up half the height because the pivot is in the centre vs on the bottom for SCNText
-			self.pinBackgroundNode.simdPosition.y = SCNFloat(pinBackgroundPlane.height / 2.0)
-			//				self.pinBackgroundNode.simdPosition.z = -3.0
+			self.pinBackgroundNode.simdPosition.y = self.textNode.simdPosition.y + SCNFloat((pinBackgroundPlane.height / 2.0))
 			self.pinBackgroundNode.simdPosition.z = self.textNode.simdPosition.z - 3.0
 			
 			
 			
 			self.pinArrowNode.simdEulerAngles = simd_float3.zero
-			self.pinArrowNode.simdPosition.z = self.pinBackgroundNode.simdPosition.z
+			self.pinArrowNode.simdPosition.y = self.textNode.simdPosition.y
+			self.pinArrowNode.simdPosition.z = self.textNode.simdPosition.z - 3.0
 			self.pinArrowNode.simdEulerAngles.z = SCNFloat.pi_4
 		}
 		
