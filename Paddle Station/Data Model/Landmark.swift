@@ -56,7 +56,8 @@ final class Landmark: Codable, Equatable
 	internal static let dummyLandmarks = [
 		Landmark(name: "MacEwan Hall Concerts",
 				 description: "Concerts",
-				 altitude: 1111.0,
+				 altitude: 1141.0,
+//				 altitude: 1111.0,
 				 latitude: 51.078866,
 				 longitude: -114.130038,
 				 type: "Default",
@@ -70,7 +71,8 @@ final class Landmark: Codable, Equatable
 				 url: URL(string: "https://www.google.ca")),
 		Landmark(name: "ICT",
 				 description: "ICT",
-				 altitude: 1216.0,
+				 altitude: 1116.0,
+//				 altitude: 1216.0,
 				 latitude: 51.080222,
 				 longitude: -114.130430,
 				 type: "Default",
@@ -108,6 +110,27 @@ final class Landmark: Codable, Equatable
 				 altitude: 1041.0,
 				 latitude: 51.000490,
 				 longitude: -113.986376,
+				 type: "Default",
+				 url: URL(string: "https://www.google.ca")),
+		Landmark(name: "Glenmore Landing Vision Center",
+				 description: "NA",
+				 altitude: 1077.0,
+				 latitude: 50.973962,
+				 longitude: -114.09707789999999,
+				 type: "Default",
+				 url: URL(string: "https://www.google.ca")),
+		Landmark(name: "Calgary Jewish Community Centre",
+				 description: "NA",
+				 altitude: 1079.0,
+				 latitude: 50.9715351,
+				 longitude: -113.986376,
+				 type: "Default",
+				 url: URL(string: "https://www.google.ca")),
+		Landmark(name: "Glenmore Landing Pharmacy",
+				 description: "NA",
+				 altitude: 1083.0,
+				 latitude: 50.9732632,
+				 longitude: -114.09847819999999,
 				 type: "Default",
 				 url: URL(string: "https://www.google.ca")),
 	]
@@ -184,50 +207,6 @@ final class Landmark: Codable, Equatable
 			lhs.location.altitude == rhs.location.altitude &&
 			lhs.location.coordinate.latitude == rhs.location.coordinate.latitude &&
 			lhs.location.coordinate.longitude == rhs.location.coordinate.longitude)
-	}
-}
-
-
-
-
-
-class LandmarkRequest: Encodable
-{
-	enum CodingKeys: String, CodingKey
-	{
-		case altitude
-		case latitude
-		case longitude
-		case radius
-	}
-	
-	
-	
-	
-	
-	let location: CLLocation
-	let radius: CLLocationDistance
-	
-	
-	
-	
-	
-	init(location: CLLocation, radius: CLLocationDistance)
-	{
-		self.location = location
-		self.radius = radius
-	}
-	
-	func encode(to encoder: Encoder) throws
-	{
-		var container = encoder.container(keyedBy: CodingKeys.self)
-		
-		
-		
-		try container.encode(self.location.altitude, forKey: CodingKeys.altitude)
-		try container.encode(self.location.coordinate.latitude, forKey: CodingKeys.latitude)
-		try container.encode(self.location.coordinate.longitude, forKey: CodingKeys.longitude)
-		try container.encode(self.radius, forKey: CodingKeys.radius)
 	}
 }
 

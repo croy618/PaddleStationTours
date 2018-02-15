@@ -57,7 +57,9 @@ class MainMenuViewController: BaseViewController
 	{
 		super.viewWillAppear(animated)
 		
-		self.transitionTo(state: LandmarkViewControllerState.Map, animated: false)
+		if self.landmarkViewControllerState == nil {
+			self.transitionTo(state: LandmarkViewControllerState.Map, animated: false)
+		}
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?)

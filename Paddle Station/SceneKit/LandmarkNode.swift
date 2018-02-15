@@ -37,6 +37,26 @@ class LandmarkNode: SCNNode
 {
 	let landmark: Landmark
 	let lockedWorldPosition: simd_float3
+	var pinBackgroundColor = UIColor.black {
+		didSet
+		{
+			// TODO: update
+		}
+	}
+	
+	
+	
+	fileprivate lazy var rotationNode: SCNNode = {
+		let node = SCNNode()
+		self.addChildNode(node)
+		return node
+	}()
+	
+	fileprivate lazy var pinAnchorNode: SCNNode = {
+		let node = SCNNode()
+		self.rotationNode.addChildNode(node)
+		return node
+	}()
 	
 	fileprivate(set) lazy var text: SCNText = {
 		let geometry = SCNText(string: nil, extrusionDepth: 0.0)
@@ -55,39 +75,25 @@ class LandmarkNode: SCNNode
 		return node
 	}()
 	
-	fileprivate lazy var textBackgroundNode: SCNNode = {
+	fileprivate lazy var pinBackgroundNode: SCNNode = {
 		let node = SCNNode()
 		node.geometry = {
 			let geometry = SCNPlane(width: 0.0, height: 0.0)
-			// TODO: radius
-			let material = SCNMaterial.constantLitWith(color: UIColor.random)
+			let material = SCNMaterial.constantLitWith(color: self.pinBackgroundColor)
 			geometry.materials = [material]
 			return geometry
 		}()
-		self.rotationNode.addChildNode(node)
 		return node
 	}()
 	
-	fileprivate lazy var rotationNode: SCNNode = {
-		let node = SCNNode()
-		self.addChildNode(node)
-		return node
-	}()
-	
-	fileprivate lazy var pinNode: SCNNode = {
+	fileprivate lazy var pinArrowNode: SCNNode = {
 		let node = SCNNode()
 		node.geometry = {
-			let geometry = SCNSphere(radius: 1.0)
-			let material = SCNMaterial.constantLitWith(color: UIColor.random)
+			let geometry = SCNPlane(width: 0.0, height: 0.0)
+			let material = SCNMaterial.constantLitWith(color: self.pinBackgroundColor)
 			geometry.materials = [material]
 			return geometry
-			
-//			let geometry = SCNPlane(width: 50.0, height: 50.0)
-//			let material = SCNMaterial.constantLitWith(color: UIColor.random)
-//			geometry.materials = [material]
-//			return geometry
 		}()
-		self.rotationNode.addChildNode(node)
 		return node
 	}()
 	
@@ -126,8 +132,9 @@ class LandmarkNode: SCNNode
 		let textNodeContainer = SCNNode()
 		textNodeContainer.addConstraint(SCNBillboardConstraint(freeAxes: SCNBillboardAxis.Y))
 		textNodeContainer.addChildNode(self.textNode)
-		textNodeContainer.addChildNode(self.textBackgroundNode)
-		self.pinNode.addChildNode(textNodeContainer)
+		textNodeContainer.addChildNode(self.pinBackgroundNode)
+		textNodeContainer.addChildNode(self.pinArrowNode)
+		self.pinAnchorNode.addChildNode(textNodeContainer)
 		
 		
 		
@@ -154,11 +161,13 @@ class LandmarkNode: SCNNode
 		
 		
 		let distanceVirtual: SCNFloat = {
-			let tempWorldPosition = simd_float3(self.pinNode.simdWorldPosition.x, cameraWorldPosition.y, self.pinNode.simdWorldPosition.z)
+			let tempWorldPosition = simd_float3(self.pinAnchorNode.simdWorldPosition.x,
+												cameraWorldPosition.y,
+												self.pinAnchorNode.simdWorldPosition.z)
 			return tempWorldPosition.distance(to: cameraWorldPosition)
 		}()
 		let distanceError = abs(distanceVirtual - distance)
-		let isOnScreen = sceneView.isNode(self.pinNode, insideFrustumOf: pointOfView)
+		let isOnScreen = sceneView.isNode(self.pinAnchorNode, insideFrustumOf: pointOfView)
 		let updatePosition = !isOnScreen || (distanceError > 10.0) // force update if offscreen
 		
 		
@@ -197,7 +206,7 @@ class LandmarkNode: SCNNode
 			self.simdWorldPosition = camera.worldPosition
 			self.rotationNode.simdWorldPosition = simd_float3.zero
 			self.rotationNode.simdWorldOrientation = simd_quatf.zero
-			self.pinNode.simdWorldPosition = {
+			self.pinAnchorNode.simdWorldPosition = {
 				let trueNorth = simd_float3(0.0, 0.0, -1.0)
 				return trueNorth * distance
 			}()
@@ -226,45 +235,54 @@ class LandmarkNode: SCNNode
 			
 			self.textNode.pivot = self.textNode.centrePivot(centreX: true, centreY: false, centreZ: false)
 			
-			if let plane = self.textBackgroundNode.geometry as? SCNPlane {
-				let paddingPercentage: SCNFloat = 1.1
-				let width = ((self.textNode.boundingBox.max.x - self.textNode.boundingBox.min.x) * self.textNode.scale.x) * paddingPercentage
-				let height = ((self.textNode.boundingBox.max.y - self.textNode.boundingBox.min.y) * self.textNode.scale.y) * paddingPercentage
-				plane.width = CGFloat(width)
-				plane.height = CGFloat(height)
-				plane.cornerRadius = 3.0
-				
-				// Adjust up half the height because the pivot is in the centre vs on the bottom for SCNText
-				self.textBackgroundNode.simdPosition = simd_float3(0.0, height / 2.0, 0.0)
-				// TODO: Better way to add background
-				self.textBackgroundNode.worldPosition -= (self.textBackgroundNode.zForward.normalized * 3.0)
-			}
 			
-//			self.textNode.renderingOrder = self.textBackgroundNode.renderingOrder - 1
+			
+			let pinBackgroundPlane = self.pinBackgroundNode.geometry as! SCNPlane
+			let pinArrowPlane = self.pinArrowNode.geometry as! SCNPlane
+			let paddingPercentage: SCNFloat = 1.1
+			
+			
+			
+			pinBackgroundPlane.width = {
+				return CGFloat(((self.textNode.boundingBox.max.x - self.textNode.boundingBox.min.x) * self.textNode.scale.x) * paddingPercentage)
+			}()
+			pinBackgroundPlane.height = {
+				return CGFloat(((self.textNode.boundingBox.max.y - self.textNode.boundingBox.min.y) * self.textNode.scale.y) * paddingPercentage)
+			}()
+			pinBackgroundPlane.cornerRadius = 3.0
+			
+			
+			
+			pinArrowPlane.width = pinBackgroundPlane.height / 4.0
+			pinArrowPlane.height = pinArrowPlane.width
+			
+			
+			
+			// Adjust up half the height because the pivot is in the centre vs on the bottom for SCNText
+			self.pinBackgroundNode.simdPosition.y = SCNFloat(pinBackgroundPlane.height / 2.0)
+			//				self.pinBackgroundNode.simdPosition.z = -3.0
+			self.pinBackgroundNode.simdPosition.z = self.textNode.simdPosition.z - 3.0
+			
+			
+			
+			self.pinArrowNode.simdEulerAngles = simd_float3.zero
+			self.pinArrowNode.simdPosition.z = self.pinBackgroundNode.simdPosition.z
+			self.pinArrowNode.simdEulerAngles.z = SCNFloat.pi_4
 		}
 		
-		//SKLabelNode
+		
 		
 		// UPDATE SCALE
-		let minDistance: SCNFloat = 10.0
-		let maxDistance: SCNFloat = 500.0
-		let minRadius: SCNFloat = 0.10
-		let maxRadius: SCNFloat = 10.0
-		
-		let percent = (distance - minDistance) / (maxDistance - minDistance)
-		let radius = (percent * (maxRadius - minRadius)) + minRadius
-		if let geometry = self.pinNode.geometry as? SCNSphere {
-			//			geometry.radius = CGFloat(radius)
-		}
-		
-//		print("actualDistance:", distance,
-//			  "virtualDistance:", virtualDistance,
-//			  "distanceError:", distanceError,
-//			  "radius:", radius)
-		
-		
-		
-		
+//		let minDistance: SCNFloat = 10.0
+//		let maxDistance: SCNFloat = 500.0
+//		let minRadius: SCNFloat = 0.10
+//		let maxRadius: SCNFloat = 10.0
+//
+//		let percent = (distance - minDistance) / (maxDistance - minDistance)
+//		let radius = (percent * (maxRadius - minRadius)) + minRadius
+//		if let geometry = self.pinAnchorNode.geometry as? SCNSphere {
+//			//			geometry.radius = CGFloat(radius)
+//		}
 	}
 }
 
