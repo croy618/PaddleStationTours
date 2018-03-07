@@ -34,7 +34,7 @@ final class RequestController: NSObject
 {
 	struct RequestHandlers
 	{
-		typealias Success = (_ responseJsonDictionary: [AnyHashable: Any]) -> Bool
+		typealias Success = (_ responseJson: Any) -> Bool
 		typealias Error = (_ requestError: RequestErrors) -> Void
 		typealias DataTask = (_ dataTask: URLSessionDataTask) -> Void
 	}
@@ -183,21 +183,25 @@ final class RequestController: NSObject
 			
 			guard self.remove(dataTask: dataTask, forRequestIdentifier: requestIdentifier) else { return }
 			
-			guard let responseJsonDictionary = responseObject as? [AnyHashable: Any] else {
+			guard let responseObject = responseObject else {
 				internalErrorHandler(RequestErrors.InvalidResponseObject)
 				return
 			}
+//			guard let responseJsonDictionary = responseObject as? [AnyHashable: Any] else {
+//				internalErrorHandler(RequestErrors.InvalidResponseObject)
+//				return
+//			}
 			
-			if !successHandler(responseJsonDictionary) {
-				if let apiError = try? RequestAPIError.decode(jsonDictionary: responseJsonDictionary) {
-					internalErrorHandler(RequestErrors.API(apiError: apiError))
-				} else {
+			if !successHandler(responseObject) {
+//				if let apiError = try? RequestAPIError.decode(jsonDictionary: responseJsonDictionary) {
+//					internalErrorHandler(RequestErrors.API(apiError: apiError))
+//				} else {
 					internalErrorHandler(RequestErrors.InvalidResponseObject)
-				}
+//				}
 			} else {
-				Broadcaster.notify(RequestControllerNotificationProtocol.self) {
-					$0.onRequestCompleted(forRequestIdentifier: requestIdentifier, responseJsonDictionary: responseJsonDictionary)
-				}
+//				Broadcaster.notify(RequestControllerNotificationProtocol.self) {
+//					$0.onRequestCompleted(forRequestIdentifier: requestIdentifier, responseJsonDictionary: responseJsonDictionary)
+//				}
 			}
 		}
 		

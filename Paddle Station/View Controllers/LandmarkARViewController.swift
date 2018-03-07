@@ -355,20 +355,16 @@ fileprivate extension LandmarkARViewController
 		
 		
 		
+		let urlString = "http://159.65.73.98/landmarks/"
 		
-		let urlString = "TODO"
+		let landmarkRequest = LandmarkRequest(location: location, radius: 500.0)
 		
-		let landmarkRequest = LandmarkRequest(location: location, radius: 100.0)
-		
-		let successHandler = { (responseJsonDictionary: [AnyHashable: Any]) -> Bool in
+		let successHandler = { (responseObject: Any) -> Bool in
 			
-			// TODO: uncomment
-			//				guard let landmarks = try? Landmarks.decode(jsonDictionary: responseJsonDictionary) else {
-			//					return false
-			//				}
-			
-			let landmarks = Landmark.dummyLandmarks
-			
+			guard let responseJsonDictionary = responseObject as? [[AnyHashable: Any]] else { return false }
+			guard let landmarks = try? Landmarks.decode(jsonDictionary: responseJsonDictionary) else { return false }
+
+//			let landmarks = Landmark.dummyLandmarks
 			self.updateFor(landmarks: landmarks)
 			
 			return true
@@ -384,8 +380,8 @@ fileprivate extension LandmarkARViewController
 			
 			
 			// TEMP: remove
-			let landmarks = Landmark.dummyLandmarks
-			self.updateFor(landmarks: landmarks)
+//			let landmarks = Landmark.dummyLandmarks
+//			self.updateFor(landmarks: landmarks)
 			
 			
 			//			guard let landMarks = landmarks else {

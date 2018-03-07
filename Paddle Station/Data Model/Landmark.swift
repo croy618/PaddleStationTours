@@ -133,6 +133,13 @@ final class Landmark: Codable, Equatable
 				 longitude: -114.09847819999999,
 				 type: "Default",
 				 url: URL(string: "https://www.google.ca")),
+		Landmark(name: "Calgary Tower",
+				 description: "NA",
+				 altitude: 1052.0,
+				 latitude: 51.04430800000001,
+				 longitude: -114.06309140000002,
+				 type: "Default",
+				 url: URL(string: "https://www.google.ca")),
 	]
 	
 	

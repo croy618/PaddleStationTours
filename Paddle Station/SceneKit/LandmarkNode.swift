@@ -37,7 +37,7 @@ class LandmarkNode: SCNNode
 {
 	let landmark: Landmark
 	let lockedWorldPosition: simd_float3
-	var pinBackgroundColor = UIColor.black {
+	var pinBackgroundColor = UIColor.red {
 		didSet
 		{
 			// TODO: update
@@ -71,7 +71,7 @@ class LandmarkNode: SCNNode
 	fileprivate lazy var textNode: SCNNode = {
 		let node = SCNNode(geometry: self.text)
 		node.castsShadow = false
-		node.scale = SCNVector3Make(0.3, 0.3, 0.3)
+//		node.scale = SCNVector3Make(0.3, 0.3, 0.3)
 		return node
 	}()
 	
@@ -115,7 +115,7 @@ class LandmarkNode: SCNNode
 //		billboardConstraint.freeAxes = SCNBillboardAxis.Y
 //		constraints = [billboardConstraint]
 //
-//		addChildNode(annotationNode)
+//		addChildNode(anno`tationNode)
 //	}
 	
 	required init(landmark: Landmark, cameraWorldPosition: simd_float3)
@@ -155,7 +155,8 @@ class LandmarkNode: SCNNode
 		let bearing = SCNFloat(location.coordinate.bearing(toCoordinate: self.landmark.location.coordinate))
 		let altitudeDelta = SCNFloat(self.landmark.location.altitude - location.altitude)
 		
-		self.isHidden = !(25.0...500.0).contains(distance)
+//		self.isHidden = !(25.0...500.0).contains(distance)
+		self.isHidden = false
 		guard !self.isHidden else { return }
 		
 		
@@ -222,7 +223,8 @@ class LandmarkNode: SCNNode
 		
 		
 		if isOnScreen {
-			self.text.string = StringBuilder(line: self.landmark.name)
+			self.text.string = StringBuilder()
+				.append(string: self.landmark.name)
 				.append(line: "distance:")
 				.append(line: String(format: "\treal: %.2fm", distance))
 				.append(line: String(format: "\tvirtual: %.2fm", distanceVirtual))
@@ -230,6 +232,43 @@ class LandmarkNode: SCNNode
 				.append(line: String(format: "altitude: %.2fm (Δ: %.2fm)", self.landmark.location.altitude, altitudeDelta))
 				.append(line: String(format: "bearing: %.3frad", bearing))
 				.string
+			
+			
+			
+			// UPDATE SCALE
+			// all values in metres
+			// TODO: Sluthware
+			//	percenteage in range
+			//	value in range for percenage
+			let minDistance: SCNFloat = 10.0
+			let maxDistance: SCNFloat = 500.0
+			let minFontSize: SCNFloat = 1.0
+			let maxFontSize: SCNFloat = 10.0
+			
+			let percent = (distance - minDistance) / (maxDistance - minDistance)
+			let scaledFontSize = (percent * (maxFontSize - minFontSize)) + minFontSize
+			
+			self.text.font = self.text.font.withSize(CGFloat(scaledFontSize))
+			
+			
+			
+			
+			
+			
+			
+			
+			// https://signsontime.com.au/blog/90-sign-size.html
+//			let mm = distance * 4.0
+//			let m = mm / 1000.0
+//			print(mm, m)
+//			self.text.font = self.text.font.withSize(CGFloat(m))
+			
+			
+			
+			
+			
+			
+			
 			
 			
 			
@@ -249,25 +288,33 @@ class LandmarkNode: SCNNode
 			pinBackgroundPlane.height = {
 				return CGFloat(((self.textNode.boundingBox.max.y - self.textNode.boundingBox.min.y) * self.textNode.scale.y) * paddingPercentage)
 			}()
-			pinBackgroundPlane.cornerRadius = 3.0
+			//pinBackgroundPlane.cornerRadius = 3.0
 			
 			
 			
-			pinArrowPlane.width = pinBackgroundPlane.height / 4.0
+			pinArrowPlane.width = pinBackgroundPlane.width / 8.0
 			pinArrowPlane.height = pinArrowPlane.width
 			
 			
 			
+			self.textNode.simdPosition.y = SCNFloat(pinArrowPlane.height / 2.0)
+			
+			
+			
 			// Adjust up half the height because the pivot is in the centre vs on the bottom for SCNText
-			self.pinBackgroundNode.simdPosition.y = SCNFloat(pinBackgroundPlane.height / 2.0)
-			//				self.pinBackgroundNode.simdPosition.z = -3.0
+			self.pinBackgroundNode.simdPosition.y = self.textNode.simdPosition.y + SCNFloat((pinBackgroundPlane.height / 2.0))
 			self.pinBackgroundNode.simdPosition.z = self.textNode.simdPosition.z - 3.0
 			
 			
 			
 			self.pinArrowNode.simdEulerAngles = simd_float3.zero
-			self.pinArrowNode.simdPosition.z = self.pinBackgroundNode.simdPosition.z
+			self.pinArrowNode.simdPosition.y = self.textNode.simdPosition.y
+			self.pinArrowNode.simdPosition.z = self.textNode.simdPosition.z - 3.0
 			self.pinArrowNode.simdEulerAngles.z = SCNFloat.pi_4
+			
+			
+			self.pinArrowNode.opacity = 0.0
+			self.textNode.opacity = 0.0
 		}
 		
 		
