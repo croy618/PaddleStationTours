@@ -37,7 +37,7 @@ class LandmarkNode: SCNNode
 {
 	let landmark: Landmark
 	let lockedWorldPosition: simd_float3
-	var pinBackgroundColor = UIColor.red {
+	var pinBackgroundColor = UIColor.black {
 		didSet
 		{
 			// TODO: update
@@ -288,7 +288,7 @@ class LandmarkNode: SCNNode
 			pinBackgroundPlane.height = {
 				return CGFloat(((self.textNode.boundingBox.max.y - self.textNode.boundingBox.min.y) * self.textNode.scale.y) * paddingPercentage)
 			}()
-			//pinBackgroundPlane.cornerRadius = 3.0
+			pinBackgroundPlane.cornerRadius = 3.0
 			
 			
 			
@@ -303,18 +303,14 @@ class LandmarkNode: SCNNode
 			
 			// Adjust up half the height because the pivot is in the centre vs on the bottom for SCNText
 			self.pinBackgroundNode.simdPosition.y = self.textNode.simdPosition.y + SCNFloat((pinBackgroundPlane.height / 2.0))
-			self.pinBackgroundNode.simdPosition.z = self.textNode.simdPosition.z - 3.0
+			self.pinBackgroundNode.simdPosition.z = self.textNode.simdPosition.z - 10.0
 			
 			
 			
 			self.pinArrowNode.simdEulerAngles = simd_float3.zero
 			self.pinArrowNode.simdPosition.y = self.textNode.simdPosition.y
-			self.pinArrowNode.simdPosition.z = self.textNode.simdPosition.z - 3.0
+			self.pinArrowNode.simdPosition.z = self.pinBackgroundNode.simdPosition.z
 			self.pinArrowNode.simdEulerAngles.z = SCNFloat.pi_4
-			
-			
-			self.pinArrowNode.opacity = 0.0
-			self.textNode.opacity = 0.0
 		}
 		
 		
