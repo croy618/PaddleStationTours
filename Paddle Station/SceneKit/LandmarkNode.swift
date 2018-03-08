@@ -247,28 +247,13 @@ class LandmarkNode: SCNNode
 			
 			let percent = (distance - minDistance) / (maxDistance - minDistance)
 			let scaledFontSize = (percent * (maxFontSize - minFontSize)) + minFontSize
-			
 			self.text.font = self.text.font.withSize(CGFloat(scaledFontSize))
-			
-			
-			
-			
-			
-			
-			
 			
 			// https://signsontime.com.au/blog/90-sign-size.html
 //			let mm = distance * 4.0
 //			let m = mm / 1000.0
 //			print(mm, m)
 //			self.text.font = self.text.font.withSize(CGFloat(m))
-			
-			
-			
-			
-			
-			
-			
 			
 			
 			
