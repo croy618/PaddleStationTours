@@ -21,10 +21,18 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.file` struct is generated, and contains static references to 1 files.
+  /// This `R.file` struct is generated, and contains static references to 2 files.
   struct file {
+    /// Resource file `LandmarkNodePinScene.sks`.
+    static let landmarkNodePinSceneSks = Rswift.FileResource(bundle: R.hostingBundle, name: "LandmarkNodePinScene", pathExtension: "sks")
     /// Resource file `Scene.scn`.
     static let sceneScn = Rswift.FileResource(bundle: R.hostingBundle, name: "Scene", pathExtension: "scn")
+    
+    /// `bundle.url(forResource: "LandmarkNodePinScene", withExtension: "sks")`
+    static func landmarkNodePinSceneSks(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.landmarkNodePinSceneSks
+      return fileResource.bundle.url(forResource: fileResource)
+    }
     
     /// `bundle.url(forResource: "Scene", withExtension: "scn")`
     static func sceneScn(_: Void = ()) -> Foundation.URL? {
@@ -40,7 +48,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 5 images.
+  /// This `R.image` struct is generated, and contains static references to 6 images.
   struct image {
     /// Image `PinArrow`.
     static let pinArrow = Rswift.ImageResource(bundle: R.hostingBundle, name: "PinArrow")
@@ -48,6 +56,8 @@ struct R: Rswift.Validatable {
     static let pinBox = Rswift.ImageResource(bundle: R.hostingBundle, name: "PinBox")
     /// Image `buttonring`.
     static let buttonring = Rswift.ImageResource(bundle: R.hostingBundle, name: "buttonring")
+    /// Image `pinBackground`.
+    static let pinBackground = Rswift.ImageResource(bundle: R.hostingBundle, name: "pinBackground")
     /// Image `restartPressed`.
     static let restartPressed = Rswift.ImageResource(bundle: R.hostingBundle, name: "restartPressed")
     /// Image `restart`.
@@ -66,6 +76,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "buttonring", bundle: ..., traitCollection: ...)`
     static func buttonring(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.buttonring, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "pinBackground", bundle: ..., traitCollection: ...)`
+    static func pinBackground(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.pinBackground, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "restart", bundle: ..., traitCollection: ...)`

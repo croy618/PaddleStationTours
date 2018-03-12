@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpriteKit
 import SceneKit
 import CoreLocation
 import ARKit
@@ -37,12 +38,14 @@ class LandmarkNode: SCNNode
 {
 	let landmark: Landmark
 	let lockedWorldPosition: simd_float3
-	var pinBackgroundColor = UIColor.black {
+	var pinBackgroundColor = UIColor.clear {
 		didSet
 		{
 			// TODO: update
 		}
 	}
+	
+	fileprivate let stringBuilder = StringBuilder()
 	
 	
 	
@@ -54,43 +57,31 @@ class LandmarkNode: SCNNode
 	
 	fileprivate lazy var pinAnchorNode: SCNNode = {
 		let node = SCNNode()
+//		node.geometry = {
+//			let geometry = SCNSphere(radius: 1.0)
+//			let material = SCNMaterial.constantLitWith(color: UIColor.green)
+//			geometry.materials = [material]
+//			return geometry
+//		}()
 		self.rotationNode.addChildNode(node)
 		return node
 	}()
 	
-	fileprivate(set) lazy var text: SCNText = {
-		let geometry = SCNText(string: nil, extrusionDepth: 0.0)
-		geometry.alignmentMode = kCAAlignmentCenter
-		geometry.flatness = 1.0		// 0.0 is very slow
-		let material = SCNMaterial.constantLitWith(color: UIColor.white)
-		geometry.materials = [material]
-		
-		return geometry
+	fileprivate lazy var pinScene: LandmarkNodePinScene = {
+		let pinScene = LandmarkNodePinScene(fileNamed: R.file.landmarkNodePinSceneSks.name)!
+		return pinScene
 	}()
 	
-	fileprivate lazy var textNode: SCNNode = {
-		let node = SCNNode(geometry: self.text)
-		node.castsShadow = false
-//		node.scale = SCNVector3Make(0.3, 0.3, 0.3)
-		return node
-	}()
-	
-	fileprivate lazy var pinBackgroundNode: SCNNode = {
+	fileprivate lazy var pinNode: SCNNode = {
 		let node = SCNNode()
 		node.geometry = {
 			let geometry = SCNPlane(width: 0.0, height: 0.0)
-			let material = SCNMaterial.constantLitWith(color: self.pinBackgroundColor)
-			geometry.materials = [material]
-			return geometry
-		}()
-		return node
-	}()
-	
-	fileprivate lazy var pinArrowNode: SCNNode = {
-		let node = SCNNode()
-		node.geometry = {
-			let geometry = SCNPlane(width: 0.0, height: 0.0)
-			let material = SCNMaterial.constantLitWith(color: self.pinBackgroundColor)
+			let material = SCNMaterial.constantLitWith(color: UIColor.clear)
+			
+//			materrial.isDoubleSided = true
+			material.diffuse.contents = self.pinScene
+			material.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1.0, -1.0, 1.0), 0.0, 1.0, 0.0)
+			
 			geometry.materials = [material]
 			return geometry
 		}()
@@ -99,24 +90,7 @@ class LandmarkNode: SCNNode
 	
 	
 	
-//	public init(location: CLLocation?, image: UIImage) {
-//		self.image = image
-//
-//		let plane = SCNPlane(width: image.size.width / 100, height: image.size.height / 100)
-//		plane.firstMaterial!.diffuse.contents = image
-//		plane.firstMaterial!.lightingModel = .constant
-//
-//		annotationNode = SCNNode()
-//		annotationNode.geometry = plane
-//
-//		super.init(location: location)
-//
-//		let billboardConstraint = SCNBillboardConstraint()
-//		billboardConstraint.freeAxes = SCNBillboardAxis.Y
-//		constraints = [billboardConstraint]
-//
-//		addChildNode(anno`tationNode)
-//	}
+	
 	
 	required init(landmark: Landmark, cameraWorldPosition: simd_float3)
 	{
@@ -129,12 +103,8 @@ class LandmarkNode: SCNNode
 		
 		
 		
-		let textNodeContainer = SCNNode()
-		textNodeContainer.addConstraint(SCNBillboardConstraint(freeAxes: SCNBillboardAxis.Y))
-		textNodeContainer.addChildNode(self.textNode)
-		textNodeContainer.addChildNode(self.pinBackgroundNode)
-		textNodeContainer.addChildNode(self.pinArrowNode)
-		self.pinAnchorNode.addChildNode(textNodeContainer)
+		self.pinNode.addConstraint(SCNBillboardConstraint(freeAxes: SCNBillboardAxis.Y))
+		self.pinAnchorNode.addChildNode(self.pinNode)
 		
 		
 		
@@ -223,7 +193,25 @@ class LandmarkNode: SCNNode
 		
 		
 		if isOnScreen {
-			self.text.string = StringBuilder()
+			
+			// https://signsontime.com.au/blog/90-sign-size.html
+			let m = distance / 4.0
+			//let m = mm / 1000.0
+//			print(distance, m)
+			//			self.pinScene.label?.fontSize = m
+			
+			let pinBackgroundPlane = self.pinNode.geometry as! SCNPlane
+			pinBackgroundPlane.height = CGFloat(m)
+			pinBackgroundPlane.width = pinBackgroundPlane.height * (1000.0 / 600.0)
+//			let aspectRatio = pinBackgroundPlane.width / pinBackgroundPlane.height
+			// TODO: SCALE BASED ON ASPECT RATIO?
+//			self.pinScene.size = CGSize(width: pinBackgroundPlane.width * 25.0, height: pinBackgroundPlane.height * 25.0)
+			self.pinNode.pivot = self.pinNode.centrePivot(centreX: true, centreY: false, centreZ: false)
+			self.pinNode.simdPosition.y = SCNFloat(pinBackgroundPlane.height / 2.0)
+			
+			
+			
+			let attributedString = self.stringBuilder.clear()
 				.append(string: self.landmark.name)
 				.append(line: "distance:")
 				.append(line: String(format: "\treal: %.2fm", distance))
@@ -231,71 +219,103 @@ class LandmarkNode: SCNNode
 				.append(line: String(format: "\tΔ: %.2fm", distanceError))
 				.append(line: String(format: "altitude: %.2fm (Δ: %.2fm)", self.landmark.location.altitude, altitudeDelta))
 				.append(line: String(format: "bearing: %.3frad", bearing))
-				.string
+				.attributed
+			
+			let lines = attributedString.string.components(separatedBy: CharacterSet.newlines).count
+			let fontSize = (self.pinScene.size.height * 0.5) / CGFloat(lines)
+			
+			attributedString.addAttribute(NSAttributedStringKey.font,
+										  value: UIFont.systemFont(ofSize: fontSize),
+										  range: NSRange(location: 0, length: attributedString.length))
+			
+//			let paragraphStyle = NSMutableParagraphStyle()
+//			paragraphStyle.lineSpacing = 0.0
+//
+//			attributedString.addAttribute(NSAttributedStringKey.paragraphStyle,
+//										  value: paragraphStyle,
+//										  range: NSRange(location: 0, length: attributedString.length))
 			
 			
 			
-			// UPDATE SCALE
-			// all values in metres
-			// TODO: Sluthware
-			//	percenteage in range
-			//	value in range for percenage
-			let minDistance: SCNFloat = 10.0
-			let maxDistance: SCNFloat = 500.0
-			let minFontSize: SCNFloat = 1.0
-			let maxFontSize: SCNFloat = 10.0
-			
-			let percent = (distance - minDistance) / (maxDistance - minDistance)
-			let scaledFontSize = (percent * (maxFontSize - minFontSize)) + minFontSize
-			self.text.font = self.text.font.withSize(CGFloat(scaledFontSize))
-			
-			// https://signsontime.com.au/blog/90-sign-size.html
-//			let mm = distance * 4.0
-//			let m = mm / 1000.0
-//			print(mm, m)
-//			self.text.font = self.text.font.withSize(CGFloat(m))
+			self.pinScene.label?.attributedText = attributedString
+//			self.pinScene.label?.fontColor = UIColor.black
+//			self.pinScene.label?.fontSize = (self.pinScene.size.height * 0.75) / CGFloat(lines)
+//			self.pinScene.label.fitToHeight(maxHeight: pinBackgroundPlane.height)
 			
 			
 			
-			self.textNode.pivot = self.textNode.centrePivot(centreX: true, centreY: false, centreZ: false)
+//			// UPDATE SCALE
+//			// all values in metres
+//			// TODO: Sluthware
+//			//	percenteage in range
+//			//	value in range for percenage
+//			let minDistance: SCNFloat = 10.0
+//			let maxDistance: SCNFloat = 500.0
+//			let minFontSize: SCNFloat = 1.0
+//			let maxFontSize: SCNFloat = 200.0
+//
+//			let percent = (distance - minDistance) / (maxDistance - minDistance)
+//			let scaledFontSize = (percent * (maxFontSize - minFontSize)) + minFontSize
+//			self.pinScene.label?.fontSize = CGFloat(scaledFontSize)
+//			self.text.font = self.text.font.withSize(CGFloat(scaledFontSize))
 			
 			
 			
-			let pinBackgroundPlane = self.pinBackgroundNode.geometry as! SCNPlane
-			let pinArrowPlane = self.pinArrowNode.geometry as! SCNPlane
-			let paddingPercentage: SCNFloat = 1.1
 			
 			
 			
-			pinBackgroundPlane.width = {
-				return CGFloat(((self.textNode.boundingBox.max.x - self.textNode.boundingBox.min.x) * self.textNode.scale.x) * paddingPercentage)
-			}()
-			pinBackgroundPlane.height = {
-				return CGFloat(((self.textNode.boundingBox.max.y - self.textNode.boundingBox.min.y) * self.textNode.scale.y) * paddingPercentage)
-			}()
-			pinBackgroundPlane.cornerRadius = 3.0
 			
 			
 			
-			pinArrowPlane.width = pinBackgroundPlane.width / 8.0
-			pinArrowPlane.height = pinArrowPlane.width
 			
 			
 			
-			self.textNode.simdPosition.y = SCNFloat(pinArrowPlane.height / 2.0)
+			
+			
+//			let pinArrowPlane = self.pinArrowNode.geometry as! SCNPlane
+//			let paddingPercentage: SCNFloat = 1.1
+			
+			
+			
+			
+			
+//			pinBackgroundPlane.width = {
+//				return CGFloat(((self.textNode.boundingBox.max.x - self.textNode.boundingBox.min.x) * self.textNode.scale.x) * paddingPercentage)
+//			}()
+//			pinBackgroundPlane.height = {
+//				return CGFloat(((self.textNode.boundingBox.max.y - self.textNode.boundingBox.min.y) * self.textNode.scale.y) * paddingPercentage)
+//			}()
+//			pinBackgroundPlane.cornerRadius = 3.0
+			
+			
+			
+//			pinArrowPlane.width = pinBackgroundPlane.width / 8.0
+//			pinArrowPlane.height = pinArrowPlane.width
+			
+			
+			
+//			self.textNode.simdPosition.y = SCNFloat(pinArrowPlane.height / 2.0)
 			
 			
 			
 			// Adjust up half the height because the pivot is in the centre vs on the bottom for SCNText
-			self.pinBackgroundNode.simdPosition.y = self.textNode.simdPosition.y + SCNFloat((pinBackgroundPlane.height / 2.0))
-			self.pinBackgroundNode.simdPosition.z = self.textNode.simdPosition.z - 10.0
+//			self.pinNode.simdPosition.y = self.textNode.simdPosition.y + SCNFloat((pinBackgroundPlane.height / 2.0))
+//			self.pinNode.simdPosition.z = self.textNode.simdPosition.z - 10.0
 			
 			
 			
-			self.pinArrowNode.simdEulerAngles = simd_float3.zero
-			self.pinArrowNode.simdPosition.y = self.textNode.simdPosition.y
-			self.pinArrowNode.simdPosition.z = self.pinBackgroundNode.simdPosition.z
-			self.pinArrowNode.simdEulerAngles.z = SCNFloat.pi_4
+//			self.pinArrowNode.simdEulerAngles = simd_float3.zero
+			
+//			self.pinArrowNode.simdPosition.z = self.pinNode.simdPosition.z
+//			self.pinArrowNode.simdEulerAngles.z = SCNFloat.pi_4
+//
+//
+//
+//
+//
+//
+//			self.textNode.opacity = 0.0
+//			self.pinArrowNode.opacity = 0.0
 		}
 		
 		
