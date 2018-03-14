@@ -225,7 +225,7 @@ class LandmarkNode: SCNNode
 			let fontSize = (self.pinScene.size.height * 0.5) / CGFloat(lines)
 			
 			attributedString.addAttribute(NSAttributedStringKey.font,
-										  value: UIFont.systemFont(ofSize: fontSize),
+										  	value: UIFont.systemFont(ofSize: fontSize),
 										  range: NSRange(location: 0, length: attributedString.length))
 			
 //			let paragraphStyle = NSMutableParagraphStyle()
@@ -238,6 +238,11 @@ class LandmarkNode: SCNNode
 			
 			
 			self.pinScene.label?.attributedText = attributedString
+
+//			self.pinScene.background?.size = self.pinScene.label!.sizee
+//			self.pinScene.position = self.pinScene.label!.position
+			
+			
 //			self.pinScene.label?.fontColor = UIColor.black
 //			self.pinScene.label?.fontSize = (self.pinScene.size.height * 0.75) / CGFloat(lines)
 //			self.pinScene.label.fitToHeight(maxHeight: pinBackgroundPlane.height)

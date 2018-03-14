@@ -25,6 +25,8 @@ class LandmarkARViewController: LandmarkViewController
 		return self.sceneView.session
 	}
 	
+	@IBOutlet fileprivate var logoImageView: UIImageView!
+	@IBOutlet fileprivate var statusLabel: UILabel!
 	@IBOutlet fileprivate var debugLabel: UILabel!
 	
 	fileprivate let landmarkRequestDeltaDistance: SCNFloat = 10.0 // metres
@@ -403,24 +405,19 @@ extension LandmarkARViewController: ARSessionDelegate
 		
 		DispatchQueue.main.async {
 			self.updateDebugLabel()
+			self.statusLabel.text = camera.trackingState.presentationString
 		}
 		
+		// TODO: Animate logo in and out
 		switch camera.trackingState {
 		case ARCamera.TrackingState.normal:
+			self.logoImageView.alpha = 0.0
 			break
 		default:
+			self.logoImageView.alpha = 1.0
 			self.landmarkRequestWorldPosition = nil
 			break
 		}
-		
-//		self.statusViewController.showTrackingQualityInfo(for: camera.trackingState, autoHide: true)
-//
-//		switch camera.trackingState {
-//		case ARCamera.TrackingState.notAvailable, ARCamera.TrackingState.limited:
-//			self.statusViewController.escalateFeedback(for: camera.trackingState, inSeconds: 3.0)
-//		case ARCamera.TrackingState.normal:
-//			self.statusViewController.cancelScheduledMessage(for: StatusViewController.MessageType.TrackingStateEscalation)
-//		}
 	}
 	
 	func session(_ session: ARSession, didFailWithError error: Error)
@@ -457,6 +454,39 @@ extension LandmarkARViewController: ARSessionDelegate
 //		self.statusViewController.showMessage("RESETTING SESSION")
 //
 //		self.restartExperience(resetTracking: true)
+	}
+}
+
+
+
+
+
+extension ARCamera.TrackingState
+{
+	var presentationString: String {
+		switch self {
+		case ARCamera.TrackingState.notAvailable:
+			return "TRACKING UNAVAILABLE"
+		case ARCamera.TrackingState.normal:
+			return "TRACKING NORMAL"
+		case ARCamera.TrackingState.limited(ARCamera.TrackingState.Reason.excessiveMotion):
+			return "TRACKING LIMITED\nExcessive motion"
+		case ARCamera.TrackingState.limited(ARCamera.TrackingState.Reason.insufficientFeatures):
+			return "TRACKING LIMITED\nLow detail"
+		case ARCamera.TrackingState.limited(ARCamera.TrackingState.Reason.initializing):
+			return "Initializing"
+		}
+	}
+	
+	var recommendation: String? {
+		switch self {
+		case ARCamera.TrackingState.limited(ARCamera.TrackingState.Reason.excessiveMotion):
+			return "Try slowing down your movement, or reset the session."
+		case ARCamera.TrackingState.limited(ARCamera.TrackingState.Reason.insufficientFeatures):
+			return "Try pointing at a flat surface, or reset the session."
+		default:
+			return nil
+		}
 	}
 }
 

@@ -48,12 +48,14 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 6 images.
+  /// This `R.image` struct is generated, and contains static references to 7 images.
   struct image {
     /// Image `PinArrow`.
     static let pinArrow = Rswift.ImageResource(bundle: R.hostingBundle, name: "PinArrow")
     /// Image `PinBox`.
     static let pinBox = Rswift.ImageResource(bundle: R.hostingBundle, name: "PinBox")
+    /// Image `TPSlogo_dark_transparent_PNG`.
+    static let tpSlogo_dark_transparent_PNG = Rswift.ImageResource(bundle: R.hostingBundle, name: "TPSlogo_dark_transparent_PNG")
     /// Image `buttonring`.
     static let buttonring = Rswift.ImageResource(bundle: R.hostingBundle, name: "buttonring")
     /// Image `pinBackground`.
@@ -71,6 +73,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "PinBox", bundle: ..., traitCollection: ...)`
     static func pinBox(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.pinBox, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "TPSlogo_dark_transparent_PNG", bundle: ..., traitCollection: ...)`
+    static func tpSlogo_dark_transparent_PNG(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.tpSlogo_dark_transparent_PNG, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "buttonring", bundle: ..., traitCollection: ...)`
@@ -216,6 +223,7 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "buttonring") == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'buttonring' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "restart") == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'restart' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "restartPressed") == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'restartPressed' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "TPSlogo_dark_transparent_PNG") == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'TPSlogo_dark_transparent_PNG' is used in storyboard 'Main', but couldn't be loaded.") }
         if _R.storyboard.main().landmarkARViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'landmarkARViewController' could not be loaded from storyboard 'Main' as 'LandmarkARViewController'.") }
         if _R.storyboard.main().landmarkMapViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'landmarkMapViewController' could not be loaded from storyboard 'Main' as 'LandmarkMapViewController'.") }
       }

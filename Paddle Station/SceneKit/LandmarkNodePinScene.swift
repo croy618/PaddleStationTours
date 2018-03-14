@@ -67,21 +67,6 @@ class LandmarkNodePinScene: SKScene
 //			self.label?.fontSize = self.size.height / 7.0
 //		}
 //	}
-	
-	
-	
-	
-	
-    override func didMove(to view: SKView)
-	{
-		
-//		self.background
-    }
-    
-    override func update(_ currentTime: TimeInterval)
-	{
-        // Called before each frame is rendered
-    }
 }
 
 
