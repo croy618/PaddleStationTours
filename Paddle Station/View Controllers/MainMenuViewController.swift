@@ -44,6 +44,8 @@ class MainMenuViewController: BaseViewController
 	fileprivate var landmarkMapViewController: LandmarkMapViewController!
 	fileprivate var landmarkARViewController: LandmarkARViewController!
 	
+	@IBOutlet fileprivate var adContainerView: UIView!
+	
 	
 	
 	
