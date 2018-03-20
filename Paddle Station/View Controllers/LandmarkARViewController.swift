@@ -411,10 +411,14 @@ extension LandmarkARViewController: ARSessionDelegate
 		// TODO: Animate logo in and out
 		switch camera.trackingState {
 		case ARCamera.TrackingState.normal:
-			self.logoImageView.alpha = 0.0
+			UIView.animate(withDuration: 0.25, animations: {
+				self.logoImageView.alpha = 0.0
+			})
 			break
 		default:
-			self.logoImageView.alpha = 1.0
+			UIView.animate(withDuration: 0.25, animations: {
+				self.logoImageView.alpha = 1.0
+			})
 			self.landmarkRequestWorldPosition = nil
 			break
 		}

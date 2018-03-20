@@ -49,24 +49,54 @@ extension SKLabelNode
 
 class LandmarkNodePinScene: SKScene
 {
-	lazy var background: SKSpriteNode? = {
+	var text: String? {
+		get
+		{
+			return self.label?.text
+		}
+		set
+		{
+			DispatchQueue.main.async {
+				self.label?.text = newValue
+				self.updateSize()
+			}
+		}
+	}
+	
+	var attributedText: NSAttributedString? {
+		get
+		{
+			return self.label?.attributedText
+		}
+		set
+		{
+			DispatchQueue.main.async {
+				self.label?.attributedText = newValue
+				self.updateSize()
+			}
+		}
+	}
+	
+	fileprivate lazy var background: SKSpriteNode? = {
 		return self.childNode(withName: "//background") as? SKSpriteNode
 	}()
 	
-	lazy var label: SKLabelNode? = {
+	fileprivate lazy var label: SKLabelNode? = {
 		return self.childNode(withName: "//label") as? SKLabelNode
 	}()
 	
-//	override var size: CGSize {
-//		didSet
-//		{
-//			self.background?.size = self.size
-//			self.background?.position = CGPoint.zero
-//			
-//			self.label?.fontColor = UIColor.black
-//			self.label?.fontSize = self.size.height / 7.0
-//		}
-//	}
+	
+	
+	
+	
+	
+	fileprivate func updateSize()
+	{
+		guard let label = self.label else { return }
+		
+		self.size = CGSize(width: label.frame.size.width * 1.08, height: label.frame.size.height * 1.26)
+		self.background?.size = self.size
+	}
 }
 
 

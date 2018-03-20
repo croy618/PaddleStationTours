@@ -237,7 +237,8 @@ class LandmarkNode: SCNNode
 			
 			
 			
-			self.pinScene.label?.attributedText = attributedString
+//			self.pinScene.attributedText = attributedString
+			self.pinScene.text = attributedString.string
 
 //			self.pinScene.background?.size = self.pinScene.label!.sizee
 //			self.pinScene.position = self.pinScene.label!.position
