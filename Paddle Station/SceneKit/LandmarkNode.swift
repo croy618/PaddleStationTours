@@ -116,6 +116,15 @@ class LandmarkNode: SCNNode
 		fatalError(#function + " has not been implemented")
 	}
 	
+//	override func removeFromParentNode() {
+//		super.removeFromParentNode()
+//		print(#function)
+//	}
+//
+//	deinit {
+//		print(#file.fileName, #function)
+//	}
+	
 	func updateFor(sceneView: ARSCNView, location: CLLocation, heading: CLHeading)
 	{
 		guard let pointOfView = sceneView.pointOfView else { return }
@@ -239,89 +248,6 @@ class LandmarkNode: SCNNode
 			
 //			self.pinScene.attributedText = attributedString
 			self.pinScene.text = attributedString.string
-
-//			self.pinScene.background?.size = self.pinScene.label!.sizee
-//			self.pinScene.position = self.pinScene.label!.position
-			
-			
-//			self.pinScene.label?.fontColor = UIColor.black
-//			self.pinScene.label?.fontSize = (self.pinScene.size.height * 0.75) / CGFloat(lines)
-//			self.pinScene.label.fitToHeight(maxHeight: pinBackgroundPlane.height)
-			
-			
-			
-//			// UPDATE SCALE
-//			// all values in metres
-//			// TODO: Sluthware
-//			//	percenteage in range
-//			//	value in range for percenage
-//			let minDistance: SCNFloat = 10.0
-//			let maxDistance: SCNFloat = 500.0
-//			let minFontSize: SCNFloat = 1.0
-//			let maxFontSize: SCNFloat = 200.0
-//
-//			let percent = (distance - minDistance) / (maxDistance - minDistance)
-//			let scaledFontSize = (percent * (maxFontSize - minFontSize)) + minFontSize
-//			self.pinScene.label?.fontSize = CGFloat(scaledFontSize)
-//			self.text.font = self.text.font.withSize(CGFloat(scaledFontSize))
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-//			let pinArrowPlane = self.pinArrowNode.geometry as! SCNPlane
-//			let paddingPercentage: SCNFloat = 1.1
-			
-			
-			
-			
-			
-//			pinBackgroundPlane.width = {
-//				return CGFloat(((self.textNode.boundingBox.max.x - self.textNode.boundingBox.min.x) * self.textNode.scale.x) * paddingPercentage)
-//			}()
-//			pinBackgroundPlane.height = {
-//				return CGFloat(((self.textNode.boundingBox.max.y - self.textNode.boundingBox.min.y) * self.textNode.scale.y) * paddingPercentage)
-//			}()
-//			pinBackgroundPlane.cornerRadius = 3.0
-			
-			
-			
-//			pinArrowPlane.width = pinBackgroundPlane.width / 8.0
-//			pinArrowPlane.height = pinArrowPlane.width
-			
-			
-			
-//			self.textNode.simdPosition.y = SCNFloat(pinArrowPlane.height / 2.0)
-			
-			
-			
-			// Adjust up half the height because the pivot is in the centre vs on the bottom for SCNText
-//			self.pinNode.simdPosition.y = self.textNode.simdPosition.y + SCNFloat((pinBackgroundPlane.height / 2.0))
-//			self.pinNode.simdPosition.z = self.textNode.simdPosition.z - 10.0
-			
-			
-			
-//			self.pinArrowNode.simdEulerAngles = simd_float3.zero
-			
-//			self.pinArrowNode.simdPosition.z = self.pinNode.simdPosition.z
-//			self.pinArrowNode.simdEulerAngles.z = SCNFloat.pi_4
-//
-//
-//
-//
-//
-//
-//			self.textNode.opacity = 0.0
-//			self.pinArrowNode.opacity = 0.0
 		}
 		
 		

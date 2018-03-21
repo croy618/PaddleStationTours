@@ -190,12 +190,14 @@ fileprivate extension LandmarkARViewController
 			debugText += String(format: "headingAccuracy: %.3f rad\n", currentHeading.headingAccuracy.toRad)
 		}
 		
-		self.debugLabel.text = debugText
+		DispatchQueue.main.async {
+			self.debugLabel.text = debugText
+		}
 	}
 	
 	fileprivate func updateLandmarkNodes()
 	{
-		DispatchQueue.main.async {
+//		DispatchQueue.main.async {
 			//		guard let pointOfView = self.sceneView.pointOfView else { return }
 			//		guard let camera = self.sceneView.session.currentFrame?.camera else { return }
 			guard let currentLocation = LocationManager.shared.currentLocation else { return }
@@ -208,7 +210,7 @@ fileprivate extension LandmarkARViewController
 									   location: currentLocation,
 									   heading: currentHeading)
 			}
-		}
+//		}
 	}
 	
 	fileprivate func requestLandmarksFor(location: CLLocation, heading: CLHeading)
@@ -402,9 +404,9 @@ extension LandmarkARViewController: ARSessionDelegate
 	func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera)
 	{
 //		print(#function, camera.trackingState)
+		self.updateDebugLabel()
 		
 		DispatchQueue.main.async {
-			self.updateDebugLabel()
 			self.statusLabel.text = camera.trackingState.presentationString
 		}
 		
