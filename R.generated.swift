@@ -115,12 +115,14 @@ struct R: Rswift.Validatable {
   
   /// This `R.segue` struct is generated, and contains static references to 1 view controllers.
   struct segue {
-    /// This struct is generated for `MainMenuViewController`, and contains static references to 2 segues.
+    /// This struct is generated for `MainMenuViewController`, and contains static references to 3 segues.
     struct mainMenuViewController {
       /// Segue identifier `LandmarkARViewController`.
       static let landmarkARViewController: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, MainMenuViewController, LandmarkARViewController> = Rswift.StoryboardSegueIdentifier(identifier: "LandmarkARViewController")
       /// Segue identifier `LandmarkMapViewController`.
       static let landmarkMapViewController: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, MainMenuViewController, LandmarkMapViewController> = Rswift.StoryboardSegueIdentifier(identifier: "LandmarkMapViewController")
+      /// Segue identifier `SettingsViewController`.
+      static let settingsViewController: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, MainMenuViewController, UIKit.UINavigationController> = Rswift.StoryboardSegueIdentifier(identifier: "SettingsViewController")
       
       /// Optionally returns a typed version of segue `LandmarkARViewController`.
       /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
@@ -134,6 +136,13 @@ struct R: Rswift.Validatable {
       /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
       static func landmarkMapViewController(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, MainMenuViewController, LandmarkMapViewController>? {
         return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.mainMenuViewController.landmarkMapViewController, segue: segue)
+      }
+      
+      /// Optionally returns a typed version of segue `SettingsViewController`.
+      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
+      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
+      static func settingsViewController(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, MainMenuViewController, UIKit.UINavigationController>? {
+        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.mainMenuViewController.settingsViewController, segue: segue)
       }
       
       fileprivate init() {}
@@ -208,15 +217,10 @@ struct _R: Rswift.Validatable {
       
       let bundle = R.hostingBundle
       let landmarkARViewController = StoryboardViewControllerResource<LandmarkARViewController>(identifier: "LandmarkARViewController")
-      let landmarkMapViewController = StoryboardViewControllerResource<LandmarkMapViewController>(identifier: "LandmarkMapViewController")
       let name = "Main"
       
       func landmarkARViewController(_: Void = ()) -> LandmarkARViewController? {
         return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: landmarkARViewController)
-      }
-      
-      func landmarkMapViewController(_: Void = ()) -> LandmarkMapViewController? {
-        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: landmarkMapViewController)
       }
       
       static func validate() throws {
@@ -225,7 +229,6 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "restartPressed") == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'restartPressed' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "TPSlogo_dark_transparent_PNG") == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'TPSlogo_dark_transparent_PNG' is used in storyboard 'Main', but couldn't be loaded.") }
         if _R.storyboard.main().landmarkARViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'landmarkARViewController' could not be loaded from storyboard 'Main' as 'LandmarkARViewController'.") }
-        if _R.storyboard.main().landmarkMapViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'landmarkMapViewController' could not be loaded from storyboard 'Main' as 'LandmarkMapViewController'.") }
       }
       
       fileprivate init() {}

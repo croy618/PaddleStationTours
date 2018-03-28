@@ -66,22 +66,39 @@
                                     <action selector="landmarkViewControllerToggleButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vrk-p0-HUx"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wyf-Mp-j4v" userLabel="Settings Button">
+                                <rect key="frame" x="317" y="720" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Wyf-Mp-j4v" secondAttribute="height" multiplier="1:1" id="V4j-hr-Ha1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="•••">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="settingsButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nQI-Br-IE7"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="ln0-OE-q8x" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="3A9-Bx-4Xh"/>
                             <constraint firstItem="Tvw-XE-8Ko" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="6j8-go-yHg"/>
                             <constraint firstItem="Sep-sx-Kye" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9Mt-Ji-0rH"/>
+                            <constraint firstItem="Wyf-Mp-j4v" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="Rq1-Wr-OSY"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Sep-sx-Kye" secondAttribute="bottom" constant="10" id="Ssz-g9-bS6"/>
                             <constraint firstItem="uD3-Dg-J7R" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="YBw-ur-sIa"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ln0-OE-q8x" secondAttribute="trailing" id="fRy-L8-iVJ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Wyf-Mp-j4v" secondAttribute="bottom" constant="10" id="g0u-hi-3FT"/>
                             <constraint firstItem="Tvw-XE-8Ko" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="kdX-eV-TuT"/>
                             <constraint firstItem="uD3-Dg-J7R" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="mV6-ax-qge"/>
+                            <constraint firstItem="Wyf-Mp-j4v" firstAttribute="height" secondItem="Sep-sx-Kye" secondAttribute="height" id="mbw-Vf-oXs"/>
                             <constraint firstItem="Sep-sx-Kye" firstAttribute="top" secondItem="Tvw-XE-8Ko" secondAttribute="bottom" constant="10" id="mrb-MP-BzH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="uD3-Dg-J7R" secondAttribute="trailing" id="pwo-oY-7D2"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ln0-OE-q8x" secondAttribute="bottom" id="qeA-o3-QIx"/>
                             <constraint firstItem="ln0-OE-q8x" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="r1N-RB-wuW"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="uD3-Dg-J7R" secondAttribute="bottom" id="yPZ-o0-2UZ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Wyf-Mp-j4v" secondAttribute="trailing" constant="10" id="yZZ-Pt-97S"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -89,27 +106,15 @@
                     <connections>
                         <outlet property="adContainerView" destination="Tvw-XE-8Ko" id="5hC-gA-NnA"/>
                         <outlet property="landmarkViewControllerToggleButton" destination="Sep-sx-Kye" id="p3Y-2O-q0h"/>
+                        <outlet property="settingsButton" destination="Wyf-Mp-j4v" id="twp-Yr-Abu"/>
+                        <segue destination="h7h-DB-AT4" kind="popoverPresentation" identifier="SettingsViewController" popoverAnchorView="Wyf-Mp-j4v" id="jhr-zI-lXq">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="140" y="137"/>
-        </scene>
-        <!--Map View-->
-        <scene sceneID="f7f-kw-E1g">
-            <objects>
-                <viewController storyboardIdentifier="LandmarkMapViewController" id="DRv-f2-qFb" customClass="LandmarkMapViewController" customModule="Paddle_Station" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="9si-Zx-nE0">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="gQe-7j-jUX"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Map View" id="ihZ-mL-4OT"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="g9l-eO-0TF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2086" y="546"/>
         </scene>
         <!--Landmark Map View Controller-->
         <scene sceneID="fnH-DL-rlg">
@@ -124,7 +129,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jPi-OR-xZu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="982" y="-133"/>
+            <point key="canvasLocation" x="981" y="164"/>
         </scene>
         <!--LandmarkAR View Controller-->
         <scene sceneID="spc-dw-E8y">
@@ -239,7 +244,39 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qyt-jz-snD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="982" y="447"/>
+            <point key="canvasLocation" x="981" y="1070"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="LsW-bD-NJI">
+            <objects>
+                <navigationController id="h7h-DB-AT4" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7eY-0P-OBp">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="b9Y-mi-vT4" kind="relationship" relationship="rootViewController" id="7pe-4W-muM"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zjs-m8-XDp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="982" y="-821"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="WIQ-cN-aPo">
+            <objects>
+                <viewController id="b9Y-mi-vT4" customClass="SettingsViewController" customModule="Paddle_Station" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HVk-6j-dMk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="aOk-L5-xBO"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Settings" id="zQk-Po-wIl"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f9X-Su-OyJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1657" y="-821"/>
         </scene>
     </scenes>
     <resources>

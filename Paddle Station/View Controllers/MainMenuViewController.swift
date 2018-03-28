@@ -44,6 +44,7 @@ class MainMenuViewController: BaseViewController
 	fileprivate var landmarkMapViewController: LandmarkMapViewController!
 	fileprivate var landmarkARViewController: LandmarkARViewController!
 	
+	@IBOutlet fileprivate var settingsButton: UIButton!
 	@IBOutlet fileprivate var adContainerView: UIView!
 	
 	
@@ -72,6 +73,11 @@ class MainMenuViewController: BaseViewController
 			self.landmarkMapViewController = segue.destination as! LandmarkMapViewController
 		} else if segue.identifier == R.segue.mainMenuViewController.landmarkARViewController.identifier {
 			self.landmarkARViewController = segue.destination as! LandmarkARViewController
+		} else if segue.identifier == R.segue.mainMenuViewController.settingsViewController.identifier {
+			let popoverController = segue.destination.popoverPresentationController
+			popoverController?.delegate = self
+			popoverController?.sourceView = self.settingsButton
+			popoverController?.sourceRect = self.settingsButton.bounds
 		}
 	}
 	
@@ -81,6 +87,14 @@ class MainMenuViewController: BaseViewController
 		self.transitionTo(state: self.landmarkViewControllerState.next, animated: true, completion: { _ in
 			sender.isUserInteractionEnabled = true
 		})
+	}
+	
+	@IBAction func settingsButtonClicked(_ sender: UIButton)
+	{
+		let segueIdentifier = R.segue.mainMenuViewController.settingsViewController.identifier
+		self.segueManager.performSegue(withIdentifier: segueIdentifier) { (destination: SettingsViewController) in
+			
+		}
 	}
 }
 
@@ -147,6 +161,18 @@ fileprivate extension MainMenuViewController
 							
 							completion?(finished)
 		}
+	}
+}
+
+
+
+
+
+extension MainMenuViewController: UIPopoverPresentationControllerDelegate
+{
+	func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle
+	{
+		return UIModalPresentationStyle.none
 	}
 }
 
