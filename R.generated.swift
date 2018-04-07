@@ -21,12 +21,14 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.file` struct is generated, and contains static references to 2 files.
+  /// This `R.file` struct is generated, and contains static references to 3 files.
   struct file {
     /// Resource file `LandmarkNodePinScene.sks`.
     static let landmarkNodePinSceneSks = Rswift.FileResource(bundle: R.hostingBundle, name: "LandmarkNodePinScene", pathExtension: "sks")
     /// Resource file `Scene.scn`.
     static let sceneScn = Rswift.FileResource(bundle: R.hostingBundle, name: "Scene", pathExtension: "scn")
+    /// Resource file `SceneAssets.scnassets`.
+    static let sceneAssetsScnassets = Rswift.FileResource(bundle: R.hostingBundle, name: "SceneAssets", pathExtension: "scnassets")
     
     /// `bundle.url(forResource: "LandmarkNodePinScene", withExtension: "sks")`
     static func landmarkNodePinSceneSks(_: Void = ()) -> Foundation.URL? {
@@ -37,6 +39,12 @@ struct R: Rswift.Validatable {
     /// `bundle.url(forResource: "Scene", withExtension: "scn")`
     static func sceneScn(_: Void = ()) -> Foundation.URL? {
       let fileResource = R.file.sceneScn
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "SceneAssets", withExtension: "scnassets")`
+    static func sceneAssetsScnassets(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.sceneAssetsScnassets
       return fileResource.bundle.url(forResource: fileResource)
     }
     

@@ -19,6 +19,7 @@ target 'Paddle Station' do
 	pod 'Reveal-SDK', :configurations => ['Debug']
 	pod 'Alertift'
 	pod 'SwiftNotificationCenter'
+	pod 'HLSpriteKit', '~> 1.0'
 
 end
 

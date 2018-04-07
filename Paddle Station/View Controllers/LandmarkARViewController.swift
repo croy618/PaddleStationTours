@@ -210,7 +210,6 @@ fileprivate extension LandmarkARViewController
 									   location: currentLocation,
 									   heading: currentHeading)
 			}
-//		}
 	}
 	
 	fileprivate func requestLandmarksFor(location: CLLocation, heading: CLHeading)
@@ -303,7 +302,7 @@ extension LandmarkARViewController: LandmarkConsumer
 		let newLandmarks = landmarks.filter { return !previousLandmarks.contains($0) }
 		
 		for newLandmark in newLandmarks {
-			let landmarkNode = LandmarkNode(landmark: newLandmark, cameraWorldPosition: camera.worldPosition)
+			let landmarkNode = LandmarkNode(landmark: newLandmark)
 			self.sceneView.scene.rootNode.addChildNode(landmarkNode)
 			self.landmarkNodes.append(landmarkNode)
 		}
@@ -481,6 +480,8 @@ extension ARCamera.TrackingState
 			return "TRACKING LIMITED\nLow detail"
 		case ARCamera.TrackingState.limited(ARCamera.TrackingState.Reason.initializing):
 			return "Initializing"
+		case .limited(.relocalizing):
+			return "Relocalizing"
 		}
 	}
 	

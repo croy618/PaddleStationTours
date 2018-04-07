@@ -23,18 +23,22 @@ public extension SCNNode
 		return simd_float3(self.worldTransform.m31, self.worldTransform.m32, self.worldTransform.m33)
 	}
 	
+	/* Calculate the pivot for anchorPoint of the nodes boundingBox
+	* '(0.0, 0.0, 0.0)' is the top left
+	* '(0.5, 0.5, 0.5)' is the centre
+	* '(1.0, 1.0, 1.0)' is the bottom right */
 	@available(iOS 8.0, OSX 10.10, *)
-    func centrePivot(centreX: Bool = true, centreY: Bool = true, centreZ: Bool = true) -> SCNMatrix4
-    {
-        let min = self.boundingBox.min
-        let max = self.boundingBox.max
-        
-        return SCNMatrix4MakeTranslation(
-            centreX ? (min.x + (max.x - min.x) / 2.0) : 0.0,
-            centreY ? (min.y + (max.y - min.y) / 2.0) : 0.0,
-            centreZ ? (min.z + (max.z - min.z) / 2.0) : 0.0
-        )
-    }
+	func pivotFor(anchorPoint: SCNVector3) -> SCNMatrix4
+	{
+		let min = self.boundingBox.min
+		let max = self.boundingBox.max
+		
+		return SCNMatrix4MakeTranslation(
+			(min.x + (max.x - min.x) * anchorPoint.x),
+			(min.y + (max.y - min.y) * anchorPoint.y),
+			(min.z + (max.z - min.z) * anchorPoint.z)
+		)
+	}
     
     func transform(from vectorA: SCNVector3, to vectorB: SCNVector3) -> SCNMatrix4
     {

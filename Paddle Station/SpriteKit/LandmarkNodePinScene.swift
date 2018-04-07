@@ -33,7 +33,7 @@ class LandmarkNodePinScene: SKScene
 			
 			
 			
-			
+//			self.adjustLabelFontSizeToFitRect(labelNode: self.label, size: self.background.size)
 			
 			
 			
@@ -89,6 +89,18 @@ class LandmarkNodePinScene: SKScene
 		}
 	}
 	
+	func adjustLabelFontSizeToFitRect(labelNode:SKLabelNode, size:CGSize) {
+		
+		// Determine the font scaling factor that should let the label text fit in the given rectangle.
+		let scalingFactor = min(size.width / labelNode.frame.width, size.height / labelNode.frame.height)
+		
+		// Change the fontSize.
+		labelNode.fontSize *= scalingFactor
+		
+		// Optionally move the SKLabelNode to the center of the rectangle.
+//		labelNode.position = CGPoint(x: rect.midX, y: rect.midY - labelNode.frame.height / 2.0)
+	}
+	
 	var attributedText: NSAttributedString? {
 		get
 		{
@@ -109,6 +121,7 @@ class LandmarkNodePinScene: SKScene
 	
 	
 	
+	
 	override func sceneDidLoad()
 	{
 		super.sceneDidLoad()
@@ -116,7 +129,7 @@ class LandmarkNodePinScene: SKScene
 		self.background = self.childNode(withName: "//background") as! SKSpriteNode
 		self.label = self.childNode(withName: "//label") as! SKLabelNode
 		
-		self.label.preferredMaxLayoutWidth = self.size.width / 1.08
+//		self.label.preferredMaxLayoutWidth = self.size.width / 1.08
 	}
 	
 	fileprivate func updateSize()
