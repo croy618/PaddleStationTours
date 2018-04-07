@@ -169,7 +169,7 @@ class LandmarkNode: SCNNode
 		
 		if isOnScreen {
 			
-			gusard let text = self.textNode.geometry as? SCNText else { return }
+			guard let text = self.textNode.geometry as? SCNText else { return }
 			guard let backgroundPlane = self.backgroundNode.geometry as? SCNPlane else { return }
 			// TODO: better way of scaling??
 			let fontSize = CGFloat(distance / 30.0)
