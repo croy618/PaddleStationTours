@@ -52,7 +52,8 @@ class LandmarkNode: SCNNode
 		return node
 	}()
 	
-	fileprivate lazy var pinAnchorNode: SCNNode = {
+	// The node reepresenting the real location of the landmark
+	fileprivate lazy var anchorNode: SCNNode = {
 		let node = SCNNode()
 //		node.geometry = {
 //			let geometry = SCNSphere(radius: 0.25)
@@ -106,7 +107,7 @@ class LandmarkNode: SCNNode
 		let textNodeContainer = SCNNode()
 		textNodeContainer.addConstraint(SCNBillboardConstraint(freeAxes: SCNBillboardAxis.Y))
 		textNodeContainer.addChildNode(self.backgroundNode)
-		self.pinAnchorNode.addChildNode(textNodeContainer)
+		self.anchorNode.addChildNode(textNodeContainer)
 		
 		self.isHidden = true
 	}
@@ -131,13 +132,13 @@ class LandmarkNode: SCNNode
 		
 		
 		let distanceVirtual: SCNFloat = {
-			let tempWorldPosition = simd_float3(self.pinAnchorNode.simdWorldPosition.x,
+			let tempWorldPosition = simd_float3(self.anchorNode.simdWorldPosition.x,
 												cameraWorldPosition.y,
-												self.pinAnchorNode.simdWorldPosition.z)
+												self.anchorNode.simdWorldPosition.z)
 			return tempWorldPosition.distance(to: cameraWorldPosition)
 		}()
 		let distanceError = abs(distanceVirtual - distance)
-		let isOnScreen = sceneView.isNode(self.pinAnchorNode, insideFrustumOf: pointOfView)
+		let isOnScreen = sceneView.isNode(self.anchorNode, insideFrustumOf: pointOfView)
 		let updatePosition = !isOnScreen || (distanceError > 10.0) // force update if offscreen
 		
 		
@@ -146,13 +147,10 @@ class LandmarkNode: SCNNode
 			self.simdWorldPosition = camera.worldPosition
 			self.rotationNode.simdWorldPosition = simd_float3.zero
 			self.rotationNode.simdWorldOrientation = simd_quatf.zero
-			self.pinAnchorNode.simdWorldPosition = {
+			self.anchorNode.simdWorldPosition = {
 				let trueNorth = simd_float3(0.0, 0.0, -1.0)
 				return trueNorth * distance
 			}()
-			//			landmarkNode.pinNode.simdWorldPosition = landmarkNode.pinNode.worldPositionFor(targetWorldPosition: trueNorth * distance,
-			//																										   relativeTo: camera.transform,
-			//																										   smoothMovement: true)
 			self.rotationNode.simdPosition = simd_float3.zero
 			self.rotationNode.eulerAngles.y = -bearing
 			
@@ -171,8 +169,9 @@ class LandmarkNode: SCNNode
 		
 		if isOnScreen {
 			
-			guard let text = self.textNode.geometry as? SCNText else { return }
+			gusard let text = self.textNode.geometry as? SCNText else { return }
 			guard let backgroundPlane = self.backgroundNode.geometry as? SCNPlane else { return }
+			// TODO: better way of scaling??
 			let fontSize = CGFloat(distance / 30.0)
 			let detailFontSize = fontSize * 0.65
 			

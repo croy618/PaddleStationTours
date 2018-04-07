@@ -28,10 +28,10 @@ public class StringBuilder
 	{
 	}
 	
-//	public init(string: String, _ rawAttributes: (NSAttributedStringKey, Any)...)
-//	{
-//		self.append(string: string, rawAttributes)
-//	}
+	//	public init(string: String, _ rawAttributes: (NSAttributedStringKey, Any)...)
+	//	{
+	//		self.append(string: string, rawAttributes)
+	//	}
 	
 	@discardableResult public func append(string: String?, _ rawAttributes: (NSAttributedStringKey, Any)...) -> Self
 	{
@@ -55,9 +55,9 @@ public class StringBuilder
 	@discardableResult fileprivate func internalAppend(line: (String, [NSAttributedStringKey: Any]?)) -> Self
 	{
 		var line = line
-//		if String.isEmpty(self.string) {
-			line.0 = "\n" + line.0
-//		s}
+		//		if String.isEmpty(self.string) {
+		line.0 = "\n" + line.0
+		//		s}
 		self.attributed.append(NSAttributedString(string: line.0, attributes: line.1))
 		
 		return self

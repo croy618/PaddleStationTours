@@ -28,7 +28,7 @@ PODS:
   - SegueManager/R.swift (3.1.0):
     - R.swift.Library
     - SegueManager/iOS
-  - Sluthware (1.0.24)
+  - Sluthware (1.0.28)
   - SwiftNotificationCenter (1.0.2)
 
 DEPENDENCIES:
@@ -48,7 +48,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Sluthware:
-    :commit: b06eac5912ab0e54b757b27e7431097fb327ea80
+    :commit: 95df268724fcb86b405d38c254f6776238d23f07
     :git: https://patsluth@bitbucket.org/patsluth/sluthware-swift.git
 
 SPEC CHECKSUMS:
@@ -59,7 +59,7 @@ SPEC CHECKSUMS:
   R.swift.Library: c3af34921024333546e23b70e70d0b4e0cffca75
   Reveal-SDK: ccc2b0f8014965ea448b7534a7c2c8da232b75e8
   SegueManager: 553e2047fd9a83f0cdcc8038adbdfc28e278e2d9
-  Sluthware: 9338480d6c0cb2c86949c76ccfed3280ab037451
+  Sluthware: 6bc076207dc5e04324274e7819439cc92ccfc0d8
   SwiftNotificationCenter: d108168dcbb6b804804cc22d5848733c3ca7ff5b
 
 PODFILE CHECKSUM: f965ae7d852e75e73ecdec6bbb59d838d20f7d79

@@ -15,12 +15,12 @@ import Foundation
 public extension UIView
 {
 	public func constrainSizeTo(view: UIView, withEdgeInsets edgeInsets: UIEdgeInsets)
-    {
-        self.topAnchor.constraint(equalTo: view.topAnchor, constant: edgeInsets.top).isActive = true
-        self.leftAnchor.constraint(equalTo: view.leftAnchor, constant: edgeInsets.left).isActive = true
-        self.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: edgeInsets.bottom).isActive = true
+	{
+		self.topAnchor.constraint(equalTo: view.topAnchor, constant: edgeInsets.top).isActive = true
+		self.leftAnchor.constraint(equalTo: view.leftAnchor, constant: edgeInsets.left).isActive = true
+		self.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: edgeInsets.bottom).isActive = true
 		self.rightAnchor.constraint(equalTo: view.rightAnchor, constant: edgeInsets.right).isActive = true
-    }
+	}
 }
 
 
@@ -37,11 +37,27 @@ public extension UIView
 		}
 	}
 	
+	public var safeLeftAnchor: NSLayoutXAxisAnchor {
+		if #available(iOS 11.0, *){
+			return self.safeAreaLayoutGuide.leftAnchor
+		} else {
+			return self.leftAnchor
+		}
+	}
+	
 	public var safeLeadingAnchor: NSLayoutXAxisAnchor {
 		if #available(iOS 11.0, *){
 			return self.safeAreaLayoutGuide.leadingAnchor
 		} else {
 			return self.leadingAnchor
+		}
+	}
+	
+	public var safeRightAnchor: NSLayoutXAxisAnchor {
+		if #available(iOS 11.0, *){
+			return self.safeAreaLayoutGuide.rightAnchor
+		} else {
+			return self.rightAnchor
 		}
 	}
 	

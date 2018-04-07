@@ -36,12 +36,12 @@ public extension Array
 	
 	
 	
-	func write(toFile path: String, atomically useAuxiliaryFile: Bool) -> Bool
+	@discardableResult func write(toFile path: String, atomically useAuxiliaryFile: Bool) -> Bool
 	{
 		return (self as NSArray).write(toFile: path, atomically: useAuxiliaryFile)
 	}
 	
-	func write(to url: URL, atomically: Bool) -> Bool
+	@discardableResult func write(to url: URL, atomically: Bool) -> Bool
 	{
 		return (self as NSArray).write(to: url, atomically: atomically)
 	}

@@ -1,6 +1,6 @@
 //
 //  UIScrollView+PDF.swift
-//  PathwaystoFaery
+//  Sluthware
 //
 //  Created by Pat Sluth on 2017-12-19.
 //  Copyright © 2017 Pat Sluth. All rights reserved.

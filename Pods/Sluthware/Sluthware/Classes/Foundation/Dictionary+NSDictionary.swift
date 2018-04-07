@@ -36,12 +36,12 @@ public extension Dictionary
 	
 	
 	
-	func write(toFile path: String, atomically useAuxiliaryFile: Bool) -> Bool
+	@discardableResult func write(toFile path: String, atomically useAuxiliaryFile: Bool) -> Bool
 	{
 		return (self as NSDictionary).write(toFile: path, atomically: useAuxiliaryFile)
 	}
 	
-	func write(to url: URL, atomically: Bool) -> Bool
+	@discardableResult func write(to url: URL, atomically: Bool) -> Bool
 	{
 		return (self as NSDictionary).write(to: url, atomically: atomically)
 	}
