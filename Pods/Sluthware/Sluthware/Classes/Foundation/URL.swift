@@ -19,15 +19,25 @@ public extension URL
 		guard self.isFileURL else { return false }
 		return self.pathExtension.localizedCaseInsensitiveCompare(pathExtension) == ComparisonResult.orderedSame
 	}
-    
-    var fileName: String {
-		let fileName = self.deletingPathExtension().lastPathComponent
-		return fileName.removingPercentEncoding ?? fileName
-    }
+	
+	var fileName: String {
+		if self.hasDirectoryPath {
+			return self.lastPathComponent.removingPercentEncodingSafe
+		}
+		return self.deletingPathExtension().lastPathComponent.removingPercentEncodingSafe
+	}
 	
 	var fileNameWithExtension: String {
-		let fileName = self.lastPathComponent
-		return fileName.removingPercentEncoding ?? fileName
+		guard !String.isEmpty(self.pathExtension) else { return self.fileName }
+		return self.fileName + "." + self.pathExtension
+	}
+	
+	var isFile: Bool {
+		return !self.isDirectory
+	}
+	
+	var isDirectory: Bool {
+		return self.hasDirectoryPath
 	}
 	
 	var isReachable: Bool {
@@ -35,6 +45,15 @@ public extension URL
 		//		return true
 		guard let filePath = self.absoluteURL.path.removingPercentEncoding else { return false }
 		return FileManager.default.fileExists(atPath: filePath)
+	}
+	
+	// TODO: works?
+	var isReachableFile: Bool {
+		return self.isFile && self.isReachable
+	}
+	
+	var isReachableDirectory: Bool {
+		return self.isDirectory && self.isReachable
 	}
 }
 

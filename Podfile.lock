@@ -15,6 +15,7 @@ PODS:
   - AFNetworking/UIKit (3.2.0):
     - AFNetworking/NSURLSession
   - Alertift (3.1)
+  - HLSpriteKit (1.6.0)
   - R.swift (4.0.0):
     - R.swift.Library (~> 4.0.0)
   - R.swift.Library (4.0.0)
@@ -27,12 +28,13 @@ PODS:
   - SegueManager/R.swift (3.1.0):
     - R.swift.Library
     - SegueManager/iOS
-  - Sluthware (1.0.24)
+  - Sluthware (1.0.28)
   - SwiftNotificationCenter (1.0.2)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
   - Alertift
+  - HLSpriteKit (~> 1.0)
   - R.swift
   - Reveal-SDK
   - SegueManager
@@ -46,19 +48,20 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Sluthware:
-    :commit: b06eac5912ab0e54b757b27e7431097fb327ea80
+    :commit: 95df268724fcb86b405d38c254f6776238d23f07
     :git: https://patsluth@bitbucket.org/patsluth/sluthware-swift.git
 
 SPEC CHECKSUMS:
   AFNetworking: 8ac6017b94ea105479f7776e5288e48ae9c59bb4
   Alertift: 103e77f2e9023b80c91ce2d53d4670ec6fa7dcfd
+  HLSpriteKit: ae0f6b65acfdf528d3f49297dcef4deaa60593e9
   R.swift: d6a5ec2f55a8441dc0ed9f1f8b37d7d11ae85c66
   R.swift.Library: c3af34921024333546e23b70e70d0b4e0cffca75
   Reveal-SDK: ccc2b0f8014965ea448b7534a7c2c8da232b75e8
   SegueManager: 553e2047fd9a83f0cdcc8038adbdfc28e278e2d9
-  Sluthware: 9338480d6c0cb2c86949c76ccfed3280ab037451
+  Sluthware: 6bc076207dc5e04324274e7819439cc92ccfc0d8
   SwiftNotificationCenter: d108168dcbb6b804804cc22d5848733c3ca7ff5b
 
-PODFILE CHECKSUM: 449d2c2a9ba6b0a805ededce3d2ebb6aa494deff
+PODFILE CHECKSUM: f965ae7d852e75e73ecdec6bbb59d838d20f7d79
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.4.0

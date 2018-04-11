@@ -27,10 +27,10 @@ public extension Decodable
     }
     
 	static func decode<T>(jsonDictionary: T) throws -> Self
-    {
-        let data = try JSONSerialization.data(withJSONObject: jsonDictionary)
-        return try self.decode(data: data)
-    }
+	{
+		let data = try JSONSerialization.data(withJSONObject: jsonDictionary)
+		return try self.decode(data: data)
+	}
 }
 
 

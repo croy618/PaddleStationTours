@@ -35,7 +35,12 @@ public extension String
 			}
 		}
 	}
+	
+	var removingPercentEncodingSafe: String {
+		return self.removingPercentEncoding ?? self
+	}
 }
+
 
 
 

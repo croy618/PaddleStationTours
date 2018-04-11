@@ -1,6 +1,6 @@
 {
   "name": "Sluthware",
-  "version": "1.0.24",
+  "version": "1.0.28",
   "summary": "Sluthware shared framework",
   "description": "Sluthware shared framework description",
   "homepage": "https://sluthware.com",
@@ -13,12 +13,12 @@
   },
   "source": {
     "git": "https://patsluth@bitbucket.org/patsluth/sluthware.git",
-    "tag": "1.0.24"
+    "tag": "1.0.28"
   },
   "social_media_url": "https://twitter.com/patsluth",
   "platforms": {
     "ios": "9.0",
-    "osx": "10.9"
+    "osx": "10.11"
   },
   "ios": {
     "source_files": [
@@ -45,15 +45,12 @@
       "Sluthware/Classes/*",
       "Sluthware/Classes/Foundation/*",
       "Sluthware/Classes/CoreGraphics/*",
-      "Sluthware/Classes/SceneKit/*",
-      "Sluthware/Classes/simd/*",
       "Sluthware/Classes/CoreLocation/*"
     ],
     "frameworks": [
       "Foundation",
       "CoreFoundation",
       "CoreGraphics",
-      "SceneKit",
       "CoreLocation"
     ]
   }
