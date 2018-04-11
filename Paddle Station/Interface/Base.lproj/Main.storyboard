@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="c90-IC-ezW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="c90-IC-ezW">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -47,13 +47,6 @@
                                     <segue destination="rbP-6f-usa" kind="embed" identifier="LandmarkARViewController" id="xDv-9b-BPj"/>
                                 </connections>
                             </containerView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tvw-XE-8Ko">
-                                <rect key="frame" x="-0.66666666666665719" y="616.33333333333337" width="375.33333333333326" height="93.666666666666629"/>
-                                <color key="backgroundColor" red="1" green="0.38580520109999999" blue="0.33587142289999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="Tvw-XE-8Ko" secondAttribute="height" multiplier="4:1" id="yIJ-B7-Hys"/>
-                                </constraints>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sep-sx-Kye" userLabel="Button">
                                 <rect key="frame" x="163.66666666666666" y="720" width="48" height="48"/>
                                 <constraints>
@@ -83,17 +76,14 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="ln0-OE-q8x" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="3A9-Bx-4Xh"/>
-                            <constraint firstItem="Tvw-XE-8Ko" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="6j8-go-yHg"/>
                             <constraint firstItem="Sep-sx-Kye" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9Mt-Ji-0rH"/>
                             <constraint firstItem="Wyf-Mp-j4v" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="Rq1-Wr-OSY"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Sep-sx-Kye" secondAttribute="bottom" constant="10" id="Ssz-g9-bS6"/>
                             <constraint firstItem="uD3-Dg-J7R" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="YBw-ur-sIa"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ln0-OE-q8x" secondAttribute="trailing" id="fRy-L8-iVJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Wyf-Mp-j4v" secondAttribute="bottom" constant="10" id="g0u-hi-3FT"/>
-                            <constraint firstItem="Tvw-XE-8Ko" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="kdX-eV-TuT"/>
                             <constraint firstItem="uD3-Dg-J7R" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="mV6-ax-qge"/>
                             <constraint firstItem="Wyf-Mp-j4v" firstAttribute="height" secondItem="Sep-sx-Kye" secondAttribute="height" id="mbw-Vf-oXs"/>
-                            <constraint firstItem="Sep-sx-Kye" firstAttribute="top" secondItem="Tvw-XE-8Ko" secondAttribute="bottom" constant="10" id="mrb-MP-BzH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="uD3-Dg-J7R" secondAttribute="trailing" id="pwo-oY-7D2"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ln0-OE-q8x" secondAttribute="bottom" id="qeA-o3-QIx"/>
                             <constraint firstItem="ln0-OE-q8x" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="r1N-RB-wuW"/>
@@ -104,7 +94,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="6ki-I3-7ef"/>
                     <connections>
-                        <outlet property="adContainerView" destination="Tvw-XE-8Ko" id="5hC-gA-NnA"/>
                         <outlet property="landmarkViewControllerToggleButton" destination="Sep-sx-Kye" id="p3Y-2O-q0h"/>
                         <outlet property="settingsButton" destination="Wyf-Mp-j4v" id="twp-Yr-Abu"/>
                         <segue destination="h7h-DB-AT4" kind="popoverPresentation" identifier="SettingsViewController" popoverAnchorView="Wyf-Mp-j4v" id="jhr-zI-lXq">
@@ -123,13 +112,27 @@
                     <view key="view" contentMode="scaleToFill" id="C2k-VF-NDm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="690"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="2IR-Gr-oDb">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="690"/>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" red="0.1133004713" green="1" blue="0.1331251161" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="2IR-Gr-oDb" firstAttribute="top" secondItem="C2k-VF-NDm" secondAttribute="top" id="4pd-R0-Tpj"/>
+                            <constraint firstAttribute="bottom" secondItem="2IR-Gr-oDb" secondAttribute="bottom" id="E6m-tR-Jpw"/>
+                            <constraint firstItem="2IR-Gr-oDb" firstAttribute="trailing" secondItem="We2-hK-Vmc" secondAttribute="trailing" id="tRB-Vl-n2J"/>
+                            <constraint firstItem="2IR-Gr-oDb" firstAttribute="leading" secondItem="We2-hK-Vmc" secondAttribute="leading" id="vxi-bi-vRO"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="We2-hK-Vmc"/>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="2IR-Gr-oDb" id="j1Z-UJ-daF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jPi-OR-xZu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="981" y="164"/>
+            <point key="canvasLocation" x="980" y="163.30049261083744"/>
         </scene>
         <!--LandmarkAR View Controller-->
         <scene sceneID="spc-dw-E8y">

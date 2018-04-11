@@ -30,6 +30,7 @@
 		2EA526C42019170E00D9E564 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA526C32019170E00D9E564 /* LocationManager.swift */; };
 		2ED3A155202274B6001722A5 /* LandmarkNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED3A154202274B6001722A5 /* LandmarkNode.swift */; };
 		4B8316FAB9380CB1A89C3168 /* Pods_Paddle_Station.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F61C428CF0CF03B6A458CCAB /* Pods_Paddle_Station.framework */; };
+		D230BBD4207E3FD500031FAF /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D230BBD3207E3FD500031FAF /* Venue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		2ED3A154202274B6001722A5 /* LandmarkNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkNode.swift; sourceTree = "<group>"; };
 		8661709D9B45F18C8B382F8C /* Pods-Paddle Station.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Paddle Station.release.xcconfig"; path = "Pods/Target Support Files/Pods-Paddle Station/Pods-Paddle Station.release.xcconfig"; sourceTree = "<group>"; };
 		977E1E111A0B6CBD096D8867 /* Pods-Paddle Station.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Paddle Station.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Paddle Station/Pods-Paddle Station.debug.xcconfig"; sourceTree = "<group>"; };
+		D230BBD3207E3FD500031FAF /* Venue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
 		F61C428CF0CF03B6A458CCAB /* Pods_Paddle_Station.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Paddle_Station.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -155,6 +157,7 @@
 				2EA526C120190FA100D9E564 /* LandmarkViewController.swift */,
 				2EA526BD20190D8200D9E564 /* LandmarkARViewController.swift */,
 				2EA526BE20190D8200D9E564 /* LandmarkMapViewController.swift */,
+				D230BBD3207E3FD500031FAF /* Venue.swift */,
 				2E773D5120616A270051FF68 /* SettingsViewController.swift */,
 			);
 			path = "View Controllers";
@@ -384,6 +387,7 @@
 				2EA526C020190D8200D9E564 /* LandmarkMapViewController.swift in Sources */,
 				2E0145782018E3AA0052A6AF /* AppDelegate.swift in Sources */,
 				2E773D5220616A270051FF68 /* SettingsViewController.swift in Sources */,
+				D230BBD4207E3FD500031FAF /* Venue.swift in Sources */,
 				2E0145902018E4640052A6AF /* Landmark.swift in Sources */,
 				2EA526C42019170E00D9E564 /* LocationManager.swift in Sources */,
 				2EA458CC2033414D00705BE0 /* RequestErrors.swift in Sources */,
