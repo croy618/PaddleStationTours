@@ -222,7 +222,7 @@ fileprivate extension LandmarkARViewController
 		
 		let urlString = "http://159.65.73.98/landmarks/"
 		
-		let landmarkRequest = LandmarkRequest(location: location, radius: 500.0)
+		let landmarkRequest = LandmarkRequest(location: location, radius: 750.0)
 		
 		let successHandler = { (responseObject: Any) -> Bool in
 			
@@ -282,7 +282,7 @@ extension LandmarkARViewController: LandmarkConsumer
 {
 	func updateFor(landmarks: Landmarks)
 	{
-		guard let camera = self.sceneView.session.currentFrame?.camera else { return }
+		guard let _ = self.sceneView.session.currentFrame?.camera else { return }
 		
 		
 		

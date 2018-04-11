@@ -35,7 +35,7 @@ extension SCNNode
 class LandmarkNode: SCNNode
 {
 	let landmark: Landmark
-	var backgroundTintColor = UIColor.clear {
+	var backgroundTintColor = UIColor(hex: "ab1d3a") {
 		didSet
 		{
 			self.backgroundNode.geometry?.firstMaterial?.reflective.contents = self.backgroundTintColor
@@ -70,8 +70,9 @@ class LandmarkNode: SCNNode
 		node.castsShadow = false
 		node.geometry = {
 			let geometry = SCNText(string: nil, extrusionDepth: 0.0)
+			geometry.isWrapped = true
 			geometry.alignmentMode = kCAAlignmentCenter
-			geometry.flatness = 0.85		// 0.0 is very slow
+			geometry.flatness = 1.0		// 0.0 is very slow
 			let material = SCNMaterial.constantLitWith(color: UIColor.white)
 			material.readsFromDepthBuffer = false
 			geometry.materials = [material]
@@ -105,9 +106,10 @@ class LandmarkNode: SCNNode
 		super.init()
 		
 		let textNodeContainer = SCNNode()
-		textNodeContainer.addConstraint(SCNBillboardConstraint(freeAxes: SCNBillboardAxis.Y))
+//		textNodeContainer.addConstraint(SCNBillboardConstraint(freeAxes: SCNBillboardAxis.Y))
 		textNodeContainer.addChildNode(self.backgroundNode)
 		self.anchorNode.addChildNode(textNodeContainer)
+		self.textNode.addConstraint(SCNBillboardConstraint(freeAxes: SCNBillboardAxis.Y))
 		
 		self.isHidden = true
 	}
@@ -126,7 +128,7 @@ class LandmarkNode: SCNNode
 		let bearing = SCNFloat(location.coordinate.bearing(toCoordinate: self.landmark.location.coordinate))
 		let altitudeDelta = SCNFloat(self.landmark.location.altitude - location.altitude)
 		
-		self.isHidden = !(25.0...500.0).contains(distance)
+		self.isHidden = !(25.0...750.0).contains(distance)
 		guard !self.isHidden else { return }
 		
 		
@@ -143,6 +145,14 @@ class LandmarkNode: SCNNode
 		
 		
 		
+		// Update render order, so text doesnt clip into pin background
+		// Use distance so that if there is a LandmarkNode behind this one
+		// the text will not render in front of this backgroundNode
+		self.backgroundNode.renderingOrder = -Int(distance) - 1
+		self.textNode.renderingOrder = -Int(distance)
+		
+		
+		
 		if updatePosition {
 			self.simdWorldPosition = camera.worldPosition
 			self.rotationNode.simdWorldPosition = simd_float3.zero
@@ -155,14 +165,6 @@ class LandmarkNode: SCNNode
 			self.rotationNode.eulerAngles.y = -bearing
 			
 			self.worldPosition.y = camera.worldPosition.y + altitudeDelta
-			
-			
-			
-			// Update render order, so text doesnt clip into pin background
-			// Use distance so that if there is a LandmarkNode behind this one
-			// the text will not render in front of this backgroundNode
-			self.backgroundNode.renderingOrder = -Int(distanceVirtual)
-			self.textNode.renderingOrder = self.backgroundNode.renderingOrder + 1
 		}
 		
 		
@@ -172,12 +174,13 @@ class LandmarkNode: SCNNode
 			guard let text = self.textNode.geometry as? SCNText else { return }
 			guard let backgroundPlane = self.backgroundNode.geometry as? SCNPlane else { return }
 			// TODO: better way of scaling??
-			let fontSize = CGFloat(distance / 30.0)
-			let detailFontSize = fontSize * 0.65
+			let titleFont = text.font.withSize(CGFloat(distance / 30.0))
+			let detailFont = text.font.withSize(titleFont.pointSize * 0.65)
 			
 			self.stringBuilder.clear()
-				.append(string: self.landmark.name, (NSAttributedStringKey.font, text.font.withSize(fontSize)))
-				.append(line: self.landmark.description, (NSAttributedStringKey.font, text.font.withSize(detailFontSize)))
+				.append(string: self.landmark.name, (NSAttributedStringKey.font, titleFont))
+				.append(string: String(format: " (%.2fm)", distance), (NSAttributedStringKey.font, detailFont))
+				.append(line: self.landmark.description, (NSAttributedStringKey.font, detailFont))
 //							.append(line: "distance:")
 //							.append(line: String(format: "\treal: %.2fm", distance))
 //							.append(line: String(format: "\tvirtual: %.2fm", distanceVirtual))
@@ -186,6 +189,10 @@ class LandmarkNode: SCNNode
 //							.append(line: String(format: "bearing: %.3frad", bearing))
 			
 			text.string = self.stringBuilder.attributed
+			text.containerFrame = CGRect(x: 0.0,
+										 y: 0.0,
+										 width: CGFloat(distance * 0.5),
+										 height: 100000.0)
 			
 			
 			
@@ -209,6 +216,7 @@ class LandmarkNode: SCNNode
 			
 			// Adjust up half the height because the pivot is in the centre vs on the bottom for SCNText
 			self.backgroundNode.simdPosition.y = SCNFloat(backgroundPlane.height / 2.0)
+//			self.textNode.simdPosition.z = self.backgroundNode.simdPosition.z + (distance / 50.0)
 		}
 		
 		

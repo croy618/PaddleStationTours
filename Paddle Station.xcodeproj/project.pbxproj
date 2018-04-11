@@ -25,6 +25,7 @@
 		2EA526C020190D8200D9E564 /* LandmarkMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA526BE20190D8200D9E564 /* LandmarkMapViewController.swift */; };
 		2EA526C220190FA100D9E564 /* LandmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA526C120190FA100D9E564 /* LandmarkViewController.swift */; };
 		2EA526C42019170E00D9E564 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA526C32019170E00D9E564 /* LocationManager.swift */; };
+		2EADE207207BC7E900F4937C /* PinScene.scn in Resources */ = {isa = PBXBuildFile; fileRef = 2EADE206207BC7E900F4937C /* PinScene.scn */; };
 		2ED3A155202274B6001722A5 /* LandmarkNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED3A154202274B6001722A5 /* LandmarkNode.swift */; };
 		4B8316FAB9380CB1A89C3168 /* Pods_Paddle_Station.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F61C428CF0CF03B6A458CCAB /* Pods_Paddle_Station.framework */; };
 /* End PBXBuildFile section */
@@ -51,6 +52,7 @@
 		2EA526BE20190D8200D9E564 /* LandmarkMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandmarkMapViewController.swift; sourceTree = "<group>"; };
 		2EA526C120190FA100D9E564 /* LandmarkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandmarkViewController.swift; sourceTree = "<group>"; };
 		2EA526C32019170E00D9E564 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		2EADE206207BC7E900F4937C /* PinScene.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = PinScene.scn; sourceTree = "<group>"; };
 		2ED3A154202274B6001722A5 /* LandmarkNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkNode.swift; sourceTree = "<group>"; };
 		8661709D9B45F18C8B382F8C /* Pods-Paddle Station.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Paddle Station.release.xcconfig"; path = "Pods/Target Support Files/Pods-Paddle Station/Pods-Paddle Station.release.xcconfig"; sourceTree = "<group>"; };
 		977E1E111A0B6CBD096D8867 /* Pods-Paddle Station.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Paddle Station.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Paddle Station/Pods-Paddle Station.debug.xcconfig"; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				2E01457E2018E3AA0052A6AF /* Assets.xcassets */,
+				2EADE206207BC7E900F4937C /* PinScene.scn */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 				2E0145822018E3AA0052A6AF /* LaunchScreen.storyboard in Resources */,
 				2E01457F2018E3AA0052A6AF /* Assets.xcassets in Resources */,
 				2E01457D2018E3AA0052A6AF /* Main.storyboard in Resources */,
+				2EADE207207BC7E900F4937C /* PinScene.scn in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -513,7 +517,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Paddle Station/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "patsluth.Paddle-Station";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.patsluth.Paddle-Station";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Paddle Station/Supporting Files/Paddle Station-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -533,7 +537,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Paddle Station/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "patsluth.Paddle-Station";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.patsluth.Paddle-Station";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Paddle Station/Supporting Files/Paddle Station-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
