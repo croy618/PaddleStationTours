@@ -480,15 +480,9 @@ extension ARCamera.TrackingState
 			return "TRACKING LIMITED\nLow detail"
 		case ARCamera.TrackingState.limited(ARCamera.TrackingState.Reason.initializing):
 			return "Initializing"
-<<<<<<< HEAD
-        case .limited(.relocalizing):
-            return ""
-        }
-=======
 		case .limited(.relocalizing):
 			return "Relocalizing"
 		}
->>>>>>> da66a74c0967b57ad6ecc2de5af51f720f62db0b
 	}
 	
 	var recommendation: String? {
