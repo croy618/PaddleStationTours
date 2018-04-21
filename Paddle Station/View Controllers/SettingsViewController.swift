@@ -17,12 +17,12 @@ import StoreKit
 class SettingsViewController: UIViewController, SKProductsRequestDelegate, SKPaymentTransactionObserver
 {
 	
-	@IBOutlet weak var lblAd: UILabel!
-	@IBOutlet weak var lblCoinAmount: UILabel!
-	
-	@IBOutlet weak var outRemoveAds: UIButton!
-	@IBOutlet weak var outAddCoins: UIButton!
-	@IBOutlet weak var outRestorePurchases: UIButton!
+    @IBOutlet weak var lblAd: UILabel!
+    @IBOutlet weak var lblCoinAmount: UILabel!
+    
+    @IBOutlet weak var outRemoveAds: UIButton!
+    @IBOutlet weak var outAddCoins: UIButton!
+    @IBOutlet weak var outRestorePurchases: UIButton!
 	
 	var coins = 50
 	
@@ -34,7 +34,7 @@ class SettingsViewController: UIViewController, SKProductsRequestDelegate, SKPay
 		
 		
 		if(SKPaymentQueue.canMakePayments()) {
-			print("IAP is enabled, loading")
+			print("In app purchases is enabled, loading")
 			let productID: NSSet = NSSet(objects: "addCoins", "removeAds")
 			let request: SKProductsRequest = SKProductsRequest(productIdentifiers: productID as! Set<String>)
 			request.delegate = self
@@ -47,8 +47,9 @@ class SettingsViewController: UIViewController, SKProductsRequestDelegate, SKPay
 	
 	
 	
-	@IBAction func btnRemoveAds(_ sender: Any) {
-		print("rem ads")
+    
+    @IBAction func btnRemoveAds(_ sender: Any) {
+		//print("rem ads")
 		for product in list {
 			let prodID = product.productIdentifier
 			if(prodID == "removeAds") {
@@ -59,8 +60,9 @@ class SettingsViewController: UIViewController, SKProductsRequestDelegate, SKPay
 	}
 	
 	
-	@IBAction func btnAddCoins(_ sender: Any) {
-		print("add coins")
+    
+    @IBAction func btnAddCoins(_ sender: Any) {
+		//print("add coins")
 		for product in list {
 			let prodID = product.productIdentifier
 			if(prodID == "addCoins") {
@@ -86,7 +88,8 @@ class SettingsViewController: UIViewController, SKProductsRequestDelegate, SKPay
 	}
 	
 	
-	@IBAction func btnRestorePurchases(_ sender: Any) {
+   
+    @IBAction func btnRestorePurchases(_ sender: Any) {
 		SKPaymentQueue.default().add(self)
 		SKPaymentQueue.default().restoreCompletedTransactions()
 		
